@@ -5,6 +5,7 @@ export default function AccountDropDown() {
   return (
     <Link
       href="/"
+      as='account-details'
       className="text-white h-10 text-xs font-bold hover:bg-blue-500 pl-1 pr-3 py-2 rounded-3xl items-center flex gap-1"
     >
       <div className=" w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
@@ -14,7 +15,6 @@ export default function AccountDropDown() {
           width={30}
           height={30}
           quality={80}
-          priority={true}
           className="h-full w-full object-cover"
         />
       </div>
