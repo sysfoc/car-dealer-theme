@@ -1,6 +1,6 @@
 'use client'
-import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { ImSearch } from "react-icons/im";
 
 export default function Searchbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -26,9 +26,13 @@ export default function Searchbar() {
       />
       <button
         onClick={handleSearch}
-        className="bg-black hover:bg-gray-700 text-white rounded-full w-9 h-9"
+        className="
+        bg-black hover:bg-gray-700 
+        text-white 
+        flex justify-center items-center rounded-full
+        w-9 h-9"
       >
-        <SearchIcon />
+          <ImSearch />
       </button>
     </div>
   );
