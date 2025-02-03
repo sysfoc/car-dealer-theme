@@ -1,12 +1,7 @@
-import Index from ".";
-
-const Home = () => {
+export default function Home() {
   return (
     <div>
       <p>HomePage</p>
-      {/* <Index/> */}
     </div>
   );
 }
-
-export default Home
