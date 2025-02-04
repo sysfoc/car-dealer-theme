@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/ui/Navbar/Navbar";
+import { Providers } from "./providers";
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '700']
-})
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,14 +19,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en">
-      <body
-        className={`${montserrat.className}  antialiased`}
-      >
-        <Navbar/>
-        {children}
-      </body>
+      <Providers>
+        <body className={`${montserrat.className}  antialiased`}>
+          <Navbar />
+          {children}
+        </body>
+      </Providers>
     </html>
   );
 }

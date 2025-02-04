@@ -22,7 +22,7 @@ const linksToShow = [
 ];
 export default function Navbar() {
   return (
-    <header className="h-[65px] bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
+    <header className="h-[65px] z-50 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
       {/* HomePage Link logo */}
 
       <Link href="/">
@@ -75,7 +75,7 @@ export default function Navbar() {
 
       {/* Support Button */}
 
-      <div>
+      <div className="relative">
         <SupportDropDownButton/>
       </div>
 
