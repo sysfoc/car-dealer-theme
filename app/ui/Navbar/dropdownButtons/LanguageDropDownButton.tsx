@@ -1,43 +1,22 @@
 "use client";
-import { TbMessageCircleQuestion } from "react-icons/tb";
+import Image from "next/image";
 import Link from "next/link";
-import { IoMdArrowDropup } from "react-icons/io";
+
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   makePageInteractable,
   makePageUnInteractable,
 } from "@/store/slices/pageProperties";
-
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { IoMdArrowDropup } from "react-icons/io";
 
 const linksToShow = [
   {
-    title: "Support Center",
-    link: "/",
-  },
-  {
-    title: "Safety Center",
-    link: "/",
-  },
-  {
-    title: "Chat with Temu",
-    link: "/",
-  },
-  {
-    title: "Temu Purchase Protection",
-    link: "/",
-  },
-  {
-    title: "Privacy Policy",
-    link: "/",
-  },
-  {
-    title: "Terms of use",
-    link: "/",
+    title: "",
+    link: "",
   },
 ];
-
-const SupportDropDownButton = () => {
+const LanguageDropDownButton = () => {
   const [isHoveredOver, setIsHoveredOver] = useState(false);
   const dispatch = useDispatch();
 
@@ -51,14 +30,34 @@ const SupportDropDownButton = () => {
         setIsHoveredOver(false);
         dispatch(makePageInteractable());
       }}
+      className="relative"
     >
-      <Link
-        href="/"
-        className={`text-white h-10 text-xs font-bold hover:bg-blue-500 px-1 py-2 rounded-3xl items-center flex gap-1`}
-      >
-        <TbMessageCircleQuestion size={30} />
-        Support
-      </Link>
+      <div className="group relative">
+        <div
+          className=" group-hover:scale-100
+            bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full
+              transition-all duration-200 ease-in-out
+              "
+        ></div>
+        <Link
+          as="language"
+          href="/"
+          className="text-white h-10 relative z-10 text-xs font-bold px-1 py-2 rounded-3xl items-center flex gap-1"
+        >
+          <div className=" w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
+            <Image
+              src="/images/pakistanFlag.png"
+              alt="Account picture"
+              width={32}
+              height={32}
+              quality={100}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          EN
+        </Link>
+      </div>
+
       {/* DropDown When Link is hovered over */}
       {isHoveredOver && (
         <div className="absolute  right-1/2 translate-x-1/2 flex flex-col items-center">
@@ -85,4 +84,4 @@ const SupportDropDownButton = () => {
   );
 };
 
-export default SupportDropDownButton;
+export default LanguageDropDownButton;
