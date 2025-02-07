@@ -26,6 +26,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.custom-scrollbar-vertical::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar-vertical::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+  border-radius: 2px;
+}
+
+.custom-scrollbar-vertical::-webkit-scrollbar-thumb {
+  background: #888; /* Scroll thumb color */
+  border-radius: 2px;
+}
+
+.custom-scrollbar-vertical::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Hover color */
+}
 
 
 .scrollbar-hidden {
