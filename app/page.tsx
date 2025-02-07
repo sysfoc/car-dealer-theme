@@ -1,5 +1,21 @@
+"use client"
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import Index from ".";
+import PromotionalBanner from "@/app/ui/PromotionalBanner";
+import TemuBanner from "@/app/ui/TemuBanner";
+
 export default function Home() {
   return (
-      <p className="relative w-52 h-40 bg-red-500">HomePage</p>
+    <div className="mx-5">
+      {/* Page Interactibility */}
+      {!Interactable && (
+        <div className="bg-black bg-opacity-20 w-screen h-screen fixed pointer-events-none  top-0 left-0 z-20"></div>
+      )}
+     
+      <TemuBanner/>
+      <PromotionalBanner/>
+      <Index/>
+    </div>
   );
 }
