@@ -1,20 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaStar , FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 interface Product {
   id: number;
   title: string;
   description: string;
   price: number;
-  previousPrice: number;
+  previousPrice?: number;
   image: string;
   rating: number;
   sold: number;
   reviews: number;
-  offerEndTime: string | undefined;
-  itemsLeft: string | number | undefined;
+  offerEndTime?: string;
+  itemsLeft?: string | number | undefined;
+  discountDaysRemaining: number | undefined;
 }
 
 const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
@@ -71,7 +72,10 @@ const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0, });
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
@@ -79,6 +83,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
   const {
     title,
+    discountDaysRemaining,
     price,
     description,
     previousPrice,
@@ -89,41 +94,40 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     itemsLeft,
   } = product;
 
+  const discountPercentage =
+    previousPrice && previousPrice > price
+      ? Math.round(((previousPrice - price) / previousPrice) * 100)
+      : null;
+
   const generateStars = (rating: number) => {
     let stars = [];
     for (let i = 0; i < 5; i++) {
       if (i < Math.floor(rating)) {
+        stars.push(<FaStar key={i} className="text-black text-sm" />);
+      } else if (i < rating && i >= Math.floor(rating)) {
         stars.push(
-          <span key={i} className="text-black text-xl">
-            <FaStar/>
-          </span>
-        );
-      } else if (i < rating) {
-        stars.push(
-          <span key={i} className="relative inline-block text-xl w-[24px] h-[24px]">
-            <FaRegStar className="text-gray-400 absolute inset-0" />
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ width: `${(rating - Math.floor(rating)) * 100}%` }}
+          <span key={i} className="relative w-4 h-4 text-sm flex items-center">
+            <FaRegStar className="text-gray-400 absolute" />
+            <span
+              className="absolute top-1/2 left-0 overflow-hidden"
+              style={{
+                width: `${(rating - Math.floor(rating)) * 100}%`,
+                transform: "translateY(-52%)",
+              }}
             >
-              <FaStar className="text-black absolute left-0" />
-            </div>
+              <FaStar className="text-black" />
+            </span>
           </span>
         );
       } else {
-        // Empty star
-        stars.push(
-          <span key={i} className="text-gray-400 text-xl">
-            <FaRegStar/>
-          </span>
-        );
+        stars.push(<FaRegStar key={i} className="text-gray-400 text-sm" />);
       }
     }
     return stars;
   };
 
   return (
-    <div className="max-w-[230px] shadow-lg flex flex-col items-center cursor-pointer">
+    <div className="w-[185px] h-[270px] md:w-[225px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
       <div>
         <div
           className="group relative overflow-hidden"
@@ -132,14 +136,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           onMouseMove={handleMouse}
         >
           <Image
-            src={"/images/images.jpg"}
+            src={"/images/productPicture.jpg"}
             alt={title}
             width={225}
-            height={190}
-            className="object-cover transform transition-transform duration-300 group-hover:scale-110"
+            height={220}
+            className="md:h-[220px] md:w-[225px] w-[185px] h-[185px] object-fill transform transition-transform duration-300 group-hover:scale-110"
           />
           <div className="flex justify-center">
-            <span className="text-white bg-[rgba(0,0,0,0.6)] inline-block absolute top-[245px] border-gray-200 border-[1px] px-2 rounded-xl">
+            <span className="text-white bg-[rgba(0,0,0,0.6)] inline-block absolute top-[185px] border-gray-200 border-[1px] px-2 rounded-xl">
               {itemsLeft !== undefined &&
               typeof itemsLeft !== "string" &&
               itemsLeft > 0
@@ -152,9 +156,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           <div
             className="absolute bg-[rgba(0,0,0,0.6)] text-xs text-gray-200 z-50 max-w-64 py-1 px-2"
             style={{
-               left: `${mousePosition.x + 12}px`,
-               top:  `${mousePosition.y + 12}px`,
-               pointerEvents:  'none',
+              left: `${mousePosition.x + 12}px`,
+              top: `${mousePosition.y + 12}px`,
+              pointerEvents: "none",
               transition: "opacity 0.2s ease-in-out",
             }}
           >
@@ -164,7 +168,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       </div>
       <div className="text-center ">
         <div className="flex items-center gap-[1.5px]">
-          <p className="text-sm text-orange-500">Last 3 days</p>
+          {product.discountDaysRemaining !== undefined && (
+            <p className="text-sm text-orange-500">
+              Last {product.discountDaysRemaining} days
+            </p>
+          )}
           <p className="text-xl font-bold text-orange-500">${price}</p>
           {previousPrice && (
             <p className="text-xs text-gray-600 line-through ">
@@ -172,15 +180,28 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             </p>
           )}
           <p className="text-xs text-gray-600">{sold}k+ sold</p>
+
+          <div className="flex items-center gap-[1.5px]">
+            {
+            product.discountDaysRemaining == undefined &&  discountPercentage !== null && (
+                <div className=" text-orange-500
+                border-orange-500 border-[1px]
+               text-xs font-bold px-1 rounded inline-block">
+                  -{discountPercentage}%
+                </div>
+              )
+            }
+          </div>
         </div>
 
         <div className="flex">
           {offerEndTime && <CountdownTimer targetTime={offerEndTime} />}
         </div>
-
-        <div className="flex items-center">
-          <div className="font-sans flex text-sm">{generateStars(rating)}</div>
-          <p className="mt-1 text-sm text-gray-500">{reviews}</p>
+        <div className="flex items-center gap-1 mt-1">
+          <div className="flex items-center text-yellow-500 text-sm">
+            {generateStars(rating)}
+          </div>
+          <span className="text-xs text-gray-600 ml-1">{reviews} Reviews</span>
         </div>
       </div>
     </div>
