@@ -31,12 +31,9 @@ export default function Navbar() {
   return (
     <div className="relative">
       {/* Page Interactibility */}
-      {!Interactable && (
-        <div className="bg-black bg-opacity-60 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20"></div>
-      )}
-
+        <div className={`bg-black pointer-events-none ${Interactable? 'bg-opacity-0': 'bg-opacity-60'} transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}></div>
       {/* Navbar */}
-      <header className="h-[65px] z-50 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
+      <header className="h-[65px] border-b-[1px] border-gray-300 z-50 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
         {/* HomePage Link logo */}
 
         <Link href="/">
