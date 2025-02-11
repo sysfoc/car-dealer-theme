@@ -4,179 +4,11 @@ import {
   makePageInteractable,
   makePageUnInteractable,
 } from "@/store/slices/pageProperties";
-
+import { categoriesToShow } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IoIosArrowUp } from "react-icons/io";
 import CategoryItems from "./categoryItems/CategoryItems";
-
-const categoriesToShow = [
-  {
-    title: "Featured",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Home & Kitchen",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Women's Clothing",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Women's Curve Clothing",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Women's Shoes",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Women's Lingerie & Lounge",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Men's Clothing",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Men's Shoes",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Men's Big & Tall",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Men's Underware & Sleepwear",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Sports & Outdoors",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Jewelry & Accessories",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Beauty & Health",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Toys & Games",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Automotive",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Kid's Fashion",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Kid's Shoes",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Baby & Maternity",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Bags & Luggage",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Patio, Lawn & Garden",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Arts, Crafts & Sewing",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Electronics",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Business, Industry & Science",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Tools & Home improvements",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Appliances",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Office & School Supplies",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Health & Houshold",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Pet Supplies",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Cell Phones & Accessories",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Smart Home",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Musical Instruments",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Books",
-    icon: null,
-    link: "/",
-  },
-  {
-    title: "Beachwear",
-    icon: null,
-    link: "/",
-  },
-];
 
 const SupportDropDownButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -313,7 +145,7 @@ const SupportDropDownButton = () => {
                   onClick={()=>{handleCategoryClick(ele.title)}}
                 >
                   <Link
-                    href={ele.link}
+                    href={ele.title}
                     className={`px-4 pointer-events-none text-gray-900 py-2 flex justify-between items-center`}
                   >
                     {ele.title}

@@ -98,7 +98,7 @@ const actionsToShow = [
   },
 ];
 
-export default function AccountDropDown() {
+export default function AccountDropdown() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);

@@ -3,13 +3,13 @@ import Image from "next/image";
 import img from "@/public/Temu_logo.svg";
 import Link from "next/link";
 import Searchbar from "./Searchbar";
-import AccountDropDown from "./dropdownButtons/AccountDropDown";
+import AccountDropdown from './dropdownButtons/AccountDropdown';
+import CategoryDropDown from './dropdownButtons/categoriesDropdown/CategoryDropDown'
 import { HiThumbUp } from "react-icons/hi";
 import { TbFileStar } from "react-icons/tb";
 import SupportDropDownButton from "./dropdownButtons/SupportDropDownButton";
 import LanguageDropDownButton from "./dropdownButtons/LanguageDropDownButton";
 import { LuShoppingCart } from "react-icons/lu";
-import CategoryDropDown from "./dropdownButtons/CategoryDropDown";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useEffect, useRef, useState } from "react";
@@ -36,7 +36,7 @@ const Navbar= () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY < 50) {
+      if (currentScrollY < 100) {
         setIsNavbarVisible(true);
       } else if (currentScrollY > lastScrollY.current) {
         setIsNavbarVisible(false);
@@ -49,10 +49,10 @@ const Navbar= () => {
     document.addEventListener("scroll", handleScroll);
 
     return () => document.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isNavbarVisible]);
 
   return (
-    <div className={`fixed ${isNavbarVisible? 'top-0' : '-top-[65px]'}  transition-all duration-300 left-0 w-full z-50`}>
+    <div className={`fixed  top-0 left-0 ${isNavbarVisible? '-translate-y-0' : '-translate-y-full'}  transition-all duration-300 left-0 w-full z-40`}>
       {/* Page Interactibility */}
       <div
         className={`bg-black pointer-events-none ${
@@ -60,7 +60,7 @@ const Navbar= () => {
         } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}
       ></div>
       {/* Navbar */}
-      <header className="h-[65px] border-b-[1px] border-gray-300 z-50 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
+      <header className="h-[65px] border-b-[1px] border-gray-300 z-40 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
         {/* HomePage Link logo */}
 
         <Link href="/">
@@ -126,7 +126,7 @@ const Navbar= () => {
         {/* Orders and Account */}
 
         <div>
-          <AccountDropDown />
+          <AccountDropdown />
         </div>
 
         {/* Support Button */}
