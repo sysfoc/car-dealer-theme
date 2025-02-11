@@ -26,6 +26,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* For custom scrollbars */
 .custom-scrollbar-vertical::-webkit-scrollbar {
   width: 4px;
 }
@@ -52,4 +58,9 @@ body {
 
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;             /* For Chrome, Safari, and newer versions of Edge */
+}
+
+/* For custom styling */
+.box-shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }

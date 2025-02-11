@@ -27,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           {/* Margin for navbar as navbar is fixed */}
           <div className="mt-[65px]">
+            <div id="screenTop"></div>
             <NavigationMenu />
             {children}
           </div>

@@ -4,7 +4,7 @@ import TemuBanner from "@/app/ui/TemuBanner";
 
 export default function Home() {
   return (
-    <div className="mx-5 h-[2000px]">
+    <div className="mx-5">
       <TemuBanner/>
       <PromotionalBanner/>
       <Index/>
