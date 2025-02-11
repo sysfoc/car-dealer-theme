@@ -1,4 +1,4 @@
-import ProductCard from "@/app/ui/ProductCard"; 
+import ProductCard from "@/app/ui/Product Card/ProductCard"; 
 
 interface Product {
   id: number; 
@@ -16,19 +16,19 @@ interface Product {
 }
 
 const Index = () => {
-  const products: Product[] = [
+ const products: Product[] = [
     {
       id: 1,
       title: "Product 1",
-      discountDaysRemaining: 3,
+      discountDaysRemaining: undefined,
       description: "Experience high-quality sound with noise cancellation and up to 24 hours of battery life in a sleek, comfortable design.",
       price: 9.99,
       previousPrice: 19.99, // Previous price for comparison
       image: "/images.jpg",
-      rating: 4,
+      rating: 4.5,
       sold: 12.2, // Number of items sold
       reviews: 2150, // Number of reviews
-      offerEndTime: "2025-02-08T00:00:00",
+      offerEndTime: "2025-02-12T00:00:00",
       itemsLeft: 30,
     },
     {
@@ -42,7 +42,7 @@ const Index = () => {
         rating: 4.3,
         sold: 5, // Number of items sold
         reviews: 150, // Number of reviews
-        offerEndTime: "2025-02-08T00:00:00",
+        offerEndTime: "2025-02-14T00:00:00",
         itemsLeft: 19
     },
     {
@@ -56,7 +56,7 @@ const Index = () => {
         rating: 3.5,
         sold: 10, // Number of items sold
         reviews: 150, // Number of reviews
-        offerEndTime:"2025-02-08T00:00:00",
+        offerEndTime:"2025-02-18T00:00:00",
         itemsLeft: undefined
     },
     {
@@ -70,7 +70,7 @@ const Index = () => {
         rating: 3.0,
         sold: 50, // Number of items sold
         reviews: 350, // Number of reviews
-        offerEndTime: "2025-02-08T00:00:00",
+        offerEndTime: "2025-02-12T00:00:00",
         itemsLeft: "Almost Sold Out"
     },
     {
@@ -84,7 +84,7 @@ const Index = () => {
         rating: 4.5,
         sold: 11, // Number of items sold
         reviews: 990, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-12T00:00:00",
         itemsLeft: "Sold Out"
     },
     {
@@ -98,7 +98,7 @@ const Index = () => {
         rating: 4.3,
         sold: 50, // Number of items sold
         reviews: 150, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-12T00:00:00",
         itemsLeft: 99
     },
     {
@@ -112,7 +112,7 @@ const Index = () => {
         rating: 3.0,
         sold: 40, // Number of items sold
         reviews: 90, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-11T00:00:00",
         itemsLeft: 49
     },
     {
@@ -126,7 +126,7 @@ const Index = () => {
         rating: 5.0,
         sold: 20, // Number of items sold
         reviews: 1000, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-11T00:00:00",
         itemsLeft: 89
     },
     {
@@ -140,7 +140,7 @@ const Index = () => {
         rating: 3.0,
         sold: 20, // Number of items sold
         reviews: 100, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-11T00:00:00",
         itemsLeft: 5
     },
     {
@@ -154,10 +154,11 @@ const Index = () => {
         rating: 4.5,
         sold: 60, // Number of items sold
         reviews: 290, // Number of reviews
-        offerEndTime: "2025-02-10T00:00:00",
+        offerEndTime: "2025-02-11T00:00:00",
         itemsLeft: 19
     },
   ];
+
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
   <div className="flex flex-nowrap gap-6">
@@ -171,4 +172,6 @@ const Index = () => {
 </div>
   );
 };
+
 export default Index;
+
