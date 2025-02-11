@@ -202,11 +202,7 @@ export default function AccountDropDown() {
       {/* DropDown When Button is hovered over or button clicked on touch devices*/}
       <div
         className={`
-                ${isDropdownOpen ? "opacity-100" : "opacity-0"}
-                ${
-                  isDropdownOpen ? "pointer-events-auto" : "pointer-events-none"
-                }
-                ${isDropdownOpen ? "scale-y-100" : "scale-y-[.75]"}
+                ${isDropdownOpen ? "opacity-100 pointer-events-auto scale-y-100 visible" : "opacity-0 pointer-events-none scale-y-[.75] invisible"}
                 absolute 
                 origin-top
                 right-1/2 translate-x-1/2 flex flex-col items-center transition-all duration-300 ease-out

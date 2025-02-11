@@ -3,10 +3,11 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/ui/Navbar/Navbar";
 import { Providers } from "./providers";
+import NavigationMenu from "./ui/NavigationMenu";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400","500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,13 +20,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <Providers>
         <body className={`${montserrat.className}  antialiased`}>
           <Navbar />
-          {children}
+          {/* Margin for navbar as navbar is fixed */}
+          <div className="mt-[65px]">
+            <div id="screenTop"></div>
+            <NavigationMenu />
+            {children}
+          </div>
         </body>
       </Providers>
     </html>

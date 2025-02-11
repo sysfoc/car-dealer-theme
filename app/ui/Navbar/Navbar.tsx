@@ -12,6 +12,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import CategoryDropDown from "./dropdownButtons/CategoryDropDown";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { useEffect, useRef, useState } from "react";
 
 const linksToShow = [
   {
@@ -23,15 +24,41 @@ const linksToShow = [
     title: "5-Star Rated",
   },
 ];
-export default function Navbar() {
+const Navbar= () => {
+
   const Interactable = useSelector(
     (state: RootState) => state.pageProperties.pageInteractable
   );
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 50) {
+        setIsNavbarVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        setIsNavbarVisible(false);
+      } else {
+        setIsNavbarVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    document.addEventListener("scroll", handleScroll);
+
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div className="relative">
+    <div className={`fixed ${isNavbarVisible? 'top-0' : '-top-[65px]'}  transition-all duration-300 left-0 w-full z-50`}>
       {/* Page Interactibility */}
-        <div className={`bg-black pointer-events-none ${Interactable? 'bg-opacity-0': 'bg-opacity-60'} transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}></div>
+      <div
+        className={`bg-black pointer-events-none ${
+          Interactable ? "bg-opacity-0" : "bg-opacity-60"
+        } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}
+      ></div>
       {/* Navbar */}
       <header className="h-[65px] border-b-[1px] border-gray-300 z-50 bg-[#6dade5] w-ful min-w-[1150px] flex py-1 px-10 items-center gap-2 relative">
         {/* HomePage Link logo */}
@@ -123,10 +150,7 @@ export default function Navbar() {
           transition-all duration-200 ease-in-out
           "
           ></div>
-          <Link
-            href="/"
-            className="relative z-10 text-white"
-          >
+          <Link href="/" className="relative z-10 text-white">
             <LuShoppingCart size={25} />
           </Link>
         </div>
@@ -134,3 +158,6 @@ export default function Navbar() {
     </div>
   );
 }
+
+export default Navbar;
+

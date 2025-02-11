@@ -26,6 +26,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* For custom scrollbars */
 .custom-scrollbar-vertical::-webkit-scrollbar {
   width: 4px;
 }
@@ -54,6 +60,7 @@ body {
   display: none;             /* For Chrome, Safari, and newer versions of Edge */
 }
 
+<<<<<<< HEAD
 
 .red-section {
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%);
@@ -120,3 +127,9 @@ body {
 .swiper-button-prev.swiper-button-disabled {
   display: none !important;
 }
+=======
+/* For custom styling */
+.box-shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+}
+>>>>>>> 0efc7d8b3ca0e558b8a53f58e971aa57cf6ec6b6
