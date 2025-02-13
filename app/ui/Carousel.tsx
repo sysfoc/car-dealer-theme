@@ -8,6 +8,7 @@ import { FreeMode, Navigation } from "swiper/modules";
 const Carousel = ({ children, className, ...props }: SwiperProps) => {
     return (
         <Swiper
+  //slidesPerView={2}
   slidesPerView="auto"
   spaceBetween={16}
   freeMode={true}

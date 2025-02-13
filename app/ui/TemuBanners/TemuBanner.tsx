@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { MdGppGood } from "react-icons/md";
 import { CiLock, CiDeliveryTruck } from "react-icons/ci";

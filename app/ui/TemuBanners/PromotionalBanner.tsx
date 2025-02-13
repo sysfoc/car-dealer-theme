@@ -1,3 +1,4 @@
+"use client"
 import { MdOutlineElectricBolt } from "react-icons/md";
 import { PiGreaterThanBold } from "react-icons/pi"
 

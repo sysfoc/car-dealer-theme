@@ -1,3 +1,4 @@
+"use client"
 import { PiGreaterThanBold } from "react-icons/pi"
 import { RiDiscountPercentLine } from "react-icons/ri";
 

@@ -1,4 +1,4 @@
-import ProductCard from "@/app/ui/Product Card/ProductCard"; 
+import ProductCard from "@/app/ui/ProductCard/ProductCard"; 
 
 interface Product {
   id: number; 

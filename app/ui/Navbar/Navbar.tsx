@@ -3,7 +3,7 @@ import Image from "next/image";
 import img from "@/public/Temu_logo.svg";
 import Link from "next/link";
 import Searchbar from "./Searchbar";
-import AccountDropdown from './dropdownButtons/AccountDropdown';
+import AccountDropdown from './dropdownButtons/AccountDropDown';
 import CategoryDropDown from './dropdownButtons/categoriesDropdown/CategoryDropDown'
 import { HiThumbUp } from "react-icons/hi";
 import { TbFileStar } from "react-icons/tb";

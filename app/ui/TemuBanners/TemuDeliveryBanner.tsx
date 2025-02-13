@@ -1,3 +1,4 @@
+"use client"
 import { PiGreaterThanBold } from "react-icons/pi";
 import { SiTcs } from "react-icons/si";
 import { ImCross } from "react-icons/im";
@@ -9,7 +10,7 @@ const TemuDeliveryBanner = () => {
         className="red-section bg-[#F21F2B] text-white 
                    px-4 md:px-20 py-2 md:py-3 
                    flex items-center gap-2 md:gap-4 
-                   relative z-10"
+                   relative z-20"
       >
         <div className="font-bold text-lg md:text-2xl lg:text-3xl">TEMU</div>
         <div className="flex gap-2 md:gap-5 items-center">
