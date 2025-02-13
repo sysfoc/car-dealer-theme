@@ -8,7 +8,7 @@ import { categoriesToShow } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IoIosArrowUp } from "react-icons/io";
-import CategoryItems from "./categoryItems/CategoryItems";
+import CategoryItems from '@/app/ui/Navbar/dropdownButtons/categoriesDropdown/categoryItems/CategoryItems'
 
 const SupportDropDownButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
