@@ -52,7 +52,7 @@ const Navbar= () => {
   }, [isNavbarVisible]);
 
   return (
-    <div className={`fixed  top-0 left-0 ${isNavbarVisible? '-translate-y-0' : '-translate-y-full'}  transition-all duration-300 left-0 w-full z-40`}>
+    <div className={`fixed  top-0 left-0 ${isNavbarVisible? '-translate-y-0' : '-translate-y-full'}  transition-all duration-300 left-0 w-full ${Interactable?'z-30': 'z-50'}`}>
       {/* Page Interactibility */}
       <div
         className={`bg-black pointer-events-none ${
