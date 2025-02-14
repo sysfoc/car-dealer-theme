@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar, FaEye, FaPlay } from "react-icons/fa";
 import { BiCartAdd } from "react-icons/bi";
 import { FaFire } from "react-icons/fa";
 
@@ -47,7 +47,9 @@ const generateStars = (rating: number) => {
   return stars;
 };
 
-const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) => {
+const RecommendedProductsCard: React.FC<{ product: Product }> = ({
+  product,
+}) => {
   const formattedSold =
     product.sold >= 1000
       ? (product.sold / 1000).toFixed(1) + "k"
@@ -57,7 +59,6 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
   const reviewCount = product.reviews?.[0]?.count || 0;
 
   const storeInfoMessages: string[] = product.storeInfo;
-
 
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
   const [prevTagIndex, setPrevTagIndex] = useState<number | null>(null);
@@ -79,7 +80,9 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
   }, [product.tags]);
 
   const [currentStoreInfoIndex, setCurrentStoreInfoIndex] = useState(0);
-  const [prevStoreInfoIndex, setPrevStoreInfoIndex] = useState<number | null>(null);
+  const [prevStoreInfoIndex, setPrevStoreInfoIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     if (storeInfoMessages.length > 1) {
@@ -97,16 +100,59 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
     }
   }, [storeInfoMessages]);
 
+  const isVideo = product.image.endsWith(".mp4");
+  const [showText, setShowText] = useState(false);
+
   return (
     <div className="min-w-[150px] max-w-[220px] hover:shadow-[0_-4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer">
-      <div className="relative overflow-hidden w-full p-2">
-        <Image
-          src={product.image}
-          alt={product.description}
-          width={215}
-          height={215}
-          className="w-[185px] h-[185px] md:w-[225px] md:h-[225px] object-fill"
-        />
+      <div
+        className="min-w-[150px] max-w-[220px] hover:shadow-[0_-4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer"
+        onMouseEnter={() => !isVideo && setShowText(true)}
+        onMouseLeave={() => !isVideo && setShowText(false)}
+      >
+        <div className="relative overflow-hidden w-full p-2">
+          {isVideo ? (
+            <video
+              src={product.image}
+              className="w-[185px] h-[185px] md:w-[225px] md:h-[225px] object-cover"
+              muted
+              loop
+              playsInline
+              onMouseEnter={(e) => {
+                e.currentTarget.currentTime = 0;
+                e.currentTarget.play();
+                e.currentTarget.playbackRate = 1;
+                setShowText(true);
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+                setShowText(false);
+              }}
+            />
+          ) : (
+            <Image
+              src={product.image}
+              alt={product.description}
+              width={215}
+              height={215}
+              className="w-[185px] h-[185px] md:w-[225px] md:h-[225px] object-fill"
+            />
+          )}
+
+          {isVideo && !showText && (
+            <div className="absolute bottom-2 left-2 m-2 rounded-full bg-black bg-opacity-50 text-white p-2 text-xs">
+              <FaPlay/>
+            </div>
+          )}
+
+          {!isVideo && showText && (
+            <div className="absolute m-2 bottom-2 left-2 bg-white flex justify-center items-center gap-1 text-black rounded-full px-2 py-1 text-sm transition-all duration-200">
+              <FaEye/>
+              Quick Look
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="text-center mt-1 w-full px-2">
@@ -114,7 +160,9 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
 
         <div className="flex justify-between items-center mt-1">
           <div className="flex items-baseline gap-1">
-            <p className="text-lg sm:text-lg md:text-xl font-bold text-orange-500">${product.price}</p>
+            <p className="text-lg sm:text-lg md:text-xl font-bold text-orange-500">
+              ${product.price}
+            </p>
             <div className="flex items-center text-[12px]">
               <FaFire className="text-orange-500" />
               <p className="text-gray-600">{formattedSold} sold</p>
@@ -132,7 +180,11 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
                 {product.tags[prevTagIndex]}
               </div>
             )}
-            <div className={`absolute w-full text-sm text-orange-500 ${prevTagIndex !== null ? "animate-slideInUp" : ""}`}>
+            <div
+              className={`absolute w-full text-sm text-orange-500 ${
+                prevTagIndex !== null ? "animate-slideInUp" : ""
+              }`}
+            >
               {product.tags[currentTagIndex]}
             </div>
           </div>
@@ -152,7 +204,11 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({ product }) =>
                 {storeInfoMessages[prevStoreInfoIndex]}
               </div>
             )}
-            <div className={`absolute w-full text-sm text-black ${prevStoreInfoIndex !== null ? "animate-slideInUp" : ""}`}>
+            <div
+              className={`absolute w-full text-sm text-black ${
+                prevStoreInfoIndex !== null ? "animate-slideInUp" : ""
+              }`}
+            >
               {storeInfoMessages[currentStoreInfoIndex]}
             </div>
           </div>

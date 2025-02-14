@@ -60,10 +60,7 @@ html {
   display: none;             /* For Chrome, Safari, and newer versions of Edge */
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c5d5bcbaa35b9772ad51cb45b4721b37f4f32d0a
 .red-section {
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%);
   margin-right: -20px;
@@ -129,11 +126,19 @@ html {
 .swiper-button-prev.swiper-button-disabled {
   display: none !important;
 }
-<<<<<<< HEAD
 
-=======
-/* For custom styling */
->>>>>>> c5d5bcbaa35b9772ad51cb45b4721b37f4f32d0a
 .box-shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-list li:hover {
+  color: #FFFFFF;
+}
+/* styles.css */
+.social-link {
+  @apply flex items-center justify-center hover:bg-gray-700 p-2 rounded-full transition-opacity;
+}
+
+.social-icon {
+  @apply text-lg sm:text-xl md:text-2xl;
 }
