@@ -1,6 +1,6 @@
 "use client";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 const Categories = () => {
   const [swiper, setSwiper] = useState<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -173,7 +173,7 @@ const Categories = () => {
     },
   ];
   return (
-    <div className="mt-8 relative w-full overflow-visible mb-10">
+    <div className="mt-8 relative w-full overflow-visible mb-5">
       <div className="text-xl font-bold flex justify-center items-center uppercase mb-4">
         Explore Your Interests
       </div>

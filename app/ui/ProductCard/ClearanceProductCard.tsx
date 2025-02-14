@@ -276,7 +276,7 @@ const ClearanceProductCard: React.FC<{ product: ClearanceProduct }> = ({ product
  */
 const ClearanceProducts: React.FC = () => {
   return (
-    <div className="w-full overflow-x-auto scrollbar-hidden">
+    <div className="w-full overflow-x-auto scrollbar-hidden  mb-4 sm:mb-7">
       <div className="flex flex-nowrap gap-6">
         {clearanceProducts.map((product) => (
           <div className="flex-shrink-0" key={product.id}>

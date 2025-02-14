@@ -68,7 +68,10 @@ html {
   display: none;             /* For Chrome, Safari, and newer versions of Edge */
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> c5d5bcbaa35b9772ad51cb45b4721b37f4f32d0a
 .red-section {
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%);
   margin-right: -20px;
@@ -80,34 +83,34 @@ html {
     margin-right: -8px;
   }
 }
-/* /* Custom Swiper arrow styles */
+
 .swiper-button-prev,
 .swiper-button-next {
-  color: #4b5563 !important; /* Gray color for arrows */
+  color: #4b5563 !important; 
   background-color: white;
-  width: 40px !important; /* Smaller width */
-  height: 40px !important; /* Smaller height */
+  width: 40px !important; 
+  height: 40px !important;
   border-radius: 50%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); 
   transition: all 0.3s ease;
   top: 50% !important;
   transform: translateY(-15%);
-  display: none; /* Hide by default */
+  display: none; 
 }
 
-/* Show arrows on hover */
+
 .swiper:hover .swiper-button-prev,
 .swiper:hover .swiper-button-next {
   display: flex !important;
 }
 
-/* Arrow icon size */
+
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 16px !important; /* Smaller icon size */
 }
 
-/* Position arrows inside container */
+
 .swiper-button-prev {
   left: 10px !important;
 }
@@ -116,21 +119,29 @@ html {
   right: 10px !important;
 }
 
-/* Hover effects */
+
 .swiper-button-prev:hover,
 .swiper-button-next:hover {
   background-color: #f3f4f6; /* Light gray background on hover */
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
 }
 
-/* Mobile responsiveness */
+
 @media (max-width: 640px) {
   .swiper-button-prev,
   .swiper-button-next {
-    display: none !important; /* Hide arrows on mobile */
+    display: none !important; 
   }
 }
 
 .swiper-button-prev.swiper-button-disabled {
   display: none !important;
+}
+<<<<<<< HEAD
+
+=======
+/* For custom styling */
+>>>>>>> c5d5bcbaa35b9772ad51cb45b4721b37f4f32d0a
+.box-shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }
