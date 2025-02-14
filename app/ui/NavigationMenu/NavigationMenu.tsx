@@ -20,16 +20,16 @@ const NavigationMenu = () => {
         setShowScrollToTopBtn(false);
       }
     };
-    function handleClick(event: MouseEvent) {
+    function handleNavigationMenuOutsideClick(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setCurrentTab("none");
       }
     }
     document.addEventListener("scroll", handleScroll);
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", handleNavigationMenuOutsideClick);
     return () => {
       document.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", handleNavigationMenuOutsideClick);
     };
   }, []);
 
@@ -42,7 +42,7 @@ const NavigationMenu = () => {
       {/* Messages */}
       <button
         onClick={() => {
-          setCurrentTab(currentTab === 'none'? 'messages':'none')
+          setCurrentTab(currentTab === "messages" ? "none" : "messages");
         }}
         className="hover:bg-gray-200 px-2 py-3 rounded-md"
       >
@@ -50,12 +50,14 @@ const NavigationMenu = () => {
       </button>
 
       {/* Message Card */}
-      {currentTab === 'messages' && <MessagesCard setCurrentTab={setCurrentTab} />}
+      {currentTab === "messages" && (
+        <MessagesCard setCurrentTab={setCurrentTab} />
+      )}
 
       {/* Review */}
       <button
         onClick={() => {
-          setCurrentTab(currentTab === 'none'? 'review':'none')
+          setCurrentTab(currentTab === "review" ? "none" : "review");
         }}
         className={`${
           showScrollToTopBtn ? "mb-[60px]" : "mb-0"
@@ -65,7 +67,7 @@ const NavigationMenu = () => {
       </button>
 
       {/* Review Card */}
-      {currentTab === 'review' && <ReviewCard setCurrentTab={setCurrentTab}/>}
+      {currentTab === "review" && <ReviewCard setCurrentTab={setCurrentTab} />}
 
       {/* Go to the top button */}
       <button

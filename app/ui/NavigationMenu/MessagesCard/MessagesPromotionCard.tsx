@@ -10,16 +10,15 @@ const MessagesPromotionCard = () => {
   const popUpBtn = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
+    const handleClickMessagesPromotionCard = (event: MouseEvent) => {
       if(popUpDiv.current && !popUpDiv.current.contains(event.target as Node) && !popUpBtn.current?.contains(event.target as Node))
       {
         setShowPopUp(false);
-        console.log('clicked outside')
       }
     };
 
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick)
+    document.addEventListener("click", handleClickMessagesPromotionCard);
+    return () => document.removeEventListener("click", handleClickMessagesPromotionCard)
   }, []);
 
   return (
