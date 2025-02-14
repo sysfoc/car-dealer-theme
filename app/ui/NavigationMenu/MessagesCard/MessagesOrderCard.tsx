@@ -15,7 +15,6 @@ const MessagesOrderCard = () => {
       if(popUpDiv.current && !popUpDiv.current.contains(event.target as Node) && !popUpBtn.current?.contains(event.target as Node))
       {
         setShowPopUp(false);
-        console.log('clicked outside')
       }
     };
 
