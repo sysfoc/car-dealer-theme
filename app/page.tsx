@@ -1,4 +1,4 @@
-import Index from ".";
+import Index from "../data/LighteningDeals";
 import PromotionalBanner from "@/app/ui/TemuBanners/PromotionalBanner";
 import TemuBanner from "@/app/ui/TemuBanners/TemuBanner";
 import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
@@ -11,7 +11,7 @@ import Footer from "@/app/ui/Footer";
 export default function Home() {
   return (
     <div>
-      <div className="m-12">
+      <div className="m-10">
       <TemuBanner/>
       <PromotionalBanner/>
       <Index/>
