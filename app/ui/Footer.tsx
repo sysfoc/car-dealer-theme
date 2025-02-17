@@ -121,60 +121,55 @@ const Footer: React.FC = () => {
               </p>
             </div>
           </div>
-         
+
           <div className="flex relative lg:right-10 sm:right-28 md:right-40 gap-3 mt-3">
- 
-  <div className="flex items-center bg-black px-3 py-2 w-full max-w-[200px] min-w-[170px] text-white cursor-pointer rounded-full">
-    <IoLogoApple className="text-3xl mr-2" />
-    <div className="flex flex-col leading-tight">
-      <span className="text-[10px]  uppercase">Download on</span>
-      <span className="text-sm font-semibold">App Store</span>
-    </div>
-  </div>
+            <div className="flex items-center bg-black px-3 py-2 w-full max-w-[200px] min-w-[170px] text-white cursor-pointer rounded-full">
+              <IoLogoApple className="text-3xl mr-2" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px]  uppercase">Download on</span>
+                <span className="text-sm font-semibold">App Store</span>
+              </div>
+            </div>
 
- 
-  <div className="flex items-center bg-black px-3 py-2 rounded-full w-full max-w-[200px] min-w-[170px] text-white cursor-pointer">
-    <FaGooglePlay className="text-3xl mr-2" />
-    <div className="flex flex-col leading-tight">
-      <span className="text-[10px] uppercase">Get it on</span>
-      <span className="text-sm font-semibold">Google Play</span>
-    </div>
-  </div>
-</div>
-
-{/* Download Buttons */}
-
-
-
-          {/* Connect with Temu */}
-          <div className="mt-5 text-white">
-           
-              <h4 className="font-semibold text-base md:text-lg">
-                Connect with Temu
-              </h4>
-              <div className="flex space-x-1 mt-2">
-                <a href="#" className="social-link">
-                  <FaFacebook className="social-icon" />
-                </a>
-                <a href="#" className="social-link">
-                  <FaTwitter className="social-icon" />
-                </a>
-                <a href="#" className="social-link">
-                  <FaInstagram className="social-icon" />
-                </a>
-                <a href="#" className="social-link">
-                  <FaYoutube className="social-icon" />
-                </a>
-                <a href="#" className="social-link">
-                  <FaLinkedin className="social-icon" />
-                </a>
-                <a href="#" className="social-link">
-                  <FaPinterest className="social-icon" />
-                </a>
+            <div className="flex items-center bg-black px-3 py-2 rounded-full w-full max-w-[200px] min-w-[170px] text-white cursor-pointer">
+              <FaGooglePlay className="text-3xl mr-2" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] uppercase">Get it on</span>
+                <span className="text-sm font-semibold">Google Play</span>
               </div>
             </div>
           </div>
+
+          {/* Download Buttons */}
+
+          {/* Connect with Temu */}
+          <div className="mt-5 text-white">
+            <h4 className="font-semibold text-base md:text-lg">
+              Connect with Temu
+            </h4>
+            <div className="flex space-x-1 mt-2">
+              <a href="#" className="social-link">
+                <FaFacebook className="social-icon" />
+              </a>
+              <a href="#" className="social-link">
+                <FaTwitter className="social-icon" />
+              </a>
+              <a href="#" className="social-link">
+                <FaInstagram className="social-icon" />
+              </a>
+              <a href="#" className="social-link">
+                <FaYoutube className="social-icon" />
+              </a>
+              <a href="#" className="social-link">
+                <FaLinkedin className="social-icon" />
+              </a>
+              <a href="#" className="social-link">
+                <FaPinterest className="social-icon" />
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
 
       {/* Security & Payment and Rights Section */}
       <div className="container mx-auto pt-5">
@@ -183,15 +178,15 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-semibold text-base md:text-lg">
               Security certification
             </h4>
-            <div className="flex space-x-3 lg:text-3xl md:text-2xl sm:text-xl text-sm">
-              <FaCcVisa />
-              <FaCcMastercard />
-              <FaCcPaypal />
-              <FaCcApplePay />
-              <FaCcAmazonPay />
-              <FaCcDinersClub />
-              <FaShieldAlt />
-              <FaCheckCircle />
+            <div className="flex items-center space-x-3">
+              <FaCcVisa fontSize={30}/>
+              <FaCcMastercard fontSize={30}/>
+              <FaCcPaypal fontSize={30}/>
+              <FaCcApplePay fontSize={30}/>
+              <FaCcAmazonPay fontSize={30}/>
+              <FaCcDinersClub fontSize={30}/>
+              <FaShieldAlt fontSize={23}/>
+              <FaCheckCircle fontSize={25}/>
             </div>
           </div>
 
@@ -199,16 +194,16 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-semibold text-base md:text-lg">
               We accept
             </h4>
-            <div className="flex space-x-3 lg:text-3xl md:text-2xl sm:text-xl text-sm">
-              <FaCcVisa />
-              <FaCcMastercard />
-              <SiGooglepay />
-              <FaCcPaypal />
-              <FaCcApplePay />
-              <FaCcDiscover />
-              <FaCcAmex />
-              <FaCcDinersClub />
-              <FaCcJcb />
+            <div className="flex space-x-3">
+              <FaCcVisa fontSize={30}/>
+              <FaCcMastercard fontSize={30}/>
+              <SiGooglepay fontSize={30}/>
+              <FaCcAmex fontSize={30}/>
+              <FaCcDiscover fontSize={30}/>
+              <FaCcPaypal fontSize={30}/>
+              <FaCcApplePay fontSize={30}/>
+              <FaCcDinersClub fontSize={30}/>
+              <FaCcJcb fontSize={30}/>
             </div>
           </div>
         </div>
@@ -216,16 +211,16 @@ const Footer: React.FC = () => {
         <div className="mt-7 font-semibold text-center text-xs text-[#BCBCBC]">
           <p>
             © 2025 WhaleCo Inc.
-            <a href="#" className="underline mx-2">
+            <a href="#" className="underline mx-2 hover:text-white">
               Terms of use
             </a>
-            <a href="#" className="underline mx-2">
+            <a href="#" className="underline mx-2 hover:text-white">
               Privacy policy
             </a>
-            <a href="#" className="underline mx-2">
+            <a href="#" className="underline mx-2 hover:text-white">
               Your privacy choices
             </a>
-            <a href="#" className="underline mx-2">
+            <a href="#" className="underline mx-2 hover:text-white">
               Ad Choices
             </a>
           </p>

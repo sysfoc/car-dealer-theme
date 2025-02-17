@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import StarsRating from "@/app/ui/StarsRating";
+import ProductDescription from "@/app/ui/ProductDescription";
 
 interface Product {
   id: number;
@@ -44,7 +45,7 @@ const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
   const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-  // Calculate the progress bar percentage
+
   const targetDate = new Date(targetTime);
   const totalDuration = targetDate.getTime() - new Date().getTime();
   const progress =
@@ -98,35 +99,8 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       ? Math.round(((previousPrice - price) / previousPrice) * 100)
       : null;
 
-  const generateStars = (rating: number) => {
-    let stars = [];
-    for (let i = 0; i < 5; i++) {
-      if (i < Math.floor(rating)) {
-        stars.push(<FaStar key={i} className="text-black text-sm" />);
-      } else if (i < rating && i >= Math.floor(rating)) {
-        stars.push(
-          <span key={i} className="relative w-4 h-4 text-sm flex items-center">
-            <FaRegStar className="text-gray-400 absolute" />
-            <span
-              className="absolute top-1/2 left-0 overflow-hidden"
-              style={{
-                width: `${(rating - Math.floor(rating)) * 100}%`,
-                transform: "translateY(-52%)",
-              }}
-            >
-              <FaStar className="text-black" />
-            </span>
-          </span>
-        );
-      } else {
-        stars.push(<FaRegStar key={i} className="text-gray-400 text-sm" />);
-      }
-    }
-    return stars;
-  };
-
   return (
-    <div className="w-[185px] h-[270px] md:w-[225px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
+    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
       <div>
         <div
           className="group relative overflow-hidden"
@@ -139,7 +113,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             alt={title}
             width={225}
             height={220}
-            className="md:h-[220px] md:w-[225px] w-[185px] h-[185px] object-fill transform transition-transform duration-300 group-hover:scale-110"
+            className="md:h-[220px] md:w-[223px] w-[185px] h-[185px] object-fill transform transition-transform duration-300 group-hover:scale-110"
           />
           <div className="flex justify-center">
             <span className="text-white bg-[rgba(0,0,0,0.6)] inline-block absolute top-[185px] border-gray-200 border-[1px] px-2 rounded-xl">
@@ -152,17 +126,10 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </div>
         </div>
         {isHovered && (
-          <div
-            className="absolute bg-[rgba(0,0,0,0.6)] text-xs text-gray-200 z-20 max-w-64 py-1 px-2"
-            style={{
-              left: `${mousePosition.x + 12}px`,
-              top: `${mousePosition.y + 12}px`,
-              pointerEvents: "none",
-              transition: "opacity 0.2s ease-in-out",
-            }}
-          >
-            {description}
-          </div>
+          <ProductDescription
+          description={product.description}
+          mousePosition={mousePosition}
+          />
         )}
       </div>
       <div className="text-center ">
@@ -197,9 +164,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           {offerEndTime && <CountdownTimer targetTime={offerEndTime} />}
         </div>
         <div className="flex items-center gap-1 mt-1">
-          <div className="flex items-center text-yellow-500 text-sm">
-            {generateStars(rating)}
-          </div>
+          <StarsRating rating={rating}/>
           <span className="text-xs text-gray-600 ml-1">{reviews} Reviews</span>
         </div>
       </div>
