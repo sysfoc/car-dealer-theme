@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IoMdCheckmarkCircleOutline, IoMdClose } from "react-icons/io";
 import FeedbackCard from "./ReviewSections/FeedbackCard";
 
@@ -11,20 +11,6 @@ interface ReviewCardProps {
 const ReviewCard: React.FC<ReviewCardProps> = ({ setCurrentTab }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const reviewCardDiv = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      if (
-        reviewCardDiv.current &&
-        !reviewCardDiv.current.contains(event.target as Node)
-      ) {
-        setCurrentTab("none");
-      }
-    };
-    document.addEventListener("click", handleClick);
-
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-40 flex justify-center items-center">

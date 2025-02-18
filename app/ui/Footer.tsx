@@ -1,230 +1,357 @@
-// import React from "react";
-import { BsGraphDownArrow, BsCreditCard2FrontFill } from "react-icons/bs";
-import { MdGppGood } from "react-icons/md";
 import {
   FaFacebook,
-  FaTwitter,
   FaInstagram,
   FaYoutube,
-  FaLinkedin,
   FaCcVisa,
   FaCcMastercard,
   FaCcPaypal,
   FaCcApplePay,
-  FaCcAmazonPay,
   FaPinterest,
-  FaGooglePlay,
   FaCcDiscover,
   FaCcAmex,
   FaCcDinersClub,
   FaCcJcb,
-  FaShieldAlt,
-  FaCheckCircle,
+  FaTiktok,
 } from "react-icons/fa";
-import { FaTruckFast } from "react-icons/fa6";
-import { PiHourglassLowFill } from "react-icons/pi";
-import { RiCoupon4Fill } from "react-icons/ri";
+import { FaTruckFast, FaXTwitter } from "react-icons/fa6";
 import { SiGooglepay } from "react-icons/si";
-import { IoLogoApple } from "react-icons/io5";
+import Link from "next/link";
+import { FiTrendingDown } from "react-icons/fi";
+import Image from "next/image";
+
+const companyInfoFooterLinks = [
+  {
+    title: "About Temu",
+    link: "/",
+  },
+  {
+    title: "Temu - Shop Like a Billionaire",
+    link: "/",
+  },
+  {
+    title: "Affiliate & Influencer: Earn Commission",
+    link: "/",
+  },
+  {
+    title: "Contact Us",
+    link: "/",
+  },
+  {
+    title: "Careers",
+    link: "/",
+  },
+  {
+    title: "Press",
+    link: "/",
+  },
+  {
+    title: "Temu's Tree Planting Program",
+    link: "/",
+  },
+];
+const customerServiceFooterLinks = [
+  {
+    title: "Return and refund policy",
+    link: "/",
+  },
+  {
+    title: "Intellectual property policy",
+    link: "/",
+  },
+  {
+    title: "Shipping info",
+    link: "/",
+  },
+  {
+    title: "Report suspicious activity",
+    link: "/",
+  },
+];
+const helpFooterLinks = [
+  {
+    title: "Support center & FAQ",
+    link: "/",
+  },
+  {
+    title: "Safety center",
+    link: "/",
+  },
+  {
+    title: "Temu purchase protection",
+    link: "/",
+  },
+  {
+    title: "Sitemap",
+    link: "/",
+  },
+  {
+    title: "Partner with Temu",
+    link: "/",
+  },
+];
+
+const PaymentMethodsFooter = [
+  "/images/footer/visa.webp",
+  "/images/footer/masterLogo.webp",
+  "/images/footer/AmericanEx.webp",
+  "/images/footer/discoverR.webp",
+  "/images/footer/maestro.webp",
+  "/images/footer/Diners.webp",
+  "/images/footer/JCBLogo.webp",
+  "/images/footer/UnionPay.webp",
+  "/images/footer/applePay.webp",
+  "/images/footer/googlePay.webp",
+];
+
+const SecurityCertificationsFooter = [
+  "/images/footer/DSS.webp",
+  "/images/footer/VisaSecure.webp",
+  "/images/footer/Master.webp",
+  "/images/footer/SafeKey.webp",
+  "/images/footer/Discover.webp",
+  "/images/footer/JCB.webp",
+  "/images/footer/trustedSite.webp",
+];
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#1E1E1E] text-gray-300 py-10 px-5 md:px-20 text-sm">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="flex flex-col px-11 bg-[#1e1e1e] h-[505px] pt-7 mt-14 text-white text-sm">
+      {/* Links */}
+      <div className="flex justify-between mb-9">
         {/* Company Info */}
         <div>
-          <h3 className="text-white font-semibold mb-3 text-base md:text-lg">
-            Company info
-          </h3>
-          <ul className="space-y-2 text-[#BCBCBC] custom-list text-xs md:text-sm">
-            <li>About Temu</li>
-            <li>Temu – Shop Like a Billionaire</li>
-            <li>Affiliate &amp; Influencer: Earn Commission</li>
-            <li>Contact us</li>
-            <li>Careers</li>
-            <li>Press</li>
-            <li>Temu's Tree Planting Program</li>
+          <h3 className="text-white font-bold mb-3 text-sm">Company info</h3>
+          <ul className="text-gray-300 text-xs font-medium">
+            {companyInfoFooterLinks.map((ele) => {
+              return ele.title === "Temu - Shop Like a Billionaire" ? (
+                <li key={ele.title} className="text-gray-400 mt-2">
+                  {ele.title}
+                </li>
+              ) : (
+                <li key={ele.title} className="mt-3">
+                  <a href={ele.link} className="hover:text-white">
+                    {ele.title}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
-
         {/* Customer Service */}
         <div>
-          <h3 className="text-white font-semibold mb-3 text-base md:text-lg">
-            Customer service
-          </h3>
-          <ul className="space-y-2 text-[#BCBCBC] custom-list text-xs md:text-sm">
-            <li>Return and refund policy</li>
-            <li>Intellectual property policy</li>
-            <li>Shipping info</li>
-            <li>Report suspicious activity</li>
+          <h3 className="font-bold mb-3 text-sm">Customer Service</h3>
+          <ul className="text-gray-300 text-xs font-medium">
+            {customerServiceFooterLinks.map((ele) => {
+              return (
+                <li key={ele.title} className="mt-3">
+                  <Link href={ele.link} className="hover:text-white">
+                    {ele.title}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
-
-        {/* Help */}
+        {/* Help Links */}
         <div>
-          <h3 className="text-white font-semibold mb-3 text-base md:text-lg">
-            Help
-          </h3>
-          <ul className="space-y-2 text-[#BCBCBC] custom-list text-xs md:text-sm">
-            <li>Support center &amp; FAQ</li>
-            <li>Safety center</li>
-            <li>Temu purchase protection</li>
-            <li>Sitemap</li>
-            <li>Partner with Temu</li>
+          <h3 className="text-white font-bold mb-3 text-sm">Help</h3>
+          <ul className="text-gray-300 text-xs font-medium">
+            {helpFooterLinks.map((ele) => {
+              return (
+                <li key={ele.title} className="mt-3">
+                  <a href={ele.link} className="hover:text-white">
+                    {ele.title}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
-
-        {/* Download App */}
-        <div>
-          <h3 className="text-white font-semibold mb-3 text-base md:text-lg">
-            Download the Temu App
-          </h3>
-          <div className="grid grid-cols-2 gap-4 text-[#FFFFFF]">
-            <div className="space-y-2">
-              <p className="flex items-center gap-2 min-w-0">
-                <BsGraphDownArrow className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Price-drop alerts with long text example to show truncation
-                </span>
-              </p>
-              <p className="flex items-center gap-2 min-w-0">
-                <MdGppGood className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Faster &amp; more secure checkout with longer text example
-                </span>
-              </p>
-              <p className="flex items-center gap-2 min-w-0">
-                <FaTruckFast className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Exclusive offers for app users only
-                </span>
-              </p>
-            </div>
-            <div className="space-y-2">
-              <p className="flex items-center gap-2 min-w-0">
-                <BsCreditCard2FrontFill className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Track orders anytime anywhere
-                </span>
-              </p>
-              <p className="flex items-center gap-2 min-w-0">
-                <PiHourglassLowFill className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Low stock items alerts notification
-                </span>
-              </p>
-              <p className="flex items-center gap-2 min-w-0">
-                <RiCoupon4Fill className="text-4xl md:text-5xl" />
-                <span className="truncate text-xs md:text-sm">
-                  Coupons &amp; offers alerts daily
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex relative lg:right-10 sm:right-28 md:right-40 gap-3 mt-3">
-            <div className="flex items-center bg-black px-3 py-2 w-full max-w-[200px] min-w-[170px] text-white cursor-pointer rounded-full">
-              <IoLogoApple className="text-3xl mr-2" />
-              <div className="flex flex-col leading-tight">
-                <span className="text-[10px]  uppercase">Download on</span>
-                <span className="text-sm font-semibold">App Store</span>
+        {/* App Section */}
+        <div className="w-[360px]">
+          <div className="mb-8">
+            <Link className="font-bold" href="/">
+              Download the Temu App
+            </Link>
+            <div className="my-4 text-xs flex flex-col gap-3 pl-1">
+              <div className="flex items-center">
+                <div className="flex w-[170px]">
+                  <div className="bg-white w-4 h-4 rounded-full p-1 mr-1">
+                    <FiTrendingDown className="text-black w-full h-full font-bold" />
+                  </div>
+                  Price-drop alerts
+                </div>
+                <div className="h-3 border-r-[1px] mx-3"></div>
+                <div className="flex">
+                  <FaTruckFast className="w-4 h-4 mr-1" />
+                  Track orders any time
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="flex w-[170px]">
+                  <div className="bg-white w-4 h-4 rounded-full p-1 mr-1">
+                    <FiTrendingDown className="text-black w-full h-full font-bold" />
+                  </div>
+                  Faster and more secu...
+                </div>
+                <div className="h-3 border-r-[1px] mx-3"></div>
+                <div className="flex">
+                  <FaTruckFast className="w-4 h-4 mr-1" />
+                  Low cost items alerts
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="flex w-[170px]">
+                  <div className="bg-white w-4 h-4 rounded-full p-1 mr-1">
+                    <FiTrendingDown className="text-black w-full h-full font-bold" />
+                  </div>
+                  Exclusive offers
+                </div>
+                <div className="h-3 border-r-[1px] mx-3"></div>
+                <div className="flex">
+                  <FaTruckFast className="w-4 h-4 mr-1" />
+                  Coupons & offers alerts
+                </div>
               </div>
             </div>
-
-            <div className="flex items-center bg-black px-3 py-2 rounded-full w-full max-w-[200px] min-w-[170px] text-white cursor-pointer">
-              <FaGooglePlay className="text-3xl mr-2" />
-              <div className="flex flex-col leading-tight">
-                <span className="text-[10px] uppercase">Get it on</span>
-                <span className="text-sm font-semibold">Google Play</span>
-              </div>
+            <div className="flex">
+              <Link
+                href="/"
+                className="flex py-2 px-4 mr-3 h-12 border-[1px] rounded-full border-gray-700 hover:border-gray-200 items-center"
+              >
+                <div className="w-7 h-7 mr-2 mt-1">
+                  <Image
+                    src="/images/footer/applelogo.webp"
+                    width={30}
+                    height={30}
+                    alt="apple logo"
+                  />
+                </div>
+                <div className="leading-tight">
+                  <div className="text-[10px] text-gray-400 font-semibold">
+                    Download on the
+                  </div>
+                  <div className="font-bold ">App Store</div>
+                </div>
+              </Link>
+              <Link
+                href="/"
+                className="flex py-2 px-4 mr-3 h-12 border-[1px] rounded-full border-gray-700 hover:border-gray-200 items-center"
+              >
+                <div className="w-7 h-7 mr-2 mt-1">
+                  <Image
+                    src="/images/footer/applelogo.webp"
+                    width={30}
+                    height={30}
+                    alt="apple logo"
+                  />
+                </div>
+                <div className="leading-tight">
+                  <div className="text-[10px] text-gray-400 font-semibold">
+                    Download on the
+                  </div>
+                  <div className="font-bold ">App Store</div>
+                </div>
+              </Link>
             </div>
           </div>
-
-          {/* Download Buttons */}
-
-          {/* Connect with Temu */}
-          <div className="mt-5 text-white">
-            <h4 className="font-semibold text-base md:text-lg">
-              Connect with Temu
-            </h4>
-            <div className="flex space-x-1 mt-2">
-              <a href="#" className="social-link">
-                <FaFacebook className="social-icon" />
-              </a>
-              <a href="#" className="social-link">
-                <FaTwitter className="social-icon" />
-              </a>
-              <a href="#" className="social-link">
-                <FaInstagram className="social-icon" />
-              </a>
-              <a href="#" className="social-link">
-                <FaYoutube className="social-icon" />
-              </a>
-              <a href="#" className="social-link">
-                <FaLinkedin className="social-icon" />
-              </a>
-              <a href="#" className="social-link">
-                <FaPinterest className="social-icon" />
-              </a>
+          <div>
+            <div className="font-bold">Connect with Temu</div>
+            <div className="mt-1 flex gap-4">
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px] -ml-2"
+              >
+                <FaInstagram size={28} />
+              </Link>
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px]"
+              >
+                <FaFacebook size={28} />
+              </Link>
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px]"
+              >
+                <FaXTwitter size={28} />
+              </Link>
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px]"
+              >
+                <FaTiktok size={28} />
+              </Link>
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px]"
+              >
+                <FaYoutube size={28} />
+              </Link>
+              <Link
+                href="/"
+                className="hover:bg-white hover:bg-opacity-15 rounded-full p-[6px]"
+              >
+                <FaPinterest size={28} />
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Security & Payment and Rights Section */}
-      <div className="container mx-auto pt-5">
-        <div className="flex flex-col md:flex-row justify-between text-start text-sm border-b border-gray-700 pb-5">
-          <div className="space-y-2 mr-6">
-            <h4 className="text-white font-semibold text-base md:text-lg">
-              Security certification
-            </h4>
-            <div className="flex items-center space-x-3">
-              <FaCcVisa fontSize={30}/>
-              <FaCcMastercard fontSize={30}/>
-              <FaCcPaypal fontSize={30}/>
-              <FaCcApplePay fontSize={30}/>
-              <FaCcAmazonPay fontSize={30}/>
-              <FaCcDinersClub fontSize={30}/>
-              <FaShieldAlt fontSize={23}/>
-              <FaCheckCircle fontSize={25}/>
-            </div>
-          </div>
-
-          <div className="space-y-2 mt-5 md:mt-0">
-            <h4 className="text-white font-semibold text-base md:text-lg">
-              We accept
-            </h4>
-            <div className="flex space-x-3">
-              <FaCcVisa fontSize={30}/>
-              <FaCcMastercard fontSize={30}/>
-              <SiGooglepay fontSize={30}/>
-              <FaCcAmex fontSize={30}/>
-              <FaCcDiscover fontSize={30}/>
-              <FaCcPaypal fontSize={30}/>
-              <FaCcApplePay fontSize={30}/>
-              <FaCcDinersClub fontSize={30}/>
-              <FaCcJcb fontSize={30}/>
-            </div>
+      {/* Security & Payment */}
+      <div className="flex border-b-[1px] border-gray-700 pb-8">
+        <div className="w-[662px] mr-6 font-bold">
+          <h4 className="">Security certification</h4>
+          <div className="flex mt-3">
+            {SecurityCertificationsFooter.map((element, i) => (
+              <div key={i} className="h-7 mr-2 mb-2">
+                <Image
+                  src={element}
+                  alt="security certifications"
+                  width={100}
+                  height={28}
+                  className="h-full w-auto"
+                />
+              </div>
+            ))}
           </div>
         </div>
-
-        <div className="mt-7 font-semibold text-center text-xs text-[#BCBCBC]">
-          <p>
-            © 2025 WhaleCo Inc.
-            <a href="#" className="underline mx-2 hover:text-white">
-              Terms of use
-            </a>
-            <a href="#" className="underline mx-2 hover:text-white">
-              Privacy policy
-            </a>
-            <a href="#" className="underline mx-2 hover:text-white">
-              Your privacy choices
-            </a>
-            <a href="#" className="underline mx-2 hover:text-white">
-              Ad Choices
-            </a>
-          </p>
+        <div className="w-[662px] mr-6 font-bold">
+          <h4 className="">We accept</h4>
+          <div className="flex mt-3">
+            {PaymentMethodsFooter.map((element, i) => (
+              <div key={i} className="h-7 mr-2 mb-2">
+                <Image
+                  src={element}
+                  alt="security certifications"
+                  width={100}
+                  height={28}
+                  className="h-full w-auto"
+                />
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* Terms and conditions */}
+      <div className="text-xs flex justify-center pt-8 text-gray-400">
+        <p className="flex gap-3">
+          © 2025 WhaleCo Inc.
+          <a href="#" className="underline hover:text-white">
+            Terms of use
+          </a>
+          <a href="#" className="underline hover:text-white">
+            Privacy policy
+          </a>
+          <a href="#" className="underline hover:text-white flex items-center">
+            Your privacy choices <Image alt='toggle' src="/images/footer/toggle.webp" width={25} height={12} className="ml-1 w-6 h-3"/>
+          </a>
+          <a href="#" className="underline hover:text-white">
+            Ad Choices
+          </a>
+        </p>
       </div>
     </footer>
   );
