@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/StarsRating";
 import ProductDescription from "@/app/ui/ProductDescription";
+import { products } from "@/data/LighteningDealProducts";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: number;
@@ -26,7 +28,7 @@ const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
     const targetDate = new Date(targetTime).getTime();
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
-      const timeLeft = targetDate - currentTime; 
+      const timeLeft = targetDate - currentTime;
 
       if (timeLeft <= 0) {
         clearInterval(interval);
@@ -44,7 +46,6 @@ const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
   );
   const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
 
   const targetDate = new Date(targetTime);
   const totalDuration = targetDate.getTime() - new Date().getTime();
@@ -72,16 +73,31 @@ const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
 };
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
 
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
-
+   const [showToolTip, setShowToolTip] = useState<boolean>(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const TimeOutRef = useRef<NodeJS.Timeout | null  >(null)
+  
+    const handleMouseEnter = (event: React.MouseEvent) => {
+      const { clientX , clientY} =  event;
+      setMousePosition({x:clientX , y:clientY})
+  
+  if(TimeOutRef.current){
+    clearTimeout(TimeOutRef.current)
+  }
+  
+      TimeOutRef.current = setTimeout(()=>{
+        setShowToolTip(true)
+      } , 500)
+    } 
+  
+    const handleMouseLeave = () => {
+      if(TimeOutRef.current){ 
+        clearTimeout(TimeOutRef.current)
+      }
+      setShowToolTip(false)
+    }
+  
   const {
     title,
     price,
@@ -100,13 +116,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       : null;
 
   return (
-    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
+    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer"
+    >
       <div>
         <div
           className="group relative overflow-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onMouseMove={handleMouse}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <Image
             src={"/images/productPicture.jpg"}
@@ -125,10 +141,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             </span>
           </div>
         </div>
-        {isHovered && (
+        {showToolTip && (
           <ProductDescription
-          description={product.description}
-          mousePosition={mousePosition}
+            description={product.description}
+            mousePosition={mousePosition}
+            isVisible={showToolTip}
           />
         )}
       </div>
@@ -148,15 +165,16 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           <p className="text-xs text-gray-600">{sold}k+ sold</p>
 
           <div className="flex items-center gap-[1.5px]">
-            {
-            product.discountDaysRemaining == undefined &&  discountPercentage !== null && (
-                <div className=" text-orange-500
+            {product.discountDaysRemaining == undefined &&
+              discountPercentage !== null && (
+                <div
+                  className=" text-orange-500
                 border-orange-500 border-[1px]
-               text-xs font-bold px-1 rounded inline-block">
+               text-xs font-bold px-1 rounded inline-block"
+                >
                   -{discountPercentage}%
                 </div>
-              )
-            }
+              )}
           </div>
         </div>
 
@@ -164,7 +182,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           {offerEndTime && <CountdownTimer targetTime={offerEndTime} />}
         </div>
         <div className="flex items-center gap-1 mt-1">
-          <StarsRating rating={rating}/>
+          <StarsRating rating={rating} />
           <span className="text-xs text-gray-600 ml-1">{reviews} Reviews</span>
         </div>
       </div>
@@ -172,4 +190,18 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
-export default ProductCard;
+const LighteningDealProducts: React.FC = () => {
+  return (
+    <div className="w-full overflow-x-auto scrollbar-hidden">
+      <div className="flex flex-nowrap gap-4">
+        {products.map((product) => (
+          <div className="flex-shrink-0" key={product.id}>
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default LighteningDealProducts;

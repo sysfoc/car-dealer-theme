@@ -1,8 +1,3 @@
-"use client";
-
-import RecommendedProductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
-import { IoIosArrowDown } from "react-icons/io";
-
 interface Product {
   id: number;
   description: string;
@@ -15,8 +10,7 @@ interface Product {
   category: string; // New Category attribute
 }
 
-const Data = () => {
-  const products: Product[] = [
+  export const products: Product[] = [
     {
       id: 1,
       description: "Stylish leather bag perfect for daily use and travel.",
@@ -349,23 +343,3 @@ const Data = () => {
     }
   ];
 
-  return (
-    <div className="w-full">
-      <div className="flex flex-wrap md:justify-start justify-center">
-        {products.map((product) => (
-          <div key={product.id} className="flex-grow min-w-[200px] max-w-[250px] md:mx-0 mx-auto">
-            <RecommendedProductsCard product={product} />
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-5 hover:scale-105 transition-all">
-        <button className="bg-orange-500 text-white px-10 py-4 flex items-center rounded-full">
-          Show More 
-          <IoIosArrowDown className="ml-1 text-sm" />
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default Data;

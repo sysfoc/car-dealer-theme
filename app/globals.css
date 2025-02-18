@@ -138,12 +138,3 @@ html {
 .box-shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }
-
-/* styles.css */
-.social-link {
-  @apply flex items-center justify-center hover:bg-gray-700 p-2 rounded-full transition-opacity;
-}
-
-.social-icon {
-  @apply text-lg sm:text-xl md:text-2xl;
-}

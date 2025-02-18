@@ -1,12 +1,12 @@
-import Index from "../data/LighteningDeals";
 import PromotionalBanner from "@/app/ui/TemuBanners/PromotionalBanner";
 import TemuBanner from "@/app/ui/TemuBanners/TemuBanner";
 import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
 import ClearanceProducts from "@/app/ui/ProductCard/ClearanceProductCard";
 import TemuDeliveryBanner from "@/app/ui/TemuBanners/TemuDeliveryBanner";
 import CategoryList from "@/app/ui/CategoryList";
-import Data from "@/data/Data";
+import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
 import Footer from "@/app/ui/Footer";
+import LighteningDealProducts from "@/app/ui/ProductCard/LighteningProductCard";
 
 export default function Home() {
   return (
@@ -14,12 +14,12 @@ export default function Home() {
       <div className="m-10">
       <TemuBanner/>
       <PromotionalBanner/>
-      <Index/>
+      <LighteningDealProducts/>
       <ClearanceDealBanner/>
       <ClearanceProducts/>
       <TemuDeliveryBanner/>
       <CategoryList/>
-      <Data/>
+      <AllproductsCard/>
       </div>
       <Footer/>
     </div>

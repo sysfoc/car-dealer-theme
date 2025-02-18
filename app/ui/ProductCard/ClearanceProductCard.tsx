@@ -1,18 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/StarsRating";
-import { ClearanceProduct , clearanceProducts } from "@/data/ClearanceProducts";
+import { ClearanceProduct , clearanceProducts } from "@/data/ClearanceProductsData";
 import ProductDescription from "@/app/ui/ProductDescription";
 
 const ClearanceProductCard: React.FC<{ product: ClearanceProduct }> = ({ product }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const TimeOutRef = useRef<NodeJS.Timeout | null  >(null)
 
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
+  const handleMouseEnter = (event: React.MouseEvent) => {
+    const { clientX , clientY} =  event;
+    setMousePosition({x:clientX , y:clientY})
+
+if(TimeOutRef.current){
+  clearTimeout(TimeOutRef.current)
+}
+
+    TimeOutRef.current = setTimeout(()=>{
+      setShowToolTip(true)
+    } , 500)
+  } 
+
+  const handleMouseLeave = () => {
+    if(TimeOutRef.current){ 
+      clearTimeout(TimeOutRef.current)
+    }
+    setShowToolTip(false)
+  }
+
 
   const discountPercentage =
     product.previousPrice && product.previousPrice > product.price
@@ -24,9 +42,8 @@ const ClearanceProductCard: React.FC<{ product: ClearanceProduct }> = ({ product
       <div>
         <div
           className="group relative overflow-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onMouseMove={handleMouse}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <Image
             src={product.image}
@@ -45,10 +62,11 @@ const ClearanceProductCard: React.FC<{ product: ClearanceProduct }> = ({ product
             </div>
           )}
         </div>
-        {isHovered && (
+        {showToolTip && (
           <ProductDescription
           description={product.description}
           mousePosition={mousePosition}
+          isVisible={showToolTip}
           />
         )}
       </div>
