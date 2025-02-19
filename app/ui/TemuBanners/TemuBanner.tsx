@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { MdGppGood } from "react-icons/md";
 import { CiLock, CiDeliveryTruck } from "react-icons/ci";
@@ -8,10 +8,8 @@ import { PiGreaterThanBold } from "react-icons/pi";
 
 const TemuBanner = () => {
   return (
-    <div className="my-7 cursor-pointer rounded-lg overflow-hidden">
-
+    <div className="my-7 pt-5 cursor-pointer rounded-lg overflow-hidden"> 
       <div className="text-white bg-[rgb(9,125,0)] flex flex-col sm:flex-row justify-between items-center py-2 px-4 sm:px-6 rounded-t-lg hover:opacity-95">
-
         <div className="flex gap-1 items-center mb-2 sm:mb-0">
           <MdGppGood className="text-xl" />
           <span className="text-sm font-semibold">Why choose Temu</span>
@@ -39,7 +37,6 @@ const TemuBanner = () => {
           </div>
         </div>
       </div>
-
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[rgb(9,125,0)] py-2 px-4 sm:px-6 border-[1.5px] border-[rgb(9,125,0)] rounded-b-lg hover:opacity-90">
         <div className="flex items-center gap-2">

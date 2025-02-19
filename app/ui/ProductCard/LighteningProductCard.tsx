@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState , useRef } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/StarsRating";
 import ProductDescription from "@/app/ui/ProductDescription";
 import { products } from "@/data/LighteningDealProducts";
-import { useRouter } from "next/navigation";
+import { CountdownTimer } from "@/app/ui/CountdownTimer";
 
 interface Product {
   id: number;
@@ -21,83 +21,35 @@ interface Product {
   discountDaysRemaining: number | undefined;
 }
 
-const CountdownTimer = ({ targetTime }: { targetTime: string }) => {
-  const [timeRemaining, setTimeRemaining] = useState<number>(0);
 
-  useEffect(() => {
-    const targetDate = new Date(targetTime).getTime();
-    const interval = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const timeLeft = targetDate - currentTime;
-
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        setTimeRemaining(0);
-      } else {
-        setTimeRemaining(timeLeft);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [targetTime]);
-
-  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-  const targetDate = new Date(targetTime);
-  const totalDuration = targetDate.getTime() - new Date().getTime();
-  const progress =
-    totalDuration > 0 ? (timeRemaining / totalDuration) * 100 : 0;
-
-  return (
-    <div className="flex items-center justify-start gap-3 w-full">
-      <div className="w-1/2 bg-gray-300 h-1 rounded-full ml-2">
-        <div
-          className="bg-orange-500 h-full rounded-full"
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
-      <div className="flex items-center font-bold text-xs text-gray-600">
-        {timeRemaining > 24 * 60 * 60 * 1000 && (
-          <span>{days.toString().padStart(2, "0")}:</span>
-        )}
-        <span>{hours.toString().padStart(2, "0")}:</span>
-        <span>{minutes.toString().padStart(2, "0")}:</span>
-        <span>{seconds.toString().padStart(2, "0")}</span>
-      </div>
-    </div>
-  );
-};
-
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-
-   const [showToolTip, setShowToolTip] = useState<boolean>(false);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const TimeOutRef = useRef<NodeJS.Timeout | null  >(null)
+export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+  const [showToolTip, setShowToolTip] = useState<boolean>(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const TimeOutRef = useRef<NodeJS.Timeout | null>(null);
+  const handleClick = () => {
+      window.open(`/LighteningDealsList` , '_blank');
+  };
   
-    const handleMouseEnter = (event: React.MouseEvent) => {
-      const { clientX , clientY} =  event;
-      setMousePosition({x:clientX , y:clientY})
-  
-  if(TimeOutRef.current){
-    clearTimeout(TimeOutRef.current)
-  }
-  
-      TimeOutRef.current = setTimeout(()=>{
-        setShowToolTip(true)
-      } , 500)
-    } 
-  
-    const handleMouseLeave = () => {
-      if(TimeOutRef.current){ 
-        clearTimeout(TimeOutRef.current)
-      }
-      setShowToolTip(false)
+  const handleMouseEnter = (event: React.MouseEvent) => {
+    const { clientX, clientY } = event;
+    setMousePosition({ x: clientX, y: clientY });
+
+    if (TimeOutRef.current) {
+      clearTimeout(TimeOutRef.current);
     }
-  
+
+    TimeOutRef.current = setTimeout(() => {
+      setShowToolTip(true);
+    }, 500);
+  };
+
+  const handleMouseLeave = () => {
+    if (TimeOutRef.current) {
+      clearTimeout(TimeOutRef.current);
+    }
+    setShowToolTip(false);
+  };
+
   const {
     title,
     price,
@@ -116,13 +68,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       : null;
 
   return (
-    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer"
-    >
+    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
       <div>
         <div
           className="group relative overflow-hidden"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
         >
           <Image
             src={"/images/productPicture.jpg"}
@@ -150,7 +102,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         )}
       </div>
       <div className="text-center ">
-        <div className="flex items-center gap-[1.5px]">
+        <div className="flex items-center gap-[1px]">
           {product.discountDaysRemaining !== undefined && (
             <p className="text-sm text-orange-500">
               Last {product.discountDaysRemaining} days
@@ -194,7 +146,7 @@ const LighteningDealProducts: React.FC = () => {
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
       <div className="flex flex-nowrap gap-4">
-        {products.map((product) => (
+        {products.slice(-10).map((product) => (
           <div className="flex-shrink-0" key={product.id}>
             <ProductCard product={product} />
           </div>

@@ -4,7 +4,7 @@ import { PiGreaterThanBold } from "react-icons/pi"
 
 const PromotionalBanner = () => {
     return (
-        <div className="my-7 cursor-pointer hover:opacity-95">
+        <div className="my-5 cursor-pointer hover:opacity-95">
       <div className="bg-red-600 text-white py-3 text-center flex items-center justify-center gap-5">
         <div className="flex gap-[1px] items-center">
         <MdOutlineElectricBolt className="text-2xl"/>

@@ -3,13 +3,34 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/StarsRating";
-import { ClearanceProduct , clearanceProducts } from "@/data/ClearanceProductsData";
+import { clearanceProductsData } from "@/data/ClearanceProductsData";
 import ProductDescription from "@/app/ui/ProductDescription";
 
-const ClearanceProductCard: React.FC<{ product: ClearanceProduct }> = ({ product }) => {
+
+export interface ClearanceProducts {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  previousPrice?: number;
+  image: string;
+  rating: number;
+  sold: number;
+  reviews: number;
+  itemsLeft?: string | number;
+  discountDaysRemaining?: number;
+  offerEndTime: string;
+}
+
+
+export const ClearanceProductCard: React.FC<{ product: ClearanceProducts }> = ({ product }) => {
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const TimeOutRef = useRef<NodeJS.Timeout | null  >(null)
+
+  const handleClick = () => {
+    window.open(`/ClearanceDealsList` , '_blank');
+};
 
   const handleMouseEnter = (event: React.MouseEvent) => {
     const { clientX , clientY} =  event;
@@ -38,7 +59,9 @@ if(TimeOutRef.current){
       : null;
 
   return (
-    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer">
+    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer"
+    onClick={handleClick}
+    >
       <div>
         <div
           className="group relative overflow-hidden"
@@ -105,11 +128,11 @@ if(TimeOutRef.current){
 };
 
 
-const ClearanceProducts: React.FC = () => {
+const AllClearanceProducts: React.FC = () => {
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden  mb-4 sm:mb-7">
       <div className="flex flex-nowrap gap-4">
-        {clearanceProducts.map((product) => (
+        {clearanceProductsData.slice(-10).map((product) => (
           <div className="flex-shrink-0" key={product.id}>
             <ClearanceProductCard product={product} />
           </div>
@@ -119,4 +142,4 @@ const ClearanceProducts: React.FC = () => {
   );
 };
 
-export default ClearanceProducts;
+export default AllClearanceProducts;

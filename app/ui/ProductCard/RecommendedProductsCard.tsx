@@ -9,6 +9,7 @@ import StarsRating from "@/app/ui/StarsRating";
 import ProductDescription from "@/app/ui/ProductDescription";
 import { products } from "@/data/AllProductsData";
 import { IoIosArrowDown } from "react-icons/io";
+import { CountdownTimer } from "@/app/ui/CountdownTimer";
 
 interface Product {
   id: number;
@@ -22,10 +23,21 @@ interface Product {
     rating: number;
   }[];
   storeInfo: string[];
+  offerEndTime?: string;
 }
 
-const RecommendedProductsCard: React.FC<{ product: Product }> = ({
+interface RecommendedProductsCardProps {
+  product: Product;
+  showTags?: boolean; // New prop
+  showStoreInfo?: boolean;
+  showOfferEndTime?: boolean; // New prop
+}
+
+const RecommendedProductsCard: React.FC<RecommendedProductsCardProps> = ({
   product,
+  showTags = true, // Default to showing
+  showStoreInfo = true,
+  showOfferEndTime = false,
 }) => {
   const formattedSold =
     product.sold >= 1000
@@ -39,7 +51,7 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({
   const VideoUseRef = useRef<NodeJS.Timeout | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const TimeOutRef = useRef<NodeJS.Timeout | null>(null);
-  const [showText , setShowText] = useState<boolean>(false)
+  const [showText, setShowText] = useState<boolean>(false);
 
   const handleMouseEnter = (event: React.MouseEvent) => {
     const { clientX, clientY } = event;
@@ -210,7 +222,7 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({
           </div>
         </div>
 
-        {product.tags.length > 0 && (
+        {showTags && product.tags.length > 0 && (
           <div className="relative h-6 overflow-hidden text-start">
             {prevTagIndex !== null && (
               <div className="absolute w-full text-xs text-orange-500 animate-slideOutUp">
@@ -232,7 +244,13 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({
           <span className="text-xs text-[#777777] ml-1">{reviewCount}</span>
         </div>
 
-        {storeInfoMessages.length > 0 && (
+        {/* Add Offer End Time component here */}
+        {showOfferEndTime && product.offerEndTime && (
+          <div className="mt-1 p-1 rounded text-center">
+            {<CountdownTimer targetTime={product.offerEndTime} />}
+          </div>
+        )}
+        {showStoreInfo && storeInfoMessages.length > 0 && (
           <div className="relative h-6 overflow-hidden text-start">
             {prevStoreInfoIndex !== null && (
               <div className="absolute w-full text-xs text-black animate-slideOutUp">
@@ -278,7 +296,17 @@ const RecommendedProductsCard: React.FC<{ product: Product }> = ({
   );
 };
 
-const AllproductsCard: React.FC = () => {
+interface AllproductsCardProps {
+  showTags?: boolean;
+  showStoreInfo?: boolean;
+  showOfferEndTime?: boolean;
+}
+
+const AllproductsCard: React.FC<AllproductsCardProps> = ({
+  showTags = false,
+  showStoreInfo = false,
+  showOfferEndTime = false 
+}) => {
   return (
     <div className="w-full">
       <div className="flex flex-wrap md:justify-start justify-center">
@@ -287,7 +315,12 @@ const AllproductsCard: React.FC = () => {
             key={product.id}
             className="flex-grow min-w-[200px] max-w-[250px] md:mx-0 mx-auto"
           >
-            <RecommendedProductsCard product={product} />
+            <RecommendedProductsCard
+              product={product}
+              showTags={showTags}
+              showStoreInfo={showStoreInfo}
+              showOfferEndTime={showOfferEndTime}
+            />
           </div>
         ))}
       </div>
