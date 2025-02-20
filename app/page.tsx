@@ -5,7 +5,6 @@ import ClearanceProducts from "@/app/ui/ProductCard/ClearanceProductCard";
 import TemuDeliveryBanner from "@/app/ui/TemuBanners/TemuDeliveryBanner";
 import CategoryList from "@/app/ui/CategoryList";
 import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
-import Footer from "@/app/ui/Footer";
 import LighteningDealProducts from "@/app/ui/ProductCard/LighteningProductCard";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
       <CategoryList/>
       <AllproductsCard/>
       </div>
-      <Footer/>
     </div>
   );
 }

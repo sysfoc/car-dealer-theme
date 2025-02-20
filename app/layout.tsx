@@ -4,10 +4,11 @@ import "./globals.css";
 import Navbar from "@/app/ui/Navbar/Navbar";
 import { Providers } from "./providers";
 import NavigationMenu from "./ui/NavigationMenu/NavigationMenu";
+import Footer from "./ui/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["100","200","300","400", "500", "600", "700","800","900"],
 });
 
 export const metadata: Metadata = {
@@ -22,8 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
         <body className={`${montserrat.className}  antialiased`}>
+      <Providers>
           <Navbar />
           {/* Margin for navbar as navbar is fixed */}
           <div className="mt-[65px]">
@@ -31,8 +32,9 @@ export default function RootLayout({
             <NavigationMenu />
             {children}
           </div>
-        </body>
+          <Footer/>
       </Providers>
+        </body>
     </html>
   );
 }

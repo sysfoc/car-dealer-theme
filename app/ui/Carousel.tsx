@@ -5,12 +5,11 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { FreeMode, Navigation } from "swiper/modules";
 
-const Carousel = ({ children, className, ...props }: SwiperProps) => {
+const Carousel = ({ children, spaceBetween = "2", ...props }: SwiperProps) => {
     return (
         <Swiper
-  //slidesPerView={2}
   slidesPerView="auto"
-  spaceBetween={16}
+  spaceBetween={spaceBetween}
   freeMode={true}
   navigation={{
     nextEl: ".swiper-button-next",
