@@ -2,22 +2,17 @@ import {
   FaFacebook,
   FaInstagram,
   FaYoutube,
-  FaCcVisa,
-  FaCcMastercard,
-  FaCcPaypal,
-  FaCcApplePay,
   FaPinterest,
-  FaCcDiscover,
-  FaCcAmex,
-  FaCcDinersClub,
-  FaCcJcb,
   FaTiktok,
+  FaHourglassHalf,
 } from "react-icons/fa";
 import { FaTruckFast, FaXTwitter } from "react-icons/fa6";
-import { SiGooglepay } from "react-icons/si";
 import Link from "next/link";
 import { FiTrendingDown } from "react-icons/fi";
 import Image from "next/image";
+import { IoShieldCheckmarkSharp } from "react-icons/io5";
+import { HiTicket } from "react-icons/hi";
+import { TbShoppingBagDiscount } from "react-icons/tb";
 
 const companyInfoFooterLinks = [
   {
@@ -189,27 +184,23 @@ const Footer: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <div className="flex w-[170px]">
-                  <div className="bg-white w-4 h-4 rounded-full p-1 mr-1">
-                    <FiTrendingDown className="text-black w-full h-full font-bold" />
-                  </div>
+                    <IoShieldCheckmarkSharp className="w-4 h-4 mr-1" />
                   Faster and more secu...
                 </div>
                 <div className="h-3 border-r-[1px] mx-3"></div>
                 <div className="flex">
-                  <FaTruckFast className="w-4 h-4 mr-1" />
+                  <FaHourglassHalf className="w-4 h-4 mr-1" />
                   Low cost items alerts
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="flex w-[170px]">
-                  <div className="bg-white w-4 h-4 rounded-full p-1 mr-1">
-                    <FiTrendingDown className="text-black w-full h-full font-bold" />
-                  </div>
+                    <HiTicket className="w-4 h-4 mr-1" />
                   Exclusive offers
                 </div>
                 <div className="h-3 border-r-[1px] mx-3"></div>
                 <div className="flex">
-                  <FaTruckFast className="w-4 h-4 mr-1" />
+                  <TbShoppingBagDiscount className="w-4 h-4 mr-1" />
                   Coupons & offers alerts
                 </div>
               </div>
