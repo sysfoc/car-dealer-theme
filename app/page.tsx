@@ -10,7 +10,7 @@ import LighteningDealProducts from "@/app/ui/ProductCard/LighteningProductCard";
 export default function Home() {
   return (
     <div>
-      <div className="m-10">
+      <div className="my-10">
       <TemuBanner/>
       <PromotionalBanner/>
       <LighteningDealProducts/>

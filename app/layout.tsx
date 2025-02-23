@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/ui/Navbar/Navbar";
 import { Providers } from "./providers";
-import NavigationMenu from "./ui/NavigationMenu/NavigationMenu";
-import Footer from "./ui/Footer";
+import Footer from "./ui/Footer/Footer";
+import NavbarWrapperComponent from "./ui/Navbar/NavbarWrapperComponent";
+import PageContentLayoutWrapper from "./ui/wrappers/PageContentLayoutWrapper";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["100","200","300","400", "500", "600", "700","800","900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -23,18 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body className={`${montserrat.className}  antialiased`}>
-      <Providers>
-          <Navbar />
-          {/* Margin for navbar as navbar is fixed */}
-          <div className="mt-[65px]">
-            <div id="screenTop"></div>
-            <NavigationMenu />
-            {children}
-          </div>
-          <Footer/>
-      </Providers>
-        </body>
+      <body className={`${montserrat.className}  antialiased`}>
+        <Providers>
+          <NavbarWrapperComponent/>
+          <PageContentLayoutWrapper>{children}</PageContentLayoutWrapper>
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }

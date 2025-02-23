@@ -300,9 +300,9 @@ const Footer: React.FC = () => {
                 <Image
                   src={element}
                   alt="security certifications"
-                  width={100}
-                  height={28}
-                  className="h-full w-auto"
+                  height={200}
+                  width={200}
+                  className="h-7 w-auto"
                 />
               </div>
             ))}
@@ -316,9 +316,9 @@ const Footer: React.FC = () => {
                 <Image
                   src={element}
                   alt="security certifications"
-                  width={100}
-                  height={28}
-                  className="h-full w-auto"
+                  width={200}
+                  height={200}
+                  className="h-7 w-auto"
                 />
               </div>
             ))}
@@ -337,7 +337,8 @@ const Footer: React.FC = () => {
             Privacy policy
           </a>
           <a href="#" className="underline hover:text-white flex items-center">
-            Your privacy choices <Image alt='toggle' src="/images/footer/toggle.webp" width={25} height={12} className="ml-1 w-6 h-3"/>
+            Your privacy choices 
+            <Image alt='toggle' src="/images/footer/toggle.webp" width={25} height={12} style={{ width: "auto", height: "auto" }} className="ml-1 w-6 h-3"/>
           </a>
           <a href="#" className="underline hover:text-white">
             Ad Choices

@@ -3,8 +3,8 @@ import Image from "next/image";
 import img from "@/public/Temu_logo.svg";
 import Link from "next/link";
 import Searchbar from "./Searchbar";
-import AccountDropdown from './dropdownButtons/AccountDropDown';
-import CategoryDropDown from './dropdownButtons/categoriesDropdown/CategoryDropDown'
+import AccountDropdown from "./dropdownButtons/AccountDropDown";
+import CategoryDropDown from "./dropdownButtons/categoriesDropdown/CategoryDropDown";
 import { HiThumbUp } from "react-icons/hi";
 import { TbFileStar } from "react-icons/tb";
 import SupportDropDownButton from "./dropdownButtons/SupportDropDownButton";
@@ -24,8 +24,7 @@ const linksToShow = [
     title: "5-Star Rated",
   },
 ];
-const Navbar= () => {
-
+const Navbar = () => {
   const Interactable = useSelector(
     (state: RootState) => state.pageProperties.pageInteractable
   );
@@ -52,11 +51,19 @@ const Navbar= () => {
   }, [isNavbarVisible]);
 
   return (
-    <div className={`fixed  top-0 left-0 ${isNavbarVisible? '-translate-y-0' : '-translate-y-full'}  transition-all duration-300 left-0 w-full ${Interactable?'z-30': 'z-50'}`}>
+    <div
+      className={`fixed  top-0 left-0 ${
+        isNavbarVisible ? "-translate-y-0" : "-translate-y-full"
+      }  transition-all duration-300 left-0 w-full ${
+        Interactable ? "z-30" : "z-50"
+      }`}
+    >
       {/* Page Interactibility */}
       <div
-        className={`bg-black pointer-events-none ${
-          Interactable ? "bg-opacity-0" : "bg-opacity-60"
+        className={`pointer-events-none ${
+          Interactable
+            ? "bg-opacity-0 bg-transparent"
+            : "bg-opacity-60 bg-black"
         } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}
       ></div>
       {/* Navbar */}
@@ -68,10 +75,10 @@ const Navbar= () => {
         </Link>
 
         {/* Links for quick top searches */}
-        <div
+        <nav
           className="
-        flex text-white gap-2 text-xs font-bold
-        "
+          flex text-white gap-2 text-xs font-bold
+          "
         >
           {linksToShow.map((link) => (
             <div key={link.title} className="group relative">
@@ -90,7 +97,7 @@ const Navbar= () => {
               </Link>
             </div>
           ))}
-        </div>
+        </nav>
 
         <div className="flex text-white gap-2 text-xs font-bold">
           {/* New Arrival Link */}
@@ -150,14 +157,13 @@ const Navbar= () => {
           transition-all duration-200 ease-in-out
           "
           ></div>
-          <Link href="/" className="relative z-10 text-white">
+          <Link href="/cart" className="relative z-10 text-white">
             <LuShoppingCart size={25} />
           </Link>
         </div>
       </header>
     </div>
   );
-}
+};
 
 export default Navbar;
-

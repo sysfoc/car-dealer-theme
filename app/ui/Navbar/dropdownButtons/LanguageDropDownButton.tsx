@@ -38,14 +38,10 @@ function LanguageDropDownButton() {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, []);
-
-  // runs everytime dropdown changes
-  useEffect(() => {
     dispatch(
       isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
     );
-  }, [isDropdownOpen]);
+  }, [dispatch, isDropdownOpen]);
 
   function handleClick(): void {
     if (isTouchScreen) {
@@ -68,6 +64,8 @@ function LanguageDropDownButton() {
           setIsDropdownOpen(false);
         }
       }}
+      onFocus={()=>{setIsDropdownOpen(true)}}
+      onBlur={()=>{setIsDropdownOpen(false)}}
       className="relative z-20"
     >
       {/* Dropdown Button */}

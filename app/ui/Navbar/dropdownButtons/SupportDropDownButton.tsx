@@ -47,14 +47,11 @@ const SupportDropDownButton = () => {
     // checking the device
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 1;
     setIsTouchScreen(isTouch);
+  }, []);
 
-    dispatch(
-      isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
-    );
-
+  useEffect(() => {
     // for checking if clicked outside of the page in touch devices
-
-    if (isTouch) {
+    if (isTouchScreen) {
       const handleClickOutside = (event: MouseEvent) => {
         if (ref.current && !ref.current.contains(event?.target as Node)) {
           setIsDropdownOpen(false);
@@ -65,14 +62,13 @@ const SupportDropDownButton = () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, []);
+  }, [isTouchScreen]);
 
-  // runs everytime dropdown changes
   useEffect(() => {
     dispatch(
       isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
     );
-  }, [isDropdownOpen]);
+  }, [isDropdownOpen, dispatch]);
 
   function handleClick(): void {
     if (isTouchScreen) {
@@ -95,6 +91,12 @@ const SupportDropDownButton = () => {
         if (!isTouchScreen) {
           setIsDropdownOpen(false);
         }
+      }}
+      onFocus={() => {
+        setIsDropdownOpen(true);
+      }}
+      onBlur={() => {
+        setIsDropdownOpen(false);
       }}
       className="relative z-20"
     >

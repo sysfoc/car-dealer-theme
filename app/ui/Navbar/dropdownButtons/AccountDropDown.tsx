@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -110,14 +110,12 @@ export default function AccountDropdown() {
     // checking the device
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 1;
     setIsTouchScreen(isTouch);
+  }, []);
 
-    dispatch(
-      isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
-    );
-
+  useEffect(() => {
     // for checking if clicked outside of the page in touch devices
 
-    if (isTouch) {
+    if (isTouchScreen) {
       const handleClickOutside = (event: MouseEvent) => {
         if (ref.current && !ref.current.contains(event?.target as Node)) {
           setIsDropdownOpen(false);
@@ -128,14 +126,14 @@ export default function AccountDropdown() {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, []);
+  }, [isTouchScreen]);
 
   // runs everytime dropdown changes
   useEffect(() => {
     dispatch(
       isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
     );
-  }, [isDropdownOpen]);
+  }, [isDropdownOpen,dispatch]);
 
   function handleClick(): void {
     if (isTouchScreen) {
@@ -203,7 +201,11 @@ export default function AccountDropdown() {
       {/* DropDown When Button is hovered over or button clicked on touch devices*/}
       <div
         className={`
-                ${isDropdownOpen ? "opacity-100 pointer-events-auto scale-y-100 visible" : "opacity-0 pointer-events-none scale-y-[.75] invisible"}
+                ${
+                  isDropdownOpen
+                    ? "opacity-100 pointer-events-auto scale-y-100 visible"
+                    : "opacity-0 pointer-events-none scale-y-[.75] invisible"
+                }
                 absolute 
                 origin-top
                 right-1/2 translate-x-1/2 flex flex-col items-center transition-all duration-300 ease-out

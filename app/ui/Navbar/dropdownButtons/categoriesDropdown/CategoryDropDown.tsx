@@ -8,7 +8,7 @@ import { categoriesToShow } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IoIosArrowUp } from "react-icons/io";
-import CategoryItems from '@/app/ui/Navbar/dropdownButtons/categoriesDropdown/categoryItems/CategoryItems'
+import CategoryItems from "@/app/ui/Navbar/dropdownButtons/categoriesDropdown/categoryItems/CategoryItems";
 
 const SupportDropDownButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -23,14 +23,11 @@ const SupportDropDownButton = () => {
     // checking the device
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 1;
     setIsTouchScreen(isTouch);
-
-    dispatch(
-      isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
-    );
-
+  }, []);
+  useEffect(() => {
     // for checking if clicked outside of the page in touch devices
 
-    if (isTouch) {
+    if (isTouchScreen) {
       const handleClickOutside = (event: MouseEvent) => {
         if (ref.current && !ref.current.contains(event?.target as Node)) {
           setIsDropdownOpen(false);
@@ -41,14 +38,12 @@ const SupportDropDownButton = () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, []);
-
-  // runs everytime dropdown changes
+  }, [isTouchScreen]);
   useEffect(() => {
     dispatch(
       isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
     );
-  }, [isDropdownOpen]);
+  }, [dispatch, isDropdownOpen]);
 
   function handleClick(): void {
     if (isTouchScreen) {
@@ -59,12 +54,10 @@ const SupportDropDownButton = () => {
     }
   }
   function handleCategoryClick(category: string): void {
-    if(isTouchScreen)
-    {
+    if (isTouchScreen) {
       setSelectedCategory(category);
-    }
-    else{
-      window.location.href = '/categories/'+category;
+    } else {
+      window.location.href = "/categories/" + category;
     }
   }
 
@@ -80,6 +73,12 @@ const SupportDropDownButton = () => {
         if (!isTouchScreen) {
           setIsDropdownOpen(false);
         }
+      }}
+      onFocus={() => {
+        setIsDropdownOpen(true);
+      }}
+      onBlur={() => {
+        setIsDropdownOpen(false);
       }}
       className="relative z-20"
     >
@@ -142,7 +141,12 @@ const SupportDropDownButton = () => {
                   className={`${
                     selectedCategory === ele.title ? "bg-gray-300" : ""
                   } cursor-pointer`}
-                  onClick={()=>{handleCategoryClick(ele.title)}}
+                  onClick={() => {
+                    handleCategoryClick(ele.title);
+                  }}
+                  onFocus={() => {
+                    setSelectedCategory(ele.title);
+                  }}
                 >
                   <Link
                     href={ele.title}
