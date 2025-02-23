@@ -5,7 +5,7 @@ import ClearanceProducts from "@/app/ui/ProductCard/ClearanceProductCard";
 import TemuDeliveryBanner from "@/app/ui/TemuBanners/TemuDeliveryBanner";
 import CategoryList from "@/app/ui/CategoryList";
 import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
-import LighteningDealProducts from "@/app/ui/ProductCard/LighteningProductCard";
+import LighteningDealProducts from "@/app/ui/ProductCard/LightningProductCard";
 
 export default function Home() {
   return (

@@ -20,14 +20,23 @@ interface Product {
   itemsLeft?: string | number | undefined;
   discountDaysRemaining: number | undefined;
 }
+ interface ProductCardProps {
+  product: Product;
+  navigateToIndividual?: boolean;
+}
 
-
-export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToIndividual = false  }) => {
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const TimeOutRef = useRef<NodeJS.Timeout | null>(null);
   const handleClick = () => {
-      window.open(`/LighteningDealsList` , '_blank');
+    if (navigateToIndividual) {
+      // Navigate to the individual product page
+      window.open(`/LightningDealsList/${product.id}`, '_blank');
+    } else {
+      // Navigate to the LightningDealsList page
+      window.open(`/LightningDealsList`, '_blank');
+    }
   };
   
   const handleMouseEnter = (event: React.MouseEvent) => {
