@@ -17,7 +17,7 @@ export default function Home() {
         <ClearanceProducts />
         <TemuDeliveryBanner />
         <CategoryList />
-        <ProductsSectionGrid />
+        <ProductsSectionGrid columns={5}/>
       </main>
   );
 }

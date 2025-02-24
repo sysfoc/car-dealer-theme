@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaTruck } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
+import ProductsSectionGrid from "../ProductCard/ProductsSectionGrid";
 
 const CartItemsSection = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -139,7 +140,9 @@ const CartItemsSection = () => {
         </div>
       </div>
       {/* Explore Products */}
-      <div className="h-[2000px] bg-purple-200 w-full"></div>
+      <div className="w-full">
+        <ProductsSectionGrid columns={4}/>
+      </div>
     </div>
   );
 };

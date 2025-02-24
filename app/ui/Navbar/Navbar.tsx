@@ -52,11 +52,13 @@ const Navbar = () => {
 
   return (
     <div
-      className={`absolute w-full  top-0 left-0 min-w-[1160px] ${
+      className={`absolute w-full  top-0 left-0 min-w-[1160px] z-50 ${
         isNavbarVisible ? "-translate-y-0" : "-translate-y-full"
-      }  transition-all duration-300 left-0 w-full ${
+      }  transition-all duration-300 left-0 w-full 
+      ${
         Interactable ? "z-30" : "z-50"
-      }`}
+      }
+      `}
     >
       {/* Page Interactibility */}
       <div
@@ -64,10 +66,10 @@ const Navbar = () => {
           Interactable
             ? "bg-opacity-0 bg-transparent"
             : "bg-opacity-60 bg-black"
-        } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-20`}
+        } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-0`}
       ></div>
       {/* Navbar */}
-      <header className="h-[65px] border-b-[1px] border-gray-300 z-40 bg-[#6dade5] w-full flex">
+      <header className="h-[65px] border-b-[1px] border-gray-300 relative z-40 bg-[#6dade5] w-full flex">
         <div className="flex max-w-[1860px] mx-auto w-fit py-1 px-10 items-center gap-2 relative">
           {/* HomePage Link logo */}
 

@@ -6,20 +6,22 @@ interface ProductsSectionGridProps {
     showTags?: boolean;
     showStoreInfo?: boolean;
     showOfferEndTime?: boolean;
+    columns: number;
   }
   
   const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
     showTags = false,
     showStoreInfo = false,
-    showOfferEndTime = false 
+    showOfferEndTime = false,
+    columns
   }) => {
     return (
       <div className="w-full">
-        <div className="grid grid-cols-5">
+        <div className={`grid grid-cols-${columns} gap-5`}>
           {products.map((product) => (
             <div
               key={product.id}
-              className="flex-grow min-w-[200px] max-w-[250px] md:mx-0 mx-auto bg-red-400 gap-4"
+              className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
             >
               <ProductsCard
                 product={product}

@@ -161,7 +161,7 @@ export default function AccountDropdown() {
         <div
           className={` 
             ${isDropdownOpen ? "scale-100" : "scale-0"}
-            bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full cursor-pointer
+            bg-blue-500 scale-0 absolute inset-0 rounded-full cursor-pointer
             transition-all duration-200 ease-in-out
             `}
         ></div>

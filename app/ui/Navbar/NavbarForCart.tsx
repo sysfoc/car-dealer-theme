@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 const NavbarForCart = () => {
   const isPageInteractable = useSelector((state : AppRootState) => state.pageProperties.pageInteractable)
   return (
-    <header className={`${isPageInteractable?"z-40": "z-20"} w-full`}>
-      <div className="h-[65px] bg-white w-full border-b-[1px] border-gray-300 min-w-[1150px] flex items-center px-10 py-1 gap-2 relative">
+    <header className={`flex bg-white border-b-[1px] border-gray-300 w-full ${isPageInteractable?"z-40": "z-20"} w-full`}>
+      <div className="h-[65px] mx-auto max-w-[1460px] w-full min-w-[1150px] flex items-center px-10 py-1 gap-2 relative">
         <Link href="/">
           <Image
             height={48}
