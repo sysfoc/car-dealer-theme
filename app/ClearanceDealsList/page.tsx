@@ -10,8 +10,8 @@ import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
 import { clearanceProductsData } from "@/data/ClearanceProductsData";
 
 export default function ClearanceDealsList() {
-  const [swiper, setSwiper] = useState<any>(null);
-  const [isBeginning, setIsBeginning] = useState(true);
+  const [isBeginning, setIsBeginning] = useState<boolean>(true);
+
   return (
     <div className="mx-10 py-5">
       <div className="flex items-center gap-1">
@@ -27,23 +27,17 @@ export default function ClearanceDealsList() {
       <div className="w-full overflow-x-auto scrollbar-hidden">
         <div className="flex flex-nowrap gap-5">
           {clearanceProductsData.map((product) => (
-             <div className="flex-shrink-0" key={product.id}>
-             <ClearanceProductCard product={product}/>
-           </div>
+            <div className="flex-shrink-0" key={product.id}>
+              <ClearanceProductCard product={product} />
+            </div>
           ))}
         </div>
       </div>
 
       <div className="mt-16">
         <Carousel
-          onSwiper={(swiper) => {
-            setSwiper(swiper);
-            setIsBeginning(swiper.isBeginning);
-          }}
-          onSlideChange={(swiper) => {
-            setIsBeginning(swiper.isBeginning);
-          }}
-          className="swiper-container"
+          onSwiper={(swiper) => setIsBeginning(swiper.isBeginning)}
+          onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
         >
           {categoriesToShow.map((category) => (
             <SwiperSlide key={category.title} className="max-w-36">
@@ -52,7 +46,7 @@ export default function ClearanceDealsList() {
                   <Image
                     src={category.image}
                     alt={category.title}
-                    layout="fill"
+                    fill
                     objectFit="cover"
                     className="rounded-full cursor-pointer"
                   />
@@ -64,6 +58,7 @@ export default function ClearanceDealsList() {
             </SwiperSlide>
           ))}
         </Carousel>
+        {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
       </div>
       <AllproductsCard
         showTags={false}

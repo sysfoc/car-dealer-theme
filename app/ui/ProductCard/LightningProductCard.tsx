@@ -62,7 +62,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToInd
   const {
     title,
     price,
-    description,
     previousPrice,
     rating,
     sold,

@@ -16,7 +16,8 @@ const Carousel = ({ children, spaceBetween = "2", ...props }: SwiperProps) => {
     prevEl: ".swiper-button-prev",
   }}
   modules={[FreeMode, Navigation]}
-  className="swiper-container w-full max-w-[100vw] px-4 py-3 rounded-xl relative"
+  //yahan sy swiper container remove kiya
+  className=" w-full max-w-[100vw] px-4 py-3 rounded-xl relative"
   watchOverflow={true}
   observer={true}
   observeParents={true}

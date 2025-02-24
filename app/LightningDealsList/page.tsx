@@ -10,8 +10,7 @@ import { products } from "@/data/LighteningDealProducts";
 import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
 
 export default function LighteningDealsList() {
-  const [swiper, setSwiper] = useState<any>(null);
-  const [isBeginning, setIsBeginning] = useState(true);
+  const [isBeginning, setIsBeginning] = useState<boolean>(true);
 
   return (
     <div className="mx-10 py-5">
@@ -41,14 +40,8 @@ export default function LighteningDealsList() {
 
       <div className="mt-16">
         <Carousel
-          onSwiper={(swiper) => {
-            setSwiper(swiper);
-            setIsBeginning(swiper.isBeginning);
-          }}
-          onSlideChange={(swiper) => {
-            setIsBeginning(swiper.isBeginning);
-          }}
-          className="swiper-container"
+          onSwiper={(swiper) => setIsBeginning(swiper.isBeginning)}
+          onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
         >
           {categoriesToShow.map((category) => (
             <SwiperSlide key={category.title} className="max-w-36">
@@ -69,12 +62,9 @@ export default function LighteningDealsList() {
             </SwiperSlide>
           ))}
         </Carousel>
+        {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
       </div>
-      <AllproductsCard
-        showTags={false}
-        showStoreInfo={false}
-        showOfferEndTime={true}
-      />
+      <AllproductsCard showTags={false} showStoreInfo={false} showOfferEndTime={true} />
     </div>
   );
 }

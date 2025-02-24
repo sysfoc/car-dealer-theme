@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaEye, FaPlay } from "react-icons/fa";
@@ -28,14 +27,14 @@ interface Product {
 
 interface RecommendedProductsCardProps {
   product: Product;
-  showTags?: boolean; // New prop
+  showTags?: boolean; 
   showStoreInfo?: boolean;
-  showOfferEndTime?: boolean; // New prop
+  showOfferEndTime?: boolean;
 }
 
 const RecommendedProductsCard: React.FC<RecommendedProductsCardProps> = ({
   product,
-  showTags = true, // Default to showing
+  showTags = true,
   showStoreInfo = true,
   showOfferEndTime = false,
 }) => {

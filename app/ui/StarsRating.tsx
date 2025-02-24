@@ -7,7 +7,7 @@ interface StarRatingProps {
 
 const StarsRating: React.FC<StarRatingProps> = ({ rating }) => {
   const generateStars = () => {
-    let stars = [];
+    const stars = [];
     for (let i = 0; i < 5; i++) {
       if (i < Math.floor(rating)) {
         stars.push(<FaStar key={i} className="text-black text-sm" />);

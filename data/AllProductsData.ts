@@ -26,7 +26,7 @@ export const products: Product[] = [
       "Award-winning Design",
     ],
     category: "Accessories",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-28T00:00:00",
   },
   {
     id: 2,
@@ -42,7 +42,7 @@ export const products: Product[] = [
       "Unmatched Customer Service",
     ],
     category: "Electronics",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 3,
@@ -58,7 +58,7 @@ export const products: Product[] = [
       "Award-Winning Service",
     ],
     category: "Wearables",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 4,
@@ -75,7 +75,7 @@ export const products: Product[] = [
     reviews: [{ count: 4300, rating: 4.9 }],
     storeInfo: ["Elegant Designs", "Crafted with Care", "Timeless Fashion"],
     category: "Footwear",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 5,
@@ -91,7 +91,7 @@ export const products: Product[] = [
       "Trusted by Professionals",
     ],
     category: "Photography",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 6,
@@ -112,7 +112,7 @@ export const products: Product[] = [
       "Workplace Wellness Experts",
     ],
     category: "Accessories",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 7,
@@ -128,7 +128,7 @@ export const products: Product[] = [
       "Cutting-edge ANC Technology",
     ],
     category: "Audio",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 8,
@@ -145,7 +145,7 @@ export const products: Product[] = [
       "Life-saving Features",
     ],
     category: "Wearables",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 9,
@@ -166,7 +166,7 @@ export const products: Product[] = [
       "Premium Audio Quality",
     ],
     category: "Audio",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 10,
@@ -187,7 +187,7 @@ export const products: Product[] = [
       "Immersive Entertainment",
     ],
     category: "Electronics",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 11,
@@ -200,7 +200,7 @@ export const products: Product[] = [
     reviews: [{ count: 600, rating: 4.4 }],
     storeInfo: ["Sky High Adventures", "Precision Flight", "Aerial Mastery"],
     category: "Jewelry & Accessories",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 12,
@@ -216,7 +216,7 @@ export const products: Product[] = [
       "Innovation in Automation",
     ],
     category: "Home Appliances",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 13,
@@ -238,7 +238,7 @@ export const products: Product[] = [
       "Ultimate Comfort",
     ],
     category: "Personal Care",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 14,
@@ -250,7 +250,7 @@ export const products: Product[] = [
     reviews: [{ count: 1500, rating: 4.7 }],
     storeInfo: ["Charge Ahead", "Seamless Energy", "Innovative Connectivity"],
     category: "Electronics",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 15,
@@ -266,7 +266,7 @@ export const products: Product[] = [
       "State-of-the-Art Sound",
     ],
     category: "Personal Care",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 16,
@@ -288,7 +288,7 @@ export const products: Product[] = [
       "Inspiring Innovation",
     ],
     category: "Footwear",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 17,
@@ -309,7 +309,7 @@ export const products: Product[] = [
       "Unmatched Portability",
     ],
     category: "Electronics",
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-03-24T00:00:00",
   },
   {
     id: 18,
