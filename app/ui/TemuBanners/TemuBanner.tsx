@@ -43,7 +43,7 @@ const TemuBanner = () => {
           <FaBell className="flex-shrink-0" />
           <span className="text-xs sm:text-sm font-semibold">
             Security reminder: Please be wary of scam messages and links. Temu
-            won&apos;t ask for extra fees via SMS or email.
+            won{"'"}t ask for extra fees via SMS or email.
           </span>
         </div>
         <div className="flex gap-2 items-center sm:ml-4">

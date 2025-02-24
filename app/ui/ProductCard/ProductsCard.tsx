@@ -4,11 +4,9 @@ import Image from "next/image";
 import { FaEye, FaPlay } from "react-icons/fa";
 import { BiCartAdd } from "react-icons/bi";
 import { FaFire } from "react-icons/fa";
-import StarsRating from "@/app/ui/StarsRating";
-import ProductDescription from "@/app/ui/ProductDescription";
-import { products } from "@/data/AllProductsData";
-import { IoIosArrowDown } from "react-icons/io";
-import { CountdownTimer } from "@/app/ui/CountdownTimer";
+import StarsRating from "@/app/ui/ProductCard/StarsRating";
+import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
+import { CountdownTimer } from "@/app/ui/ProductCard/CountdownTimer";
 
 interface Product {
   id: number;
@@ -25,14 +23,14 @@ interface Product {
   offerEndTime?: string;
 }
 
-interface RecommendedProductsCardProps {
+interface ProductsCardProps {
   product: Product;
   showTags?: boolean; 
   showStoreInfo?: boolean;
   showOfferEndTime?: boolean;
 }
 
-const RecommendedProductsCard: React.FC<RecommendedProductsCardProps> = ({
+const ProductsCard: React.FC<ProductsCardProps> = ({
   product,
   showTags = true,
   showStoreInfo = true,
@@ -147,7 +145,7 @@ const RecommendedProductsCard: React.FC<RecommendedProductsCardProps> = ({
 
   return (
     <div
-      className="min-w-[150px] max-w-[220px] hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer"
+      className="min-w-[150px] w-full hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -295,42 +293,4 @@ const RecommendedProductsCard: React.FC<RecommendedProductsCardProps> = ({
   );
 };
 
-interface AllproductsCardProps {
-  showTags?: boolean;
-  showStoreInfo?: boolean;
-  showOfferEndTime?: boolean;
-}
-
-const AllproductsCard: React.FC<AllproductsCardProps> = ({
-  showTags = false,
-  showStoreInfo = false,
-  showOfferEndTime = false 
-}) => {
-  return (
-    <div className="w-full">
-      <div className="flex flex-wrap md:justify-start justify-center">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="flex-grow min-w-[200px] max-w-[250px] md:mx-0 mx-auto"
-          >
-            <RecommendedProductsCard
-              product={product}
-              showTags={showTags}
-              showStoreInfo={showStoreInfo}
-              showOfferEndTime={showOfferEndTime}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-5 hover:scale-105 transition-all">
-        <button className="bg-orange-500 text-white px-10 py-4 flex items-center rounded-full">
-          Show More
-          <IoIosArrowDown className="ml-1 text-sm" />
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default AllproductsCard;
+export default ProductsCard;

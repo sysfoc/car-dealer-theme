@@ -2,9 +2,9 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import StarsRating from "@/app/ui/StarsRating";
+import StarsRating from "@/app/ui/ProductCard/StarsRating";
 import { clearanceProductsData } from "@/data/ClearanceProductsData";
-import ProductDescription from "@/app/ui/ProductDescription";
+import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
 
 
 export interface ClearanceProducts {
@@ -59,7 +59,7 @@ if(TimeOutRef.current){
       : null;
 
   return (
-    <div className="w-[185px] h-[270px] md:w-[223px] md:h-[300px] shadow-lg flex flex-col items-center font-sans cursor-pointer"
+    <div className="min-w-[185px] min-h-[270px] w-full h-full shadow-lg flex flex-col items-center font-sans cursor-pointer"
     onClick={handleClick}
     >
       <div>
@@ -130,14 +130,12 @@ if(TimeOutRef.current){
 
 const AllClearanceProducts: React.FC = () => {
   return (
-    <div className="w-full overflow-x-auto scrollbar-hidden  mb-4 sm:mb-7">
-      <div className="flex flex-nowrap gap-4">
+    <div className="w-full overflow-x-auto grid grid-cols-5 gap-5 scrollbar-hidden mb-4 justify-center">
         {clearanceProductsData.slice(-10).map((product) => (
           <div className="flex-shrink-0" key={product.id}>
             <ClearanceProductCard product={product} />
           </div>
         ))}
-      </div>
     </div>
   );
 };

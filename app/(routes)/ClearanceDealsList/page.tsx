@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import { PiGreaterThan } from "react-icons/pi";
-import PromotionalBanner from "@/app/ui/TemuBanners/PromotionalBanner";
+import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
+import { ClearanceProductCard } from "@/app/ui/ProductCard/ClearanceProductCard";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import { useState } from "react";
 import { categoriesToShow } from "@/data/categories";
-import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
-import { products } from "@/data/LighteningDealProducts";
-import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
+import AllproductsCard from "@/app/ui/ProductCard/ProductsCard";
+import { clearanceProductsData } from "@/data/ClearanceProductsData";
 
-export default function LighteningDealsList() {
+export default function ClearanceDealsList() {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
 
   return (
@@ -17,22 +17,18 @@ export default function LighteningDealsList() {
       <div className="flex items-center gap-1">
         <span className="opacity-60">Home</span>
         <PiGreaterThan className="opacity-60" fontSize={12} />
-        <span>Lightning deals</span>
+        <span>Clearance deals</span>
       </div>
-      <PromotionalBanner />
+      <ClearanceDealBanner />
       <div className="flex gap-2 pb-4 text-xl">
         <span className="text-black font-bold">Exclusive Offer</span>
         <span className="text-orange-500 font-bold">All under Rs.299</span>
       </div>
       <div className="w-full overflow-x-auto scrollbar-hidden">
         <div className="flex flex-nowrap gap-5">
-          {products.map((product) => (
-            <div
-              className="flex-shrink-0"
-              key={product.id}
-              onClick={() => window.open(`/LightningDealsList/${product.id}`, "_blank")}
-            >
-              <ProductCard product={product} navigateToIndividual={true} />
+          {clearanceProductsData.map((product) => (
+            <div className="flex-shrink-0" key={product.id}>
+              <ClearanceProductCard product={product} />
             </div>
           ))}
         </div>
@@ -50,7 +46,7 @@ export default function LighteningDealsList() {
                   <Image
                     src={category.image}
                     alt={category.title}
-                    layout="fill"
+                    fill
                     objectFit="cover"
                     className="rounded-full cursor-pointer"
                   />
@@ -64,7 +60,11 @@ export default function LighteningDealsList() {
         </Carousel>
         {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
       </div>
-      <AllproductsCard showTags={false} showStoreInfo={false} showOfferEndTime={true} />
+      <AllproductsCard
+        showTags={false}
+        showStoreInfo={false}
+        showOfferEndTime={true}
+      />
     </div>
   );
 }

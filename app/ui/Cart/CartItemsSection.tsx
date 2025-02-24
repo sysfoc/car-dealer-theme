@@ -28,7 +28,7 @@ const CartItemsSection = () => {
     <div className="flex flex-col w-[65%] min-w-[658px] ">
       <div className="h-fit relative">
         {/* Sticky Element */}
-        <div className="sticky top-0 left-0 z-50 bg-white">
+        <div className="sticky top-0 left-0 z-10 bg-white">
           {/* Free Shipping ad */}
           <div aria-label="Free Shipping ad">
             <div className="pt-3 pb-1">

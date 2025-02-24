@@ -14,19 +14,15 @@ import { FaStore } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   makePageInteractable,
   makePageUnInteractable,
-} from "@/store/slices/pageProperties";
+} from "@/store/slices/pagePropertiesSlice";
 import { PiUserSwitch } from "react-icons/pi";
 import { BsBoxSeam } from "react-icons/bs";
+import { AppRootState } from "@/store";
 const unknownUserImage = "/images/unknownProfile.jpg";
-
-const currentUser: { name: string; profilePic?: string } = {
-  name: "Rehan Haider",
-  profilePic: "/images/dummyProfilePic.jpg",
-};
 
 const linksToShow = [
   {
@@ -104,6 +100,7 @@ export default function AccountDropdown() {
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
+  const currentUser = useSelector((state:AppRootState)=>state.user)
 
   // only runs when page loads for the first time
   useEffect(() => {
@@ -140,7 +137,7 @@ export default function AccountDropdown() {
       setIsDropdownOpen((prev) => !prev);
     } else {
       // link on button click for non touch devices
-      window.location.href = "/Support";
+      window.location.href = "/dashboard/account";
     }
   }
 
@@ -176,8 +173,8 @@ export default function AccountDropdown() {
           <div className=" w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
             <Image
               src={
-                currentUser.profilePic
-                  ? currentUser.profilePic
+                currentUser.profilePicture
+                  ? currentUser.profilePicture
                   : unknownUserImage
               }
               alt="Account picture"
@@ -229,8 +226,8 @@ export default function AccountDropdown() {
                 <div className="h-9 w-9">
                   <Image
                     src={
-                      currentUser.profilePic
-                        ? currentUser.profilePic
+                      currentUser.profilePicture
+                        ? currentUser.profilePicture
                         : unknownUserImage
                     }
                     alt="profile picture"

@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import {
   makePageInteractable,
   makePageUnInteractable,
-} from "@/store/slices/pageProperties";
+} from "@/store/slices/pagePropertiesSlice";
 
 function LanguageDropDownButton() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

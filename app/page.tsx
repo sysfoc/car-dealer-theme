@@ -4,22 +4,20 @@ import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
 import ClearanceProducts from "@/app/ui/ProductCard/ClearanceProductCard";
 import TemuDeliveryBanner from "@/app/ui/TemuBanners/TemuDeliveryBanner";
 import CategoryList from "@/app/ui/CategoryList";
-import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
 import LighteningDealProducts from "@/app/ui/ProductCard/LightningProductCard";
+import ProductsSectionGrid from "./ui/ProductCard/ProductsSectionGrid";
 
 export default function Home() {
   return (
-    <div>
-      <div className="my-10">
-      <TemuBanner/>
-      <PromotionalBanner/>
-      <LighteningDealProducts/>
-      <ClearanceDealBanner/>
-      <ClearanceProducts/>
-      <TemuDeliveryBanner/>
-      <CategoryList/>
-      <AllproductsCard/>
-      </div>
-    </div>
+      <main className="my-10">
+        <TemuBanner />
+        <PromotionalBanner />
+        <LighteningDealProducts />
+        <ClearanceDealBanner />
+        <ClearanceProducts />
+        <TemuDeliveryBanner />
+        <CategoryList />
+        <ProductsSectionGrid />
+      </main>
   );
 }
