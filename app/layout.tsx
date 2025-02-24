@@ -25,9 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.className}  antialiased`}>
         <Providers>
-          <NavbarWrapperComponent/>
-          <PageContentLayoutWrapper>{children}</PageContentLayoutWrapper>
-          <Footer />
+          <div className="min-w-[1160px]">
+            <NavbarWrapperComponent />
+            <div className="max-w-[1460px] mx-auto">
+              <PageContentLayoutWrapper>{children}</PageContentLayoutWrapper>
+            </div>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   makePageInteractable,
   makePageUnInteractable,
-} from "@/store/slices/pageProperties";
+} from "@/store/slices/pagePropertiesSlice";
 import { categoriesToShow } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";

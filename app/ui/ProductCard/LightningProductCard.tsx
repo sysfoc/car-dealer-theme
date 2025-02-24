@@ -1,10 +1,10 @@
 "use client";
 import React, { useState , useRef } from "react";
 import Image from "next/image";
-import StarsRating from "@/app/ui/StarsRating";
-import ProductDescription from "@/app/ui/ProductDescription";
+import StarsRating from "@/app/ui/ProductCard/StarsRating";
+import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
 import { products } from "@/data/LighteningDealProducts";
-import { CountdownTimer } from "@/app/ui/CountdownTimer";
+import { CountdownTimer } from "@/app/ui/ProductCard/CountdownTimer";
 
 interface Product {
   id: number;
