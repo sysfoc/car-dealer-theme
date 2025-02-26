@@ -5,7 +5,7 @@ import PromotionalBanner from "@/app/ui/TemuBanners/PromotionalBanner";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import { useState } from "react";
 import { categoriesToShow } from "@/data/categories";
-import AllproductsCard from "@/app/ui/ProductCard/ProductsCard";
+import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 import { products } from "@/data/LighteningDealProducts";
 import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
 
@@ -30,7 +30,9 @@ export default function LighteningDealsList() {
             <div
               className="flex-shrink-0"
               key={product.id}
-              onClick={() => window.open(`/LightningDealsList/${product.id}`, "_blank")}
+              onClick={() =>
+                window.open(`/LightningDealsList/${product.id}`, "_blank")
+              }
             >
               <ProductCard product={product} navigateToIndividual={true} />
             </div>
@@ -62,9 +64,14 @@ export default function LighteningDealsList() {
             </SwiperSlide>
           ))}
         </Carousel>
-        {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
+        {isBeginning && <div>{isBeginning}</div>}
       </div>
-      <AllproductsCard showTags={false} showStoreInfo={false} showOfferEndTime={true} />
+      <ProductsSectionGrid
+      columns={4}
+        showTags={false}
+        showStoreInfo={false}
+        showOfferEndTime={true}
+      />
     </div>
   );
 }
