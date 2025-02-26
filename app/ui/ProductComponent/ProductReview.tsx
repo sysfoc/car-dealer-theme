@@ -1,6 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { reviews } from "@/data/Reviews";
+import Image from "next/image";
 
 export default function ProductReview() {
   return (
@@ -19,8 +20,8 @@ export default function ProductReview() {
           <div key={review.id} className="pb-4">
             <div className="flex items-center justify-between">
               <div className="text-gray-800 font-semibold flex items-center gap-2">
-                <img src={review.image} alt="avatar" className="w-8 h-8 rounded-full" />
-                {review.name} <span className="text-sm text-gray-500">{review.date}</span>
+                <Image src={review.image} alt="avatar" className="w-8 h-8 rounded-full" />
+                {review.name} <span className="text-sm text-gray-500">{review.reviewDate}</span>
               </div>
             </div>
             <div className="flex items-center gap-1 mt-1">
