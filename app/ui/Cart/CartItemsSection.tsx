@@ -140,9 +140,7 @@ const CartItemsSection = () => {
         </div>
       </div>
       {/* Explore Products */}
-      <div className="w-full">
-        <ProductsSectionGrid columns={4}/>
-      </div>
+      <ProductsSectionGrid columns={4} />
     </div>
   );
 };

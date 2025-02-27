@@ -145,7 +145,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({
 
   return (
     <div
-      className="min-w-[150px] w-full hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer"
+      className="min-w-[150px] w-full max-w-[250px] hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.2)] font-sans cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

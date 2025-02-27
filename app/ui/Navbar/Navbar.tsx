@@ -1,66 +1,35 @@
-"use client";
-import Image from "next/image";
-import img from "@/public/Temu_logo.svg";
 import Link from "next/link";
-import Searchbar from "./Searchbar";
+import { LuShoppingCart } from "react-icons/lu";
+import LanguageDropDownButton from "./dropdownButtons/LanguageDropDownButton";
+import SupportDropDownButton from "./dropdownButtons/SupportDropDownButton";
 import AccountDropdown from "./dropdownButtons/AccountDropDown";
 import CategoryDropDown from "./dropdownButtons/categoriesDropdown/CategoryDropDown";
+import Searchbar from "./Searchbar";
+import Image from "next/image";
+import img from "@/public/Temu_logo.svg";
 import { HiThumbUp } from "react-icons/hi";
 import { TbFileStar } from "react-icons/tb";
-import SupportDropDownButton from "./dropdownButtons/SupportDropDownButton";
-import LanguageDropDownButton from "./dropdownButtons/LanguageDropDownButton";
-import { LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { AppRootState } from "@/store";
-import { useEffect, useRef, useState } from "react";
 
 const linksToShow = [
-  {
-    icon: HiThumbUp,
-    title: "Best Sellers",
-  },
-  {
-    icon: TbFileStar,
-    title: "5-Star Rated",
-  },
-];
+    {
+      icon: HiThumbUp,
+      title: "Best Sellers",
+    },
+    {
+      icon: TbFileStar,
+      title: "5-Star Rated",
+    },
+  ];
+
 const Navbar = () => {
-  const Interactable = useSelector(
-    (state: AppRootState) => state.pageProperties.pageInteractable
-  );
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY < 100) {
-        setIsNavbarVisible(true);
-      } else if (currentScrollY > lastScrollY.current) {
-        setIsNavbarVisible(false);
-      } else {
-        setIsNavbarVisible(true);
-      }
-      lastScrollY.current = currentScrollY;
-    };
-
-    document.addEventListener("scroll", handleScroll);
-
-    return () => document.removeEventListener("scroll", handleScroll);
-  }, [isNavbarVisible]);
-
+    const Interactable = useSelector(
+        (state: AppRootState) => state.pageProperties.pageInteractable
+      );
   return (
-    <div
-      className={`absolute w-full  top-0 left-0 min-w-[1160px] z-50 ${
-        isNavbarVisible ? "-translate-y-0" : "-translate-y-full"
-      }  transition-all duration-300 left-0 w-full 
-      ${
-        Interactable ? "z-30" : "z-50"
-      }
-      `}
-    >
-      {/* Page Interactibility */}
+    <div>
+      {/* Page Overlay */}
       <div
         className={`pointer-events-none ${
           Interactable
@@ -69,8 +38,12 @@ const Navbar = () => {
         } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-0`}
       ></div>
       {/* Navbar */}
-      <header className="h-[65px] border-b-[1px] border-gray-300 relative z-40 bg-[#6dade5] w-full flex">
-        <div className="flex max-w-[1860px] mx-auto w-fit py-1 px-10 items-center gap-2 relative">
+      <header
+        className={`h-[65px] border-b-[1px] border-gray-300 relative z-40 bg-[#6dade5] w-full flex ${
+          Interactable ? "z-30" : "z-50"
+        }`}
+      >
+        <div className="flex max-w-[1640px] mx-auto w-full py-1 px-10 items-center gap-2 relative">
           {/* HomePage Link logo */}
 
           <Link href="/">
