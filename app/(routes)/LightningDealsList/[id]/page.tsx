@@ -9,7 +9,7 @@ import ProductReview from "@/app/ui/ProductComponent/ProductReview";
 import ProductStore from "@/app/ui/ProductComponent/ProductStore";
 import { PiGreaterThan } from "react-icons/pi";
 import ProductAllPics from "@/app/ui/ProductComponent/ProductAllPics";
-import AllproductsCard from "@/app/ui/ProductCard/RecommendedProductsCard";
+import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 
 export default function LighteningDealDetail() {
   const [selectedQuantity, setSelectedQuantity] = useState(20);
@@ -49,7 +49,7 @@ export default function LighteningDealDetail() {
           />
         </div>
       </div>
-      <AllproductsCard showTags={true} showStoreInfo={true} showOfferEndTime={true} />
+      <ProductsSectionGrid columns={6} showTags={true} showStoreInfo={true} showOfferEndTime={true} />
     </div>
   );
 }

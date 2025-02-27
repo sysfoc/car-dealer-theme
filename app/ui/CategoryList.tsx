@@ -8,7 +8,9 @@ const Categories = () => {
 
   return (
     <div className="mt-8 relative w-full overflow-visible mb-5">
-      <div className="text-xl font-bold flex justify-center items-center uppercase mb-4">
+      <div className={`text-xl font-bold flex justify-center items-center uppercase mb-4 transition-opacity ${
+          isBeginning ? "opacity-100" : "opacity-70"
+        }`}>
         Explore Your Interests
       </div>
 
@@ -18,7 +20,10 @@ const Categories = () => {
         onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
       >
         {categoriesToShow?.map((category) => (
-          <SwiperSlide key={category.title} className="!w-auto max-w-44 gap-5 mb-5">
+          <SwiperSlide
+            key={category.title}
+            className="!w-auto max-w-44 gap-5 mb-5"
+          >
             <div
               className="flex-shrink-0 flex items-center justify-center rounded-full border-gray-300 border-[1px] bg-white px-4 py-3 text-sm 
                            text-gray-900 font-semibold transition-all hover:bg-gray-50 hover:shadow-xl h-14 cursor-pointer"
@@ -28,7 +33,6 @@ const Categories = () => {
           </SwiperSlide>
         ))}
       </Carousel>
-      {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
     </div>
   );
 };

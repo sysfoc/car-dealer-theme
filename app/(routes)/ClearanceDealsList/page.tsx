@@ -6,7 +6,7 @@ import { ClearanceProductCard } from "@/app/ui/ProductCard/ClearanceProductCard"
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import { useState } from "react";
 import { categoriesToShow } from "@/data/categories";
-import AllproductsCard from "@/app/ui/ProductCard/ProductsCard";
+import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 import { clearanceProductsData } from "@/data/ClearanceProductsData";
 
 export default function ClearanceDealsList() {
@@ -58,9 +58,10 @@ export default function ClearanceDealsList() {
             </SwiperSlide>
           ))}
         </Carousel>
-        {isBeginning && <div className="text-center text-sm text-gray-500 mt-2">You're at the beginning</div>}
+        {isBeginning && <div>{isBeginning}</div>}
       </div>
-      <AllproductsCard
+      <ProductsSectionGrid
+      columns={4}
         showTags={false}
         showStoreInfo={false}
         showOfferEndTime={true}
