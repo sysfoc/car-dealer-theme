@@ -14,7 +14,7 @@
   }
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -45,27 +45,33 @@ html {
 }
 
 .custom-scrollbar-vertical::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Track color */
+  background: #f1f1f1;
+  /* Track color */
   border-radius: 2px;
 }
 
 .custom-scrollbar-vertical::-webkit-scrollbar-thumb {
-  background: #888; /* Scroll thumb color */
+  background: #888;
+  /* Scroll thumb color */
   border-radius: 2px;
 }
 
 .custom-scrollbar-vertical::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Hover color */
+  background: #555;
+  /* Hover color */
 }
 
 
 .scrollbar-hidden {
-  -ms-overflow-style: none;  /* For Internet Explorer */
-  scrollbar-width: none;      /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer */
+  scrollbar-width: none;
+  /* For Firefox */
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
-  display: none;             /* For Chrome, Safari, and newer versions of Edge */
+  display: none;
+  /* For Chrome, Safari, and newer versions of Edge */
 }
 
 
@@ -83,16 +89,16 @@ html {
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: #4b5563 !important; 
+  color: #4b5563 !important;
   background-color: white;
-  width: 40px !important; 
+  width: 40px !important;
   height: 40px !important;
   border-radius: 50%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); 
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   top: 50% !important;
   transform: translateY(-15%);
-  display: none; 
+  display: none;
 }
 
 
@@ -104,7 +110,8 @@ html {
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 16px !important; /* Smaller icon size */
+  font-size: 16px !important;
+  /* Smaller icon size */
 }
 
 
@@ -119,15 +126,18 @@ html {
 
 .swiper-button-prev:hover,
 .swiper-button-next:hover {
-  background-color: #f3f4f6; /* Light gray background on hover */
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+  background-color: #f3f4f6;
+  /* Light gray background on hover */
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+  /* Larger shadow on hover */
 }
 
 
 @media (max-width: 640px) {
+
   .swiper-button-prev,
   .swiper-button-next {
-    display: none !important; 
+    display: none !important;
   }
 }
 
@@ -137,4 +147,20 @@ html {
 
 .box-shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.3s ease-out;
 }

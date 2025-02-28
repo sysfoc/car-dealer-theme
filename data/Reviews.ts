@@ -1,7 +1,7 @@
 export const reviews = [
   {
     id: 1,
-    name: "Ali Khan",
+    name: "Rehan Ahmad",
     country: "PK", // Pakistan
     purchases: 3,
     purchaseDate: "February 5, 2024",

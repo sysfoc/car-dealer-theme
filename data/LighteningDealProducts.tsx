@@ -26,7 +26,7 @@ export const products: Product[] = [
     rating: 4.5,
     sold: 12.2, // Number of items sold
     reviews: 2150, // Number of reviews
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-04-24T00:00:00",
     itemsLeft: 30,
   },
   {
@@ -38,10 +38,10 @@ export const products: Product[] = [
     price: 19.99,
     previousPrice: 29.99, // Previous price for comparison
     image: "/images/productPicture.jpg",
-    rating: 4.3,
+    rating: 4.34,
     sold: 5, // Number of items sold
     reviews: 150, // Number of reviews
-    offerEndTime: "2025-02-26T00:00:00",
+    offerEndTime: "2025-04-26T00:00:00",
     itemsLeft: 19,
   },
   {
@@ -56,7 +56,7 @@ export const products: Product[] = [
     rating: 3.5,
     sold: 10, // Number of items sold
     reviews: 150, // Number of reviews
-    offerEndTime: "2025-02-26T00:00:00",
+    offerEndTime: "2025-04-26T00:00:00",
     itemsLeft: undefined,
   },
   {
@@ -71,7 +71,7 @@ export const products: Product[] = [
     rating: 3.0,
     sold: 50, // Number of items sold
     reviews: 350, // Number of reviews
-    offerEndTime: "2025-02-25T00:00:00",
+    offerEndTime: "2025-04-25T00:00:00",
     itemsLeft: "Almost Sold Out",
   },
   {
@@ -86,7 +86,7 @@ export const products: Product[] = [
     rating: 4.5,
     sold: 11, // Number of items sold
     reviews: 990, // Number of reviews
-    offerEndTime: "2025-02-22T00:00:00",
+    offerEndTime: "2025-04-22T00:00:00",
     itemsLeft: "Sold Out",
   },
   {
@@ -101,7 +101,7 @@ export const products: Product[] = [
     rating: 4.3,
     sold: 50, // Number of items sold
     reviews: 150, // Number of reviews
-    offerEndTime: "2025-02-22T00:00:00",
+    offerEndTime: "2025-04-22T00:00:00",
     itemsLeft: 99,
   },
   {
@@ -116,7 +116,7 @@ export const products: Product[] = [
     rating: 3.0,
     sold: 40, // Number of items sold
     reviews: 90, // Number of reviews
-    offerEndTime: "2025-02-23T00:00:00",
+    offerEndTime: "2025-04-23T00:00:00",
     itemsLeft: 49,
   },
   {
@@ -131,7 +131,7 @@ export const products: Product[] = [
     rating: 5.0,
     sold: 20, // Number of items sold
     reviews: 1000, // Number of reviews
-    offerEndTime: "2025-02-21T00:00:00",
+    offerEndTime: "2025-04-21T00:00:00",
     itemsLeft: 89,
   },
   {
@@ -146,7 +146,7 @@ export const products: Product[] = [
     rating: 3.0,
     sold: 20, // Number of items sold
     reviews: 100, // Number of reviews
-    offerEndTime: "2025-02-20T00:00:00",
+    offerEndTime: "2025-04-20T00:00:00",
     itemsLeft: 5,
   },
   {
@@ -161,7 +161,7 @@ export const products: Product[] = [
     rating: 4.5,
     sold: 60, // Number of items sold
     reviews: 290, // Number of reviews
-    offerEndTime: "2025-02-27T00:00:00",
+    offerEndTime: "2025-04-27T00:00:00",
     itemsLeft: 19,
   },
   {
@@ -175,7 +175,7 @@ export const products: Product[] = [
     rating: 4.7,
     sold: 230,
     reviews: 1450,
-    offerEndTime: "2025-03-01T00:00:00",
+    offerEndTime: "2025-04-01T00:00:00",
     itemsLeft: 18,
   },
   {
@@ -189,7 +189,7 @@ export const products: Product[] = [
     rating: 4.8,
     sold: 89,
     reviews: 670,
-    offerEndTime: "2025-02-28T00:00:00",
+    offerEndTime: "2025-04-28T00:00:00",
     itemsLeft: "Low Stock",
   },
   {
@@ -203,7 +203,7 @@ export const products: Product[] = [
     rating: 4.6,
     sold: 45,
     reviews: 890,
-    offerEndTime: "2025-03-05T00:00:00",
+    offerEndTime: "2025-04-05T00:00:00",
     itemsLeft: 12,
   },
   {
@@ -217,7 +217,7 @@ export const products: Product[] = [
     rating: 4.4,
     sold: 210,
     reviews: 450,
-    offerEndTime: "2025-02-25T00:00:00",
+    offerEndTime: "2025-04-25T00:00:00",
     itemsLeft: 27,
   },
   {
@@ -231,7 +231,7 @@ export const products: Product[] = [
     rating: 4.3,
     sold: 156,
     reviews: 780,
-    offerEndTime: "2025-03-02T00:00:00",
+    offerEndTime: "2025-04-02T00:00:00",
     itemsLeft: 9,
   },
   {
@@ -245,7 +245,7 @@ export const products: Product[] = [
     rating: 4.9,
     sold: 78,
     reviews: 430,
-    offerEndTime: "2025-03-04T00:00:00",
+    offerEndTime: "2025-04-04T00:00:00",
     itemsLeft: 5,
   },
   {
@@ -259,7 +259,7 @@ export const products: Product[] = [
     rating: 4.5,
     sold: 134,
     reviews: 920,
-    offerEndTime: "2025-02-23T00:00:00",
+    offerEndTime: "2025-04-23T00:00:00",
     itemsLeft: "Almost Sold Out",
   },
   {
@@ -273,7 +273,7 @@ export const products: Product[] = [
     rating: 4.7,
     sold: 290,
     reviews: 1560,
-    offerEndTime: "2025-02-27T00:00:00",
+    offerEndTime: "2025-04-27T00:00:00",
     itemsLeft: 32,
   },
   {
@@ -287,7 +287,7 @@ export const products: Product[] = [
     rating: 4.6,
     sold: 89,
     reviews: 670,
-    offerEndTime: "2025-03-01T00:00:00",
+    offerEndTime: "2025-04-01T00:00:00",
     itemsLeft: 15,
   },
   {
@@ -301,7 +301,7 @@ export const products: Product[] = [
     rating: 4.2,
     sold: 450,
     reviews: 2300,
-    offerEndTime: "2025-02-26T00:00:00",
+    offerEndTime: "2025-04-26T00:00:00",
     itemsLeft: 42,
   },
   {
@@ -315,7 +315,7 @@ export const products: Product[] = [
     rating: 4.4,
     sold: 67,
     reviews: 340,
-    offerEndTime: "2025-02-24T00:00:00",
+    offerEndTime: "2025-04-24T00:00:00",
     itemsLeft: 8,
   },
   {
@@ -329,7 +329,7 @@ export const products: Product[] = [
     rating: 4.1,
     sold: 230,
     reviews: 890,
-    offerEndTime: "2025-03-03T00:00:00",
+    offerEndTime: "2025-04-03T00:00:00",
     itemsLeft: 50,
   },
   {
@@ -343,7 +343,7 @@ export const products: Product[] = [
     rating: 4.9,
     sold: 28,
     reviews: 150,
-    offerEndTime: "2025-03-06T00:00:00",
+    offerEndTime: "2025-04-06T00:00:00",
     itemsLeft: 3,
   },
   {
@@ -357,7 +357,7 @@ export const products: Product[] = [
     rating: 4.7,
     sold: 190,
     reviews: 1340,
-    offerEndTime: "2025-02-28T00:00:00",
+    offerEndTime: "2025-04-28T00:00:00",
     itemsLeft: 22,
   },
   {
@@ -371,7 +371,7 @@ export const products: Product[] = [
     rating: 4.6,
     sold: 450,
     reviews: 2300,
-    offerEndTime: "2025-02-23T00:00:00",
+    offerEndTime: "2025-04-23T00:00:00",
     itemsLeft: "Sold Out",
   },
 ];
