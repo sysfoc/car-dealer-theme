@@ -12,7 +12,7 @@ interface MessageCardContentProps {
 const MessageCardContent: React.FC<MessageCardContentProps> = ({currentSection, setCurrentSection}) => {
 
   return (
-    <div className="h-[calc(90vh-52px)] w-full">
+    <div className="h-[calc(80vh-52px)] w-full overflow-auto custom-scrollbar-vertical">
       {/* When at Home */}
       <div className={`${currentSection==='home'? 'block': 'hidden'}`}>
         <MessagesHomeCard setCurrentSection={setCurrentSection} />

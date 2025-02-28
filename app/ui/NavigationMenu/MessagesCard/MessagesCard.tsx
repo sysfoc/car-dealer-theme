@@ -15,7 +15,7 @@ interface MessageCardProps {
 const MessagesCard: React.FC<MessageCardProps> = ({ setCurrentTab }) => {
   const [currentSection, setCurrentSection] = useState<MessageSection>("home");
   return (
-    <div className="absolute w-[375px] h-[90vh] overflow-auto z-1 bg-white box-shadow rounded-md right-14 bottom-0">
+    <div className="absolute w-[375px] h-[80vh] z-1 bg-white box-shadow rounded-md right-14 bottom-0">
       {/* Header */}
       <div className="h-[51px] px-3 relative flex justify-between items-center">
         <button

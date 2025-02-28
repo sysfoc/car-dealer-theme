@@ -110,7 +110,7 @@ const SecurityCertificationsFooter = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex min-w-[1160px] px-11 bg-[#1e1e1e] h-[505px] pt-7 mt-14 text-white text-sm justify-center w-full">
+    <footer className="flex min-w-[1160px] px-11 bg-[#1e1e1e] border-t-[1px] border-gray-400 h-[505px] pt-7 mt-14 text-white text-sm justify-center w-full">
       <div className="max-w-[1460px] w-full">
         {/* Links */}
         <div className="flex justify-between mb-9">

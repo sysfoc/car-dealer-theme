@@ -13,20 +13,20 @@ import { useSelector } from "react-redux";
 import { AppRootState } from "@/store";
 
 const linksToShow = [
-    {
-      icon: HiThumbUp,
-      title: "Best Sellers",
-    },
-    {
-      icon: TbFileStar,
-      title: "5-Star Rated",
-    },
-  ];
+  {
+    icon: HiThumbUp,
+    title: "Best Sellers",
+  },
+  {
+    icon: TbFileStar,
+    title: "5-Star Rated",
+  },
+];
 
-const Navbar = () => {
-    const Interactable = useSelector(
-        (state: AppRootState) => state.pageProperties.pageInteractable
-      );
+const Navbar = ({ isHomePage }: { isHomePage: boolean }) => {
+  const Interactable = useSelector(
+    (state: AppRootState) => state.pageProperties.pageInteractable
+  );
   return (
     <div>
       {/* Page Overlay */}
@@ -35,13 +35,13 @@ const Navbar = () => {
           Interactable
             ? "bg-opacity-0 bg-transparent"
             : "bg-opacity-60 bg-black"
-        } transition-all duration-300 w-screen h-screen fixed pointer-events-none top-0 left-0 z-0`}
+        } transition-all duration-300 w-screen h-[calc(100vh+65px)] fixed pointer-events-none top-0 left-0 z-0`}
       ></div>
       {/* Navbar */}
       <header
-        className={`h-[65px] border-b-[1px] border-gray-300 relative z-40 bg-[#6dade5] w-full flex ${
-          Interactable ? "z-30" : "z-50"
-        }`}
+        className={`h-[65px] border-b-[1px] border-gray-300 relative z-40 ${
+          isHomePage ? "bg-[#6dade5]/90 backdrop-blur-md" : "bg-white/100"
+        } w-full flex ${Interactable ? "z-30" : "z-50"}`}
       >
         <div className="flex max-w-[1640px] mx-auto w-full py-1 px-10 items-center gap-2 relative">
           {/* HomePage Link logo */}
@@ -58,17 +58,19 @@ const Navbar = () => {
 
           {/* Links for quick top searches */}
           <nav
-            className="
-          flex text-white gap-2 text-xs font-bold
-          "
+            className={`
+          flex ${
+            isHomePage ? "text-white" : "text-gray-800"
+          } gap-2 text-xs font-bold
+          `}
           >
             {linksToShow.map((link) => (
               <div key={link.title} className="group relative">
                 <div
-                  className=" group-hover:scale-100
-            bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full
+                  className={`group-hover:scale-100
+            ${isHomePage? "bg-blue-500": "bg-gray-100"} scale-0 absolute inset-0 z-0 rounded-full
               transition-all duration-200 ease-in-out
-              "
+              `}
                 ></div>
                 <Link
                   href="/"
@@ -81,15 +83,15 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className="flex text-white gap-2 text-xs font-bold">
+          <div className={`flex ${isHomePage? "text-white": "text-gray-800"} gap-2 text-xs font-bold`}>
             {/* New Arrival Link */}
 
             <div className="group relative">
               <div
-                className=" group-hover:scale-100
-            bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full
+                className={`group-hover:scale-100
+            ${isHomePage? "bg-blue-500": "bg-gray-100"} scale-0 absolute inset-0 z-0 rounded-full
             transition-all duration-200 ease-in-out
-              "
+              `}
               ></div>
               <Link
                 href="/"
@@ -102,40 +104,47 @@ const Navbar = () => {
             {/* Category Link */}
 
             <div>
-              <CategoryDropDown />
+              <CategoryDropDown isHomePage={isHomePage}/>
             </div>
           </div>
 
           {/* Search bar */}
           <div className="flex-grow h-10">
-            <Searchbar />
+            <Searchbar isHomePage={isHomePage}/>
           </div>
 
           {/* Orders and Account */}
           <div>
-            <AccountDropdown />
+            <AccountDropdown isHomePage={isHomePage}/>
           </div>
 
           {/* Support Button */}
           <div className="relative">
-            <SupportDropDownButton />
+            <SupportDropDownButton isHomePage={isHomePage}/>
           </div>
 
           {/* Language Button */}
 
           <div>
-            <LanguageDropDownButton />
+            <LanguageDropDownButton isHomePage={isHomePage}/>
           </div>
 
           {/* Cart Button */}
           <div className="group relative h-10 w-10 flex items-center justify-center">
             <div
-              className=" group-hover:scale-100
-          bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full
+              className={` group-hover:scale-100
+          ${
+            isHomePage ? "bg-blue-500" : "bg-gray-100"
+          } scale-0 absolute inset-0 z-0 rounded-full
           transition-all duration-200 ease-in-out
-          "
+          `}
             ></div>
-            <Link href="/cart" className="relative z-10 text-white">
+            <Link
+              href="/cart"
+              className={`relative z-10 ${
+                isHomePage ? "text-white" : "text-gray-800"
+              }`}
+            >
               <LuShoppingCart size={25} />
             </Link>
           </div>

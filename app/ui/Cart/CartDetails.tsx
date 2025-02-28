@@ -38,9 +38,11 @@ const CartDetails = () => {
     >
       <div className="mb-5">Order Summary</div>
       {/* Cart Dynamic checkout details price */}
-      <CartCheckoutDetails />
+      <div className="mb-6 flex flex-col items-center">
+        <CartCheckoutDetails />
+      </div>
       {/* Cart Details Terms */}
-      <div>
+      <section>
         <div className="flex flex-col text-[0.8rem] font-medium gap-4 leading-normal">
           <div>
             <IoIosUnlock
@@ -184,7 +186,7 @@ const CartDetails = () => {
         </div>
         {/* Bottom White Faded border */}
         <div className="sticky bottom-0 left-0 h-12 w-full bg-gradient-to-t from-white to-transparent"></div>
-      </div>
+      </section>
     </div>
   );
 };

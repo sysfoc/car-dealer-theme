@@ -1,6 +1,7 @@
 import { IoIosArrowDown } from "react-icons/io";
 import ProductsCard from "./ProductsCard";
 import { products } from "@/data/AllProductsData";
+import OrangeButton from "../OrangeButton";
 
 interface ProductsSectionGridProps {
   showTags?: boolean;
@@ -10,13 +11,15 @@ interface ProductsSectionGridProps {
 }
 
 const getGridColsClass = (columns: number) => {
-  return {
-    1: "grid-cols-1",
-    2: "grid-cols-2",
-    3: "grid-cols-3",
-    4: "grid-cols-4",
-    5: "grid-cols-5",
-  }[columns] || "grid-cols-4"; // Default to 4 if an invalid value is provided
+  return (
+    {
+      1: "grid-cols-1",
+      2: "grid-cols-2",
+      3: "grid-cols-3",
+      4: "grid-cols-4",
+      5: "grid-cols-5",
+    }[columns] || "grid-cols-4"
+  ); // Default to 4 if an invalid value is provided
 };
 
 const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
@@ -25,6 +28,7 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   showOfferEndTime = false,
   columns,
 }) => {
+  console.log('rerendered grid')
   return (
     <div className="w-full">
       <div className={`grid ${getGridColsClass(columns)} gap-5`}>
@@ -42,10 +46,14 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-5 hover:scale-105 transition-all">
-        <button className="bg-orange-500 text-white px-10 py-4 flex items-center rounded-full">
-          Show More
-          <IoIosArrowDown className="ml-1 text-sm" />
+      <div className="flex justify-center mt-5">
+        <button className="w-56 h-12">
+          <OrangeButton>
+            <div className="flex items-center">
+              Show More
+              <IoIosArrowDown className="ml-1 text-sm" />
+            </div>
+          </OrangeButton>
         </button>
       </div>
     </div>
