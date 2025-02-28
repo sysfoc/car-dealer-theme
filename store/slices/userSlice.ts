@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { userType } from "@/app/lib/definitions";
 
-type userState = {
-  name: string;
-  profilePicture: string;
-  email?: string;
-  phone?: number;
-  totalReviews: number;
-  totalLikes: number;
-};
-const initialState: userState = {
+const initialState: userType = {
   name: "Tahsin Haider",
   email: "tahsin3194@gmail.com",
   phone: 923020620626,
@@ -24,9 +17,9 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       return { ...state, ...action.payload };
     },
-    updateUserfield:<K extends keyof userState> (
-      state: userState,
-      action: PayloadAction<{ field: K; value: userState[K]}>
+    updateUserfield:<K extends keyof userType> (
+      state: userType,
+      action: PayloadAction<{ field: K; value: userType[K]}>
     ) => {
       const { field, value } = action.payload;
       if (field in state) {

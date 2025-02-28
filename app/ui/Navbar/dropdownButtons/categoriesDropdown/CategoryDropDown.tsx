@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { IoIosArrowUp } from "react-icons/io";
 import CategoryItems from "@/app/ui/Navbar/dropdownButtons/categoriesDropdown/categoryItems/CategoryItems";
 
-const SupportDropDownButton = () => {
+const SupportDropDownButton = ({isHomePage}: {isHomePage: boolean}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Featured");
@@ -88,7 +88,7 @@ const SupportDropDownButton = () => {
         <div
           className={` 
               ${isDropdownOpen ? "scale-100" : "scale-0"}
-              bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full
+              ${isHomePage? "bg-blue-500": "bg-gray-100"} scale-0 absolute inset-0 z-0 rounded-full
               transition-all duration-200 ease-in-out
               `}
         ></div>
@@ -96,7 +96,7 @@ const SupportDropDownButton = () => {
           as="SupportButton"
           // Change the link here
           href="/Support"
-          className="text-white h-10 text-xs pointer-events-none relative z-10 font-bold px-1 py-2 rounded-3xl items-center flex gap-1"
+          className={` ${isHomePage? "text-white": "text-gray-800"} h-10 text-xs pointer-events-none relative z-10 font-bold px-1 py-2 rounded-3xl items-center flex gap-1`}
         >
           Categories
           <IoIosArrowUp
@@ -131,7 +131,7 @@ const SupportDropDownButton = () => {
           {/* Content Inside the dropdown Box */}
           <div className="flex h-full pt-2">
             {/* CategoryList :Left side */}
-            <div className="w-60 flex flex-col py-2 overflow-y-auto custom-scrollbar-vertical h-full">
+            <div className="w-60 flex flex-col py-2 overflow-y-auto custom-scrollbar-vertical overscroll-contain h-full">
               {categoriesToShow.map((ele) => (
                 <div
                   key={ele.title}

@@ -9,7 +9,7 @@ import {
   makePageUnInteractable,
 } from "@/store/slices/pagePropertiesSlice";
 
-function LanguageDropDownButton() {
+function LanguageDropDownButton({isHomePage}: {isHomePage: boolean}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -73,14 +73,14 @@ function LanguageDropDownButton() {
         <div
           className={` 
             ${isDropdownOpen ? "scale-100" : "scale-0"}
-            bg-blue-500 scale-0 absolute inset-0 z-0 rounded-full cursor-pointer
+           ${isHomePage? "bg-blue-500": "bg-gray-100"} scale-0 absolute inset-0 z-0 rounded-full cursor-pointer
             transition-all duration-200 ease-in-out
             `}
         ></div>
         <Link
           as="language"
           href="/"
-          className="text-white h-10 pointer-events-none relative z-10 text-xs font-bold px-1 py-2 rounded-3xl items-center flex gap-1"
+          className={`${isHomePage? "text-white": "text-gray-800"} h-10 pointer-events-none relative z-10 text-xs font-bold px-1 py-2 rounded-3xl items-center flex gap-1`}
         >
           <div className=" w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
             <Image

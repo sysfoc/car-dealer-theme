@@ -8,10 +8,8 @@ import {
   MdOutlineVpnKey,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { BiSolidCoupon } from "react-icons/bi";
 import { IoLogOutOutline, IoWalletOutline } from "react-icons/io5";
 import { FaStore } from "react-icons/fa";
-import { CiLocationOn } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,60 +25,51 @@ const unknownUserImage = "/images/unknownProfile.jpg";
 const linksToShow = [
   {
     title: "Your orders",
+    link: "/your-orders",
     icon: BsBoxSeam,
-    link: "/",
   },
   {
-    title: "Your review",
+    title: "Your reviews",
+    link: "/your-reviews",
     icon: MdOutlineRateReview,
-    link: "/",
   },
   {
-    title: "Your Profile",
+    title: "Your profile",
+    link: "/account",
     icon: CgProfile,
-    link: "/",
-  },
-  {
-    title: "Coupons & offers",
-    icon: BiSolidCoupon,
-    link: "/",
   },
   {
     title: "Credit balance",
+    link: "/credit-balance",
     icon: IoWalletOutline,
-    link: "/",
   },
   {
-    title: "Followed Stores",
+    title: "Followed stores",
+    link: "/followed-stores",
     icon: FaStore,
-    link: "/",
   },
   {
     title: "Browsing history",
+    link: "/browsing-history",
     icon: MdHistory,
-    link: "/",
-  },
-  {
-    title: "Addresses",
-    icon: CiLocationOn,
-    link: "/",
   },
   {
     title: "Account security",
+    link: "/account-security",
     icon: MdOutlineSecurity,
-    link: "/",
   },
   {
     title: "Permissions",
+    link: "/permissions",
     icon: MdOutlineVpnKey,
-    link: "/",
   },
   {
     title: "Notifications",
+    link: "/notifications",
     icon: IoIosNotificationsOutline,
-    link: "/",
   },
 ];
+
 
 const actionsToShow = [
   {
@@ -95,7 +84,7 @@ const actionsToShow = [
   },
 ];
 
-export default function AccountDropdown() {
+export default function AccountDropdown({isHomePage}: {isHomePage: boolean}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -161,14 +150,14 @@ export default function AccountDropdown() {
         <div
           className={` 
             ${isDropdownOpen ? "scale-100" : "scale-0"}
-            bg-blue-500 scale-0 absolute inset-0 rounded-full cursor-pointer
+            ${isHomePage? "bg-blue-500": "bg-gray-100"} scale-0 absolute inset-0 rounded-full cursor-pointer
             transition-all duration-200 ease-in-out
             `}
         ></div>
         <Link
-          href="/"
+          href="/dashboard/account"
           as="account-details"
-          className="text-white h-10 pointer-events-none text-xs font-bold z-10 relative pl-1 pr-3 py-2 rounded-3xl items-center flex gap-1"
+          className={`${isHomePage? "text-white": "text-gray-800"} h-10 pointer-events-none text-xs font-bold z-10 relative pl-1 pr-3 py-2 rounded-3xl items-center flex gap-1`}
         >
           <div className=" w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
             <Image
@@ -215,13 +204,13 @@ export default function AccountDropdown() {
         <div
           className="
                 w-[280px] -mt-[1px] max-h-fit h-[80vh] overflow-y-auto bg-white flex flex-col text-sm rounded-md
-                custom-scrollbar-vertical border-[1px] border-gray-300
+                custom-scrollbar-vertical border-[1px] border-gray-300 overscroll-contain
                 "
         >
           {/* account links right side */}
           <div>
             {/* user info */}
-            <Link href="/">
+            <Link href="/dashboard/account">
               <div className="flex w-full items-center h-14 px-5 my-2">
                 <div className="h-9 w-9">
                   <Image
@@ -249,8 +238,9 @@ export default function AccountDropdown() {
               {linksToShow.map((element) => (
                 <Link
                   key={element?.title}
-                  href={element?.link}
-                  className="py-2 flex hover:bg-gray-300"
+                  onClick={()=>setIsDropdownOpen(false)}
+                  href={"/dashboard"+element?.link}
+                  className="py-2 flex hover:bg-gray-200"
                 >
                   <element.icon size={21} className="mx-3" />
                   <p>{element.title}</p>
@@ -265,7 +255,7 @@ export default function AccountDropdown() {
                 <Link
                   href="/"
                   key={element.title}
-                  className="py-2 flex hover:bg-gray-300"
+                  className="py-2 flex hover:bg-gray-200"
                 >
                   <element.icon size={21} className="mx-3" />
                   <p>{element.title}</p>

@@ -8,7 +8,7 @@ const CategoryItems: React.FC<{ selectedCategory: string }> = ({
 }) => {
   const categoryKey = selectedCategory as keyof typeof categoriesTypes;
   return (
-    <div className="px-4 w-[610px] h-full overflow-y-auto custom-scrollbar-vertical">
+    <div className="px-4 w-[610px] h-full overflow-y-auto custom-scrollbar-vertical overscroll-contain">
       {/* Title of Selected Category */}
       {!(selectedCategory === "Featured") && (
         <div className="flex items-center">
