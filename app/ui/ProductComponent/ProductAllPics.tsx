@@ -20,6 +20,7 @@
 import React, { useState } from "react";
 import AllPictures from "@/data/AllPictures";
 import { IoIosArrowDown } from "react-icons/io";
+import Image from "next/image";
 
 const ProductAllPics = () => {
   const [showAll, setShowAll] = useState(false);
@@ -28,7 +29,7 @@ const ProductAllPics = () => {
     <div className="flex flex-col gap-2">
       {(showAll ? AllPictures : AllPictures.slice(0, 3)).map((image, index) => (
         <div key={index} className="w-full">
-          <img
+          <Image
             src={image}
             alt={`Image ${index + 1}`}
             className="w-full h-auto"

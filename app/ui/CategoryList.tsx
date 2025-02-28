@@ -8,7 +8,9 @@ const Categories = () => {
 
   return (
     <div className="mt-8 relative w-full overflow-visible mb-5">
-      <div className="text-xl font-bold flex justify-center items-center uppercase mb-4">
+      <div className={`text-xl font-bold flex justify-center items-center uppercase mb-4 transition-opacity ${
+          isBeginning ? "opacity-100" : "opacity-70"
+        }`}>
         Explore Your Interests
       </div>
 

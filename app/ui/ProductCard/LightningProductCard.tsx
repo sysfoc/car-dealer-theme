@@ -85,6 +85,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToInd
           onClick={handleClick}
         >
           <Image
+            loading="lazy"
             src={"/images/productPicture.jpg"}
             alt={title}
             width={225}

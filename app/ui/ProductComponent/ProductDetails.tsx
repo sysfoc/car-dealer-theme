@@ -13,7 +13,6 @@ import { products } from "@/data/LighteningDealProducts";
 type Product = (typeof products)[number];
 
 export default function ProductDetails({
-  product,
   selectedQuantity,
   setSelectedQuantity,
 }: {
@@ -218,7 +217,7 @@ export default function ProductDetails({
               height={20}
               alt="plant-pic"
             />
-            <span>Temu's Tree Planting Program (17M+ trees)</span>
+            <span>Temu&apos;s Tree Planting Program (17M+ trees)</span>
             <PiGreaterThan fontSize={15} className="relative top-[1.5px]" />
           </div>
         </div>
