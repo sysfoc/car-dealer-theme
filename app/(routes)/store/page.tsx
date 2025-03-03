@@ -7,7 +7,7 @@ function ProductStore() {
     <div className="!w-auto pt-5">
       <StoreDetails/>
       <ProductCategories/>
-      <StoreProducts columns={4}/>
+      <StoreProducts columns={5}/>
 
     </div>
   );

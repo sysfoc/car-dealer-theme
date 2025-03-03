@@ -10,6 +10,7 @@ import ProductStore from "@/app/ui/ProductComponent/ProductStore";
 import { PiGreaterThan } from "react-icons/pi";
 import ProductAllPics from "@/app/ui/ProductComponent/ProductAllPics";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
+import ProductSpecs from "@/app/ui/ProductComponent/ProductSpecs";
 
 export default function LighteningDealDetail() {
   const [selectedQuantity, setSelectedQuantity] = useState(20);
@@ -39,6 +40,7 @@ export default function LighteningDealDetail() {
           <ProductImages product={product} />
           <ProductReview />
           <ProductStore />
+          <ProductSpecs/>
           <ProductAllPics/>
         </div>
         <div className="col-span-6 sticky top-0 max-w-xl self-start h-screen overflow-y-auto scrollbar-hidden">

@@ -1,6 +1,5 @@
 "use client";
 import { FaRegThumbsUp, FaStar } from "react-icons/fa";
-import { IoShareOutline } from "react-icons/io5";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { RxCross2 } from "react-icons/rx";

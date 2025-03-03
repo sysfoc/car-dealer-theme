@@ -1,22 +1,3 @@
-// import React from "react";
-// import AllPictures from "@/data/AllPictures";
-
-// const ProductAllPics = () => {
-//   return (
-//     <div className="flex flex-col gap-2">
-//       {AllPictures.map((image, index) => (
-//         <div key={index} className="w-full">
-//           <img
-//             src={image}
-//             alt={`Image ${index + 1}`}
-//             className="w-full h-auto"
-//           />
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-// export default ProductAllPics;
 import React, { useState } from "react";
 import AllPictures from "@/data/AllPictures";
 import { IoIosArrowDown } from "react-icons/io";
@@ -31,6 +12,8 @@ const ProductAllPics = () => {
         <div key={index} className="w-full">
           <Image
             src={image}
+            width={100}
+            height={100}
             alt={`Image ${index + 1}`}
             className="w-full h-auto"
           />
