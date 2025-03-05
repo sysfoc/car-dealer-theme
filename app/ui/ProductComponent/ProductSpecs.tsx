@@ -2,10 +2,14 @@ import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { TbMathGreater, TbMinusVertical } from "react-icons/tb";
+import ReportModal from "@/app/ui/Modal/reportModal";
+
+
 
 const ProductSpecs = () => {
   const [expanded, setExpanded] = useState(false);
   const [saved, isSaved] = useState<boolean>(false);
+  const [modal , setModal ] = useState<boolean>(false)
 
   return (
     <div>
@@ -30,7 +34,9 @@ const ProductSpecs = () => {
             
           </span>
           <TbMinusVertical fontSize={18} className="text-gray-400" />
-          <span className="flex items-center text-xs font-semibold hover:underline cursor-pointer">
+          <span className="flex items-center text-xs font-semibold hover:underline cursor-pointer"
+          onClick={()=>setModal(true)}
+          >
             Report this Item
             <TbMathGreater fontSize={12} className="mt-[2px]" />
           </span>
@@ -84,6 +90,10 @@ const ProductSpecs = () => {
           }`}
         />
       </button>
+      {
+        modal &&
+        <ReportModal onClose={()=>setModal(false)}  />
+      }
     </div>
   );
 };

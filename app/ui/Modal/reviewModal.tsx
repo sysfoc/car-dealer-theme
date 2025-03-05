@@ -77,7 +77,6 @@ export default function ReviewModal({ reviews, onClose }: ReviewModalProps) {
                       in
                       <Flag code={review.country} className="!min-w-[20px]" />
                     </span>
-
                     <span className="text-sm text-gray-500">
                       {review.reviewDate}
                     </span>
@@ -113,7 +112,6 @@ export default function ReviewModal({ reviews, onClose }: ReviewModalProps) {
                       Helpful
                     </span>
                   </div>
-
                   <div>
                     <PiDotsThreeBold fontSize={22} />
                   </div>

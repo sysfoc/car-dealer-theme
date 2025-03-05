@@ -11,7 +11,6 @@ import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
 
 export default function LighteningDealsList() {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
-
   return (
     <div className="mx-10 py-5">
       <div className="flex items-center gap-1">

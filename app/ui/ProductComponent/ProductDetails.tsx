@@ -153,8 +153,8 @@ export default function ProductDetails({
             onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
           >
             <SwiperSlide>
+            
               <div className="text-sm p-3 rounded-md flex gap-4">
-              
                 <div className="bg-gray-100  rounded-lg p-4 flex-none">
                   <h3 className="text-green-600 mb-2">Security & Privacy</h3>
                   <div className="grid gap-2 text-sm">
@@ -169,7 +169,6 @@ export default function ProductDetails({
                   </div>
                 </div>
 
-              
                 <div className="bg-gray-100 rounded-lg p-4 flex-1">
                   <h3 className="text-green-600 mb-2">Delivery Guarantee</h3>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
