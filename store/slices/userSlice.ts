@@ -1,34 +1,73 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userType } from "@/app/lib/definitions";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: userType = {
-  name: "Tahsin Haider",
-  email: "tahsin3194@gmail.com",
-  phone: 923020620626,
-  profilePicture: "/images/dummyProfilePic.jpg",
-  totalLikes: 0,
-  totalReviews: 0,
+const initialState = {
+  currentUser: null,
+  loading: false,
+  error: null,
 };
 
-const userSlice = createSlice({
-  name: "user",
+export const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      return { ...state, ...action.payload };
+    signInStart: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    updateUserfield:<K extends keyof userType> (
-      state: userType,
-      action: PayloadAction<{ field: K; value: userType[K]}>
-    ) => {
-      const { field, value } = action.payload;
-      if (field in state) {
-        state[field] = value;
-      }
+    signInSuccess: (state, action) => {
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
     },
-    resetUser: () => initialState,
+    signInFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    updateUserStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    updateUserSuccess: (state, action) => {
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    updateUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    deleteUserStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    deleteUserSuccess: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+    },
+    deleteUserFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    signOutSuccess: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+    },
   },
 });
 
-export const { setUser, updateUserfield, resetUser } = userSlice.actions;
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
+  signOutSuccess,
+} = userSlice.actions;
+
 export default userSlice.reducer;
