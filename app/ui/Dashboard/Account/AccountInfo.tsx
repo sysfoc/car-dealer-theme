@@ -8,7 +8,14 @@ import { useSelector } from "react-redux";
 import { AppRootState } from "@/store";
 
 function AccountInfo() {
-  const currentUser: userType = useSelector((state: AppRootState)=> state.user);
+ //const currentUser: userType = useSelector((state: AppRootState)=> state.user);
+ const currentUser = useSelector((state: AppRootState) => state.user.currentUser) as userType | null;
+
+ if (!currentUser) {
+  return <div className="flex justify-center items-center font-semibold text-lg"
+  >Loading user info...</div>; 
+}
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex gap-4 ">

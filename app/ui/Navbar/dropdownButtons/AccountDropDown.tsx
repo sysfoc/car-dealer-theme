@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase";
 import {
   MdHistory,
   MdOutlineRateReview,
@@ -22,13 +24,10 @@ import {
 import { PiUserSwitch } from "react-icons/pi";
 import { BsBoxSeam } from "react-icons/bs";
 import { AppRootState } from "@/store";
+import { signOutSuccess } from "@/store/slices/userSlice";
+import { User } from "firebase/auth";
 
 const unknownUserImage = "/images/unknownProfile.jpg";
-
-interface UserType {
-  name?: string;
-  profilePicture?: string;
-}
 
 const linksToShow = [
   {
@@ -87,22 +86,25 @@ const actionsToShow = [
   {
     title: "Sign out",
     icon: IoLogOutOutline,
-    link: "/",
+    action: "signout",
   },
 ];
 
-export default function AccountDropdown({ isHomePage }: { isHomePage: boolean }) {
+export default function AccountDropdown({
+  isHomePage,
+}: {
+  isHomePage: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const router = useRouter();
+
   const currentUser = useSelector(
     (state: AppRootState) => state.user.currentUser
-  ) as UserType | null;
-
-
+  ) as User | null;
 
   function handleClick(): void {
     if (!currentUser) {
@@ -118,36 +120,29 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
     }
   }
 
-    // only runs when page loads for the first time
-    useEffect(() => {
-      // checking the device
-      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 1;
-      setIsTouchScreen(isTouch);
-    }, []);
-  
-    useEffect(() => {
-      // for checking if clicked outside of the page in touch devices
-  
-      if (isTouchScreen) {
-        const handleClickOutside = (event: MouseEvent) => {
-          if (ref.current && !ref.current.contains(event?.target as Node)) {
-            setIsDropdownOpen(false);
-          }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }
-    }, [isTouchScreen]);
-  
-    // runs everytime dropdown changes
-    useEffect(() => {
-      dispatch(
-        isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
-      );
-    }, [isDropdownOpen,dispatch]);
-  
+  useEffect(() => {
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 1;
+    setIsTouchScreen(isTouch);
+  }, []);
+
+  useEffect(() => {
+    if (isTouchScreen) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (ref.current && !ref.current.contains(event?.target as Node)) {
+          setIsDropdownOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isTouchScreen]);
+  useEffect(() => {
+    dispatch(
+      isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
+    );
+  }, [isDropdownOpen, dispatch]);
 
   return (
     <div
@@ -164,12 +159,13 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
       }}
       className="relative z-20"
     >
-      {/* Dropdown Button */}
       <div className="group relative" onClick={handleClick}>
         <div
           className={` 
             ${isDropdownOpen ? "scale-100" : "scale-0"}
-            ${isHomePage ? "bg-blue-500" : "bg-gray-100"} scale-0 absolute inset-0 rounded-full cursor-pointer
+            ${
+              isHomePage ? "bg-blue-500" : "bg-gray-100"
+            } scale-0 absolute inset-0 rounded-full cursor-pointer
             transition-all duration-200 ease-in-out
           `}
         ></div>
@@ -181,7 +177,7 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
           <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
             {currentUser ? (
               <Image
-                src={currentUser.profilePicture || "/images/ProfilePic.png"}
+                src={currentUser.photoURL || "/images/ProfilePic.png"}
                 alt="Account picture"
                 width={30}
                 height={30}
@@ -203,7 +199,7 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
             )}
           </div>
           <div className="hidden 1.5xl:block">
-            <p>Hello, {currentUser?.name || "Guest"}</p>
+            <p>Hello, {currentUser?.displayName || "Guest"}</p>
             <p className="font-bold">
               {currentUser ? "Orders & Account" : "Sign In"}
             </p>
@@ -213,7 +209,6 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
 
       {isOpen && <SignInModal isOpen={isOpen} setIsOpen={setIsOpen} />}
 
-      {/* Only show dropdown if user exists */}
       {currentUser && (
         <div
           className={`
@@ -237,7 +232,7 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
               <div className="flex w-full items-center h-14 px-5 my-2">
                 <div className="h-9 w-9">
                   <Image
-                    src={currentUser.profilePicture || unknownUserImage}
+                    src={currentUser.photoURL || unknownUserImage}
                     alt="profile picture"
                     width={40}
                     height={40}
@@ -245,10 +240,47 @@ export default function AccountDropdown({ isHomePage }: { isHomePage: boolean })
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-                <p className="pl-3 pr-1 text-xl">{currentUser.name}</p>
+                <p className="pl-3 pr-1 text-xl">{currentUser.displayName}</p>
               </div>
             </Link>
-            {/* Rest of the dropdown content remains the same */}
+            {/* Added Links Section */}
+            <div className="border-b-[1px] border-gray-300 w-[90%] mx-auto"></div>
+            <div className="py-3 flex flex-col">
+              {linksToShow.map((element) => (
+                <Link
+                  key={element.title}
+                  onClick={() => setIsDropdownOpen(false)}
+                  href={"/dashboard" + element.link}
+                  className="py-2 flex hover:bg-gray-200"
+                >
+                  <element.icon size={21} className="mx-3" />
+                  <p>{element.title}</p>
+                </Link>
+              ))}
+            </div>
+
+            <div className="border-b-[1px] border-gray-300 w-[90%] mx-auto"></div>
+
+            <div className="py-3 flex flex-col">
+              {actionsToShow.map((element) => (
+                <button
+                  key={element.title}
+                  className="py-2 flex hover:bg-gray-200"
+                  onClick={async () => {
+                    setIsDropdownOpen(false);
+                    if (element.action === "signout") {
+                      await signOut(auth);
+                      dispatch(signOutSuccess());
+                    } else if (element.link) {
+                      router.push(element.link);
+                    }
+                  }}
+                >
+                  <element.icon size={21} className="mx-3" />
+                  <p>{element.title}</p>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

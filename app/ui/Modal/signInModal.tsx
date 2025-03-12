@@ -9,6 +9,10 @@ import {
   FaUndoAlt,
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { auth, provider } from "@/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { signInSuccess } from "@/store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -16,7 +20,67 @@ interface SignInModalProps {
 }
 
 const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      provider.setCustomParameters({ prompt: "select_account" });
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const res = await fetch("api/auth/google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to save user to database");
+      }
+
+      const { displayName, email, photoURL } = user;
+      console.log("User Info:", user);
+      console.log("Name:", displayName);
+      console.log("Email:", email);
+      console.log("Photo URL:", photoURL);
+
+      const userData = await res.json();
+      dispatch(signInSuccess(userData));
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+    }
+  };
+
+
+  const handleEmailLogin = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Auth error:", data.message);
+        return;
+      }
+
+      dispatch(signInSuccess(data.user));
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -29,25 +93,27 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         >
           <FaTimes size={24} />
         </button>
-        <h2 className="font-semibold text-xl text-center">Sign in / Register</h2>
+        <h2 className="font-semibold text-xl text-center">
+          Sign in / Register
+        </h2>
         <div className="flex justify-center items-center text-green-600">
-          <FaLock fontSize={12} className="mr-1"/> 
+          <FaLock fontSize={12} className="mr-1" />
           <p className="text-center text-xs my-2 flex items-center justify-center">
             All data will be encrypted
           </p>
-          </div>
+        </div>
 
         <div className="flex justify-between my-4 text-center text-sm">
           <div className="flex-1 flex flex-col items-center">
             <div className="bg-pink-50 rounded-full p-2">
-            <FaShippingFast size={20} />
+              <FaShippingFast size={20} />
             </div>
             <p className="text-black font-semibold">Free shipping</p>
             <p className="text-xs">Incredible</p>
           </div>
           <div className="flex-1 border-l border-gray-300 flex flex-col items-center">
-          <div className="bg-pink-50 rounded-full p-2">
-            <FaUndoAlt size={20} />
+            <div className="bg-pink-50 rounded-full p-2">
+              <FaUndoAlt size={20} />
             </div>
             <p className="text-black font-semibold">Free returns</p>
             <p className="text-xs">Up to 90 days</p>
@@ -63,8 +129,12 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
           className="w-full p-2 border rounded mt-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
         />
 
-        <button className="w-full rounded-full bg-orange-500 text-white py-2 mt-4 hover:bg-orange-600">
-          Continue
+        <button
+          onClick={handleEmailLogin}
+          disabled={loading || !email}
+          className="w-full rounded-full bg-orange-500 text-white py-2 mt-4 hover:bg-orange-600"
+        >
+          {loading ? "Processing..." : "Continue"}
         </button>
 
         <p className="text-center text-xs mt-2 underline">
@@ -76,7 +146,10 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         </p>
 
         <div className="flex justify-center items-center gap-4 text-white text-lg">
-          <button className="bg-white hover:scale-105 transition-all">
+          <button
+            onClick={handleGoogleSignIn}
+            className="bg-white hover:scale-105 transition-all"
+          >
             <FcGoogle fontSize={30} />
           </button>
           <button className="hover:scale-105 transition-all">
