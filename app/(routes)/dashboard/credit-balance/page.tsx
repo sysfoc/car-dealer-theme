@@ -14,9 +14,9 @@ const CreditBalanceCard: React.FC = () => {
       <h2 className="text-xl font-semibold flex items-center gap-1">
         Credit balance <GoInfo fontSize={17} fontWeight={500}/>
       </h2>
-      <div className="flex items-center justify-start gap-1">
-      <CiLock className="text-green-500" />
-      <p className="text-sm text-gray-500">All data is encrypted</p>
+      <div className="flex items-center text-green-600 justify-start gap-1">
+      <CiLock/>
+      <p className="text-sm">All data is encrypted</p>
       </div>
       <div className="mt-4 pt-4">
         <p className="text-gray-600 text-sm">Total (PKR):</p>

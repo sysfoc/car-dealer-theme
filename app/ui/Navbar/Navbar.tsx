@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { LuShoppingCart } from "react-icons/lu";
 import LanguageDropDownButton from "./dropdownButtons/LanguageDropDownButton";
@@ -11,6 +12,8 @@ import { HiThumbUp } from "react-icons/hi";
 import { TbFileStar } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { AppRootState } from "@/store";
+import SwitchAccountModal from "../Modal/switchAccountModal";
+import { useState } from "react";
 
 const linksToShow = [
   {
@@ -23,13 +26,20 @@ const linksToShow = [
   },
 ];
 
+
 const Navbar = ({ isHomePage }: { isHomePage: boolean }) => {
   const Interactable = useSelector(
     (state: AppRootState) => state.pageProperties.pageInteractable
   );
+  const [showSwitchAccountModal, setShowSwitchAccountModal] = useState<boolean>(false);
   return (
     <div>
       {/* Page Overlay */}
+      {showSwitchAccountModal && (
+                    <SwitchAccountModal
+                      onClose={() => setShowSwitchAccountModal(false)}
+                    />
+                  )}
       <div
         className={`pointer-events-none ${
           Interactable
@@ -115,7 +125,7 @@ const Navbar = ({ isHomePage }: { isHomePage: boolean }) => {
 
           {/* Orders and Account */}
           <div>
-            <AccountDropdown isHomePage={isHomePage}/>
+            <AccountDropdown setShowSwitchAccountModal={setShowSwitchAccountModal} isHomePage={isHomePage}/>
           </div>
 
           {/* Support Button */}

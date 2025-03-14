@@ -27,6 +27,7 @@ import { AppRootState } from "@/store";
 import { signOutSuccess } from "@/store/slices/userSlice";
 import { User } from "firebase/auth";
 
+
 const unknownUserImage = "/images/unknownProfile.jpg";
 
 const linksToShow = [
@@ -76,24 +77,12 @@ const linksToShow = [
     icon: IoIosNotificationsOutline,
   },
 ];
-
-const actionsToShow = [
-  {
-    title: "Switch accounts",
-    icon: PiUserSwitch,
-    link: "/",
-  },
-  {
-    title: "Sign out",
-    icon: IoLogOutOutline,
-    action: "signout",
-  },
-];
-
 export default function AccountDropdown({
   isHomePage,
+  setShowSwitchAccountModal
 }: {
   isHomePage: boolean;
+  setShowSwitchAccountModal: (value: boolean) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -143,6 +132,12 @@ export default function AccountDropdown({
       isDropdownOpen ? makePageUnInteractable() : makePageInteractable()
     );
   }, [isDropdownOpen, dispatch]);
+
+  const handleSignOut = async () => {
+    setIsDropdownOpen(false);
+    await signOut(auth);
+    dispatch(signOutSuccess());
+  };
 
   return (
     <div
@@ -262,24 +257,25 @@ export default function AccountDropdown({
             <div className="border-b-[1px] border-gray-300 w-[90%] mx-auto"></div>
 
             <div className="py-3 flex flex-col">
-              {actionsToShow.map((element) => (
-                <button
-                  key={element.title}
-                  className="py-2 flex hover:bg-gray-200"
-                  onClick={async () => {
-                    setIsDropdownOpen(false);
-                    if (element.action === "signout") {
-                      await signOut(auth);
-                      dispatch(signOutSuccess());
-                    } else if (element.link) {
-                      router.push(element.link);
-                    }
-                  }}
-                >
-                  <element.icon size={21} className="mx-3" />
-                  <p>{element.title}</p>
-                </button>
-              ))}
+              {/* Switch Account Button */}
+              <button
+                className="py-2 flex hover:bg-gray-200"
+                onClick={() => {
+                  setIsDropdownOpen(false);
+                  setShowSwitchAccountModal(true);
+                }}
+              >
+                <PiUserSwitch size={21} className="mx-3" />
+                <p>Switch accounts</p>
+              </button>
+
+              <button
+                className="py-2 flex hover:bg-gray-200"
+                onClick={handleSignOut}
+              >
+                <IoLogOutOutline size={21} className="mx-3" />
+                <p>Sign out</p>
+              </button>
             </div>
           </div>
         </div>

@@ -1,7 +1,11 @@
+"use client"
 import { IoIosArrowDown } from "react-icons/io";
 import ProductsCard from "./ProductsCard";
-import { products } from "@/data/AllProductsData";
 import OrangeButton from "../OrangeButton";
+import { useEffect, useState } from "react";
+import { AppRootState } from "@/store";
+import { setProducts } from "@/store/slices/productsSlice";
+import { useDispatch , useSelector } from "react-redux";
 
 interface ProductsSectionGridProps {
   showTags?: boolean;
@@ -19,7 +23,7 @@ const getGridColsClass = (columns: number) => {
       4: "grid-cols-4",
       5: "grid-cols-5",
     }[columns] || "grid-cols-4"
-  ); // Default to 4 if an invalid value is provided
+  );
 };
 
 const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
@@ -29,12 +33,29 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   columns,
 }) => {
   console.log('rerendered grid')
+  //const [products, setProducts] = useState<[]>([]);
+  const [visibleCount, setVisibleCount] = useState(20);
+  const dispatch = useDispatch()
+  const products = useSelector((state:AppRootState) => state.products.allProducts)
+
+  useEffect(() => {
+    fetch('/api/products/allProducts')
+      .then(res => res.json())
+      .then(data => dispatch(setProducts(data)));
+  }, []);
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 8);
+  };
+
+  const visibleProducts = products.slice(0, visibleCount);
+
   return (
     <div className="w-full">
       <div className={`grid ${getGridColsClass(columns)} gap-5`}>
-        {products.map((product) => (
+        {visibleProducts.map((product:any) => (
           <div
-            key={product.id}
+            key={product._id}
             className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
           >
             <ProductsCard
@@ -47,7 +68,9 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
         ))}
       </div>
       <div className="flex justify-center mt-5">
-        <button className="w-56 h-12">
+        <button className="w-56 h-12"
+        onClick={handleShowMore}
+        >
           <OrangeButton>
             <div className="flex items-center">
               Show More
