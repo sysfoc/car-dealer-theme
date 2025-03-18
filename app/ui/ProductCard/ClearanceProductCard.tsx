@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useRef, useState } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/ProductCard/StarsRating";
-import { clearanceProductsData } from "@/data/ClearanceProductsData";
 import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
+import { useEffect , useState , useRef  } from "react";
+import { setClearanceProducts } from "@/store/slices/clearanceProductSlice";
+import { AppRootState } from "@/store";
+import { useDispatch , useSelector } from "react-redux";
 
-
-export interface ClearanceProducts {
-  id: number;
+export interface Product {
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -22,14 +23,23 @@ export interface ClearanceProducts {
   offerEndTime: string;
 }
 
+interface ProductCardProps {
+  product: Product;
+  navigateToIndividual?: boolean;
+}
 
-export const ClearanceProductCard: React.FC<{ product: ClearanceProducts }> = ({ product }) => {
+
+export const ClearanceProductCard: React.FC<ProductCardProps> = ({ product, navigateToIndividual = false  }) => {
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const TimeOutRef = useRef<NodeJS.Timeout | null  >(null)
 
-  const handleClick = () => {
-    window.open(`/ClearanceDealsList` , '_blank');
+const handleClick = () => {
+  if (navigateToIndividual) {
+    window.open(`/ClearanceDealsList/${product._id}`, '_blank');
+  } else {
+    window.open(`/ClearanceDealsList`, '_blank');
+  }
 };
 
   const handleMouseEnter = (event: React.MouseEvent) => {
@@ -129,10 +139,28 @@ if(TimeOutRef.current){
 
 
 const AllClearanceProducts: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch()
+  const clearanceProducts = useSelector((state:AppRootState) => state.clearanceProducts.clearanceProducts)
+
+
+  useEffect(() => {
+    fetch("/api/products/clearanceProducts")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setClearanceProducts(data));
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching clearance products:", err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="w-full overflow-x-auto grid grid-cols-5 gap-5 scrollbar-hidden mb-4 justify-center">
-        {clearanceProductsData.slice(-10).map((product) => (
-          <div className="flex-shrink-0" key={product.id}>
+        {clearanceProducts.slice(-10).map((product) => (
+          <div className="flex-shrink-0" key={product._id}>
             <ClearanceProductCard product={product} />
           </div>
         ))}

@@ -33,7 +33,6 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   columns,
 }) => {
   console.log('rerendered grid')
-  //const [products, setProducts] = useState<[]>([]);
   const [visibleCount, setVisibleCount] = useState(20);
   const dispatch = useDispatch()
   const products = useSelector((state:AppRootState) => state.products.allProducts)

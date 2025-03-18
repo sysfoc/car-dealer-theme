@@ -4,13 +4,18 @@ import { PiGreaterThan } from "react-icons/pi";
 import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
 import { ClearanceProductCard } from "@/app/ui/ProductCard/ClearanceProductCard";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
-import { useState } from "react";
 import { categoriesToShow } from "@/data/categories";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
-import { clearanceProductsData } from "@/data/ClearanceProductsData";
+import { useState } from "react";
+import { AppRootState } from "@/store";
+import { useSelector } from "react-redux";
 
 export default function ClearanceDealsList() {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
+  const clearanceProducts = useSelector(
+    (state: AppRootState) => state.clearanceProducts.clearanceProducts
+  );
+
 
   return (
     <div className="mx-10 py-5">
@@ -26,9 +31,13 @@ export default function ClearanceDealsList() {
       </div>
       <div className="w-full overflow-x-auto scrollbar-hidden">
         <div className="flex flex-nowrap gap-5">
-          {clearanceProductsData.map((product) => (
-            <div className="flex-shrink-0" key={product.id}>
-              <ClearanceProductCard product={product} />
+          {clearanceProducts.map((product) => (
+            <div className="flex-shrink-0" key={product._id}
+            onClick={() =>
+              window.open(`/ClearanceDealsList/${product._id}`, "_blank")
+            }
+            >
+              <ClearanceProductCard product={product} navigateToIndividual={true} />
             </div>
           ))}
         </div>

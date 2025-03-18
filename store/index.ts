@@ -4,6 +4,8 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import pageProperties from '@/store/slices/pagePropertiesSlice'; 
 import productReducer from "@/store/slices/productsSlice"
+import clearanceProductReducer from "@/store/slices/clearanceProductSlice"
+import lightningProductReducer from "@/store/slices/lightningProductSlice"
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +16,9 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: userReducer,
     pageProperties: pageProperties,
-    products: productReducer
+    products: productReducer,
+    clearanceProducts:clearanceProductReducer,
+    lightningProducts:lightningProductReducer
    
 });
 

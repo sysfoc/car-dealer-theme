@@ -1,13 +1,15 @@
 "use client";
-import React, { useState , useRef } from "react";
+import React, { useState , useRef, useEffect } from "react";
 import Image from "next/image";
 import StarsRating from "@/app/ui/ProductCard/StarsRating";
 import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
-import { products } from "@/data/LighteningDealProducts";
 import { CountdownTimer } from "@/app/ui/ProductCard/CountdownTimer";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootState } from "@/store";
+import { setLightningProducts } from "@/store/slices/lightningProductSlice";
 
 interface Product {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -32,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToInd
   const handleClick = () => {
     if (navigateToIndividual) {
       // Navigate to the individual product page
-      window.open(`/LightningDealsList/${product.id}`, '_blank');
+      window.open(`/LightningDealsList/${product._id}`, '_blank');
     } else {
       // Navigate to the LightningDealsList page
       window.open(`/LightningDealsList`, '_blank');
@@ -152,11 +154,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToInd
 };
 
 const LighteningDealProducts: React.FC = () => {
+   const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch()
+    const lightningProducts = useSelector((state:AppRootState) => state.lightningProducts.lightningProducts)
+  
+  
+    useEffect(() => {
+      fetch("/api/products/lightningProducts")
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(setLightningProducts(data));
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching clearance products:", err);
+          setLoading(false);
+        });
+    }, []);
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
       <div className="flex flex-nowrap gap-4">
-        {products.slice(-10).map((product) => (
-          <div className="flex-shrink-0" key={product.id}>
+        {lightningProducts.slice(-10).map((product) => (
+          <div className="flex-shrink-0" key={product._id}>
             <ProductCard product={product} />
           </div>
         ))}

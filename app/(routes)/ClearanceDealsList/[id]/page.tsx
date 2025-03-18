@@ -1,6 +1,5 @@
 "use client";
 import { useParams } from "next/navigation";
-import { products } from "@/data/LighteningDealProducts";
 import { notFound } from "next/navigation";
 import { useState } from "react";
 import ProductDetails from "@/app/ui/ProductComponent/ProductDetails";
@@ -11,13 +10,16 @@ import { PiGreaterThan } from "react-icons/pi";
 import ProductAllPics from "@/app/ui/ProductComponent/ProductAllPics";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 import ProductSpecs from "@/app/ui/ProductComponent/ProductSpecs";
+import { useSelector } from "react-redux";
+import { AppRootState } from "@/store";
 
 export default function LighteningDealDetail() {
   const [selectedQuantity, setSelectedQuantity] = useState(20);
   const { id } = useParams();
+  const clearanceProducts = useSelector((state:AppRootState)=> state.clearanceProducts.clearanceProducts)
 
   if (!id) return notFound();
-  const product = products.find((p) => p.id.toString() === id);
+  const product = clearanceProducts.find((p) => p._id.toString() === id);
   if (!product) return notFound();
 
   return (
@@ -32,7 +34,7 @@ export default function LighteningDealDetail() {
         <PiGreaterThan fontSize={15} className="relative top-[2.5px]"/>
       </div>
       <div>
-        <span>product</span>
+        <span>{product.title}</span>
       </div>
       </div>
       <div className="grid grid-cols-12 gap-2">

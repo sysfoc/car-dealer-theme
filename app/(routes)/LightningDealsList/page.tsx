@@ -6,11 +6,15 @@ import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import { useState } from "react";
 import { categoriesToShow } from "@/data/categories";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
-import { products } from "@/data/LighteningDealProducts";
 import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
+
+import { useSelector } from "react-redux";
+import { AppRootState } from "@/store";
 
 export default function LighteningDealsList() {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
+  const lightningProducts = useSelector((state:AppRootState)=> state.lightningProducts.lightningProducts)
+  
   return (
     <div className="mx-10 py-5">
       <div className="flex items-center gap-1">
@@ -25,14 +29,10 @@ export default function LighteningDealsList() {
       </div>
       <div className="w-full overflow-x-auto scrollbar-hidden">
         <div className="flex flex-nowrap gap-5">
-          {products.map((product) => (
+          {lightningProducts.map((product) => (
             <div
               className="flex-shrink-0"
-              key={product.id}
-              onClick={() =>
-                window.open(`/LightningDealsList/${product.id}`, "_blank")
-              }
-            >
+              key={product._id}>
               <ProductCard product={product} navigateToIndividual={true} />
             </div>
           ))}
