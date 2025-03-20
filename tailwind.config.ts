@@ -14,8 +14,17 @@ export default {
         foreground: "var(--foreground)",
       },
       screens: {
-       '1.5xl': '1440px' 
-      }
+        '1.5xl': '1440px',
+      },
+      animation: {
+        shimmer: 'shimmer 1.5s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
     },
   },
   plugins: [],

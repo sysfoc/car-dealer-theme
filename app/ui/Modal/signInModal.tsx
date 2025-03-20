@@ -13,6 +13,7 @@ import { auth, provider } from "@/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { signInSuccess } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { facebookProvider } from "@/firebase";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -42,6 +43,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         throw new Error("Failed to save user to database");
       }
 
+
       const { displayName, email, photoURL } = user;
       console.log("User Info:", user);
       console.log("Name:", displayName);
@@ -55,6 +57,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
       console.error("Google Sign-In Error:", error);
     }
   };
+
 
 
   const handleEmailLogin = async () => {
@@ -83,6 +86,43 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
   };
 
   if (!isOpen) return null;
+
+  // const FacebookLogin = () => {
+  //   const handleFacebookLogin = async () => {
+  //     try {
+  //       const result = await signInWithPopup(auth, facebookProvider);
+  //       const user = result.user;
+  //       console.log("Signed in with Facebook:", user);
+  //     } catch (err) {
+  //       console.error("Facebook sign-in error:", err);
+  //     }
+  //   };
+  // }
+  const handleFacebookLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+  
+      // Send to backend to store in MongoDB
+      const res = await fetch("/api/auth/social", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        }),
+      });
+  
+      const data = await res.json();
+      console.log("User stored in DB:", data);
+    } catch (err) {
+      console.error("Facebook sign-in error:", err);
+    }
+  };
+  
 
   return (
     <div className="fixed top-80 shadow-lg inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -152,7 +192,9 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
           >
             <FcGoogle fontSize={30} />
           </button>
-          <button className="hover:scale-105 transition-all">
+          <button className="hover:scale-105 transition-all"
+           onClick={handleFacebookLogin}
+          >
             <FaFacebook className="text-blue-600" fontSize={30} />
           </button>
           <button className="hover:scale-105 transition-all">

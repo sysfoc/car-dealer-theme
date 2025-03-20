@@ -1,10 +1,23 @@
 "use client";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
-import { useState } from "react";
-import { categoriesToShow } from "@/data/categories";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategories } from "@/store/slices/categoriesSlice";
+import { AppRootState } from "@/store";
 
 const Categories = () => {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
+  const dispatch = useDispatch()
+  const categoriesToShow = useSelector((state: AppRootState)=> state.categories.categories)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await fetch("/api/categories/categoriestoshow");
+      const data = await res.json();
+      dispatch(setCategories(data));
+    };
+    fetchCategories();
+  }, [dispatch]);
 
   return (
     <div className="mt-8 relative w-full overflow-visible mb-5">

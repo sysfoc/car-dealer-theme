@@ -7,6 +7,8 @@ import { CountdownTimer } from "@/app/ui/ProductCard/CountdownTimer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootState } from "@/store";
 import { setLightningProducts } from "@/store/slices/lightningProductSlice";
+import ShimmerSkeleton from "@/app/ui/SkeletonAnimation/ShimmerSkeleton";
+
 
 interface Product {
   _id: string;
@@ -87,11 +89,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, navigateToInd
           onClick={handleClick}
         >
           <Image
-            loading="lazy"
             src={"/images/productPicture.jpg"}
             alt={title}
             width={225}
             height={220}
+            loading="lazy"
             className="md:h-[220px] md:w-[223px] w-[185px] h-[185px] object-fill transform transition-transform duration-300 group-hover:scale-110"
           />
           <div className="flex justify-center">
@@ -174,11 +176,17 @@ const LighteningDealProducts: React.FC = () => {
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
       <div className="flex flex-nowrap gap-4">
-        {lightningProducts.slice(-10).map((product) => (
-          <div className="flex-shrink-0" key={product._id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
+        {loading
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <div className="flex-shrink-0" key={index}>
+                <ShimmerSkeleton />
+              </div>
+            ))
+          : lightningProducts.slice(-10).map((product) => (
+              <div className="flex-shrink-0" key={product._id}>
+                <ProductCard product={product} />
+              </div>
+            ))}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { useEffect , useState , useRef  } from "react";
 import { setClearanceProducts } from "@/store/slices/clearanceProductSlice";
 import { AppRootState } from "@/store";
 import { useDispatch , useSelector } from "react-redux";
+import ShimmerSkeleton from "@/app/ui/SkeletonAnimation/ShimmerSkeleton";
 
 export interface Product {
   _id: string;
@@ -156,14 +157,21 @@ const AllClearanceProducts: React.FC = () => {
         setLoading(false);
       });
   }, []);
-
   return (
-    <div className="w-full overflow-x-auto grid grid-cols-5 gap-5 scrollbar-hidden mb-4 justify-center">
-        {clearanceProducts.slice(-10).map((product) => (
-          <div className="flex-shrink-0" key={product._id}>
-            <ClearanceProductCard product={product} />
-          </div>
-        ))}
+    <div className="w-full overflow-x-auto scrollbar-hidden">
+      <div className="flex flex-nowrap gap-4">
+        {loading
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <div className="flex-shrink-0" key={index}>
+                <ShimmerSkeleton />
+              </div>
+            ))
+          : clearanceProducts.slice(-10).map((product) => (
+              <div className="flex-shrink-0" key={product._id}>
+                <ClearanceProductCard product={product} />
+              </div>
+            ))}
+      </div>
     </div>
   );
 };

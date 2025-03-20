@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AppRootState } from "@/store";
 import { setProducts } from "@/store/slices/productsSlice";
 import { useDispatch , useSelector } from "react-redux";
+import ShimmerSkeleton from "@/app/ui/SkeletonAnimation/ShimmerSkeleton";
 
 interface ProductsSectionGridProps {
   showTags?: boolean;
@@ -32,15 +33,20 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   showOfferEndTime = false,
   columns,
 }) => {
-  console.log('rerendered grid')
+  //console.log('rerendered grid')
   const [visibleCount, setVisibleCount] = useState(20);
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true);
   const products = useSelector((state:AppRootState) => state.products.allProducts)
 
   useEffect(() => {
+    setLoading(true);
     fetch('/api/products/allProducts')
-      .then(res => res.json())
-      .then(data => dispatch(setProducts(data)));
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setProducts(data));
+        setLoading(false);
+      });
   }, []);
 
   const handleShowMore = () => {
@@ -52,7 +58,7 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   return (
     <div className="w-full">
       <div className={`grid ${getGridColsClass(columns)} gap-5`}>
-        {visibleProducts.map((product:any) => (
+        {/* {visibleProducts.map((product:any) => (
           <div
             key={product._id}
             className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
@@ -64,7 +70,26 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
               showOfferEndTime={showOfferEndTime}
             />
           </div>
-        ))}
+        ))} */}
+        {loading
+  ? Array.from({ length: columns * 2 }).map((_, index) => (
+      <div key={index} className="flex-grow min-w-[200px] max-w-[250px] mx-auto">
+        <ShimmerSkeleton />
+      </div>
+    ))
+  : visibleProducts.map((product: any) => (
+      <div
+        key={product._id}
+        className="flex-grow min-w-[200px] max-w-[250px] mx-auto"
+      >
+        <ProductsCard
+          product={product}
+          showTags={showTags}
+          showStoreInfo={showStoreInfo}
+          showOfferEndTime={showOfferEndTime}
+        />
+      </div>
+    ))}
       </div>
       <div className="flex justify-center mt-5">
         <button className="w-56 h-12"

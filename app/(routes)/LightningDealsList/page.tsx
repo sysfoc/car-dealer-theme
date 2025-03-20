@@ -4,7 +4,6 @@ import { PiGreaterThan } from "react-icons/pi";
 import PromotionalBanner from "@/app/ui/TemuBanners/PromotionalBanner";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import { useState } from "react";
-import { categoriesToShow } from "@/data/categories";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 import { ProductCard } from "@/app/ui/ProductCard/LightningProductCard";
 
@@ -14,6 +13,7 @@ import { AppRootState } from "@/store";
 export default function LighteningDealsList() {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
   const lightningProducts = useSelector((state:AppRootState)=> state.lightningProducts.lightningProducts)
+  const categoriesToShow = useSelector((state:AppRootState)=> state.categories.categories)
   
   return (
     <div className="mx-10 py-5">

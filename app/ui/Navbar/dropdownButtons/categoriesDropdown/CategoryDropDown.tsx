@@ -4,16 +4,17 @@ import {
   makePageInteractable,
   makePageUnInteractable,
 } from "@/store/slices/pagePropertiesSlice";
-import { categoriesToShow } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoIosArrowUp } from "react-icons/io";
 import CategoryItems from "@/app/ui/Navbar/dropdownButtons/categoriesDropdown/categoryItems/CategoryItems";
+import { AppRootState } from "@/store";
 
 const SupportDropDownButton = ({isHomePage}: {isHomePage: boolean}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTouchScreen, setIsTouchScreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Featured");
+  const categoriesToShow = useSelector((state:AppRootState)=> state.categories.categories)
 
   const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();

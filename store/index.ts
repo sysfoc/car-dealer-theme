@@ -6,6 +6,8 @@ import pageProperties from '@/store/slices/pagePropertiesSlice';
 import productReducer from "@/store/slices/productsSlice"
 import clearanceProductReducer from "@/store/slices/clearanceProductSlice"
 import lightningProductReducer from "@/store/slices/lightningProductSlice"
+import categoriesReducer from "@/store/slices/categoriesSlice"
+import categoryTypesReducer from "@/store/slices/categoryTypesSlice"
 
 const persistConfig = {
     key: 'root',
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
     pageProperties: pageProperties,
     products: productReducer,
     clearanceProducts:clearanceProductReducer,
-    lightningProducts:lightningProductReducer
+    lightningProducts:lightningProductReducer,
+    categories:categoriesReducer,
+    categoryTypes:categoryTypesReducer
    
 });
 

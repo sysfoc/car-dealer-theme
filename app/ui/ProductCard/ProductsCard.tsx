@@ -25,7 +25,7 @@ interface Product {
 
 interface ProductsCardProps {
   product: Product;
-  showTags?: boolean; 
+  showTags?: boolean;
   showStoreInfo?: boolean;
   showOfferEndTime?: boolean;
 }
@@ -69,11 +69,15 @@ const ProductsCard: React.FC<ProductsCardProps> = ({
         clearTimeout(VideoUseRef.current);
       }
 
-      VideoUseRef.current = setTimeout(() => {
+      VideoUseRef.current = setTimeout(async () => {
         if (target.paused) {
-          target.currentTime = 0;
-          target.play();
-          target.playbackRate = 1;
+          try {
+            target.currentTime = 0;
+            await target.play();
+            target.playbackRate = 1;
+          } catch (err) {
+            console.warn("Video play interrupted:", err);
+          }
         }
       }, 2000);
     }
@@ -157,10 +161,15 @@ const ProductsCard: React.FC<ProductsCardProps> = ({
             muted
             loop
             playsInline
-            onMouseEnter={(e) => {
-              e.currentTarget.currentTime = 0;
-              e.currentTarget.play();
-              e.currentTarget.playbackRate = 1;
+            onMouseEnter={async (e) => {
+              const video = e.currentTarget;
+              video.currentTime = 0;
+              try {
+                await video.play();
+                video.playbackRate = 1;
+              } catch (err) {
+                console.warn("Video play error:", err);
+              }
               setShowText(true);
             }}
             onMouseLeave={(e) => {

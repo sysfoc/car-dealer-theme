@@ -4,7 +4,6 @@ import { PiGreaterThan } from "react-icons/pi";
 import ClearanceDealBanner from "@/app/ui/TemuBanners/ClearanceDealBanner";
 import { ClearanceProductCard } from "@/app/ui/ProductCard/ClearanceProductCard";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
-import { categoriesToShow } from "@/data/categories";
 import ProductsSectionGrid from "@/app/ui/ProductCard/ProductsSectionGrid";
 import { useState } from "react";
 import { AppRootState } from "@/store";
@@ -15,6 +14,7 @@ export default function ClearanceDealsList() {
   const clearanceProducts = useSelector(
     (state: AppRootState) => state.clearanceProducts.clearanceProducts
   );
+  const categoriesToShow = useSelector((state:AppRootState)=> state.categories.categories)
 
 
   return (
