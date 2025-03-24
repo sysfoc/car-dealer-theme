@@ -58,19 +58,7 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
   return (
     <div className="w-full">
       <div className={`grid ${getGridColsClass(columns)} gap-5`}>
-        {/* {visibleProducts.map((product:any) => (
-          <div
-            key={product._id}
-            className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
-          >
-            <ProductsCard
-              product={product}
-              showTags={showTags}
-              showStoreInfo={showStoreInfo}
-              showOfferEndTime={showOfferEndTime}
-            />
-          </div>
-        ))} */}
+        
         {loading
   ? Array.from({ length: columns * 2 }).map((_, index) => (
       <div key={index} className="flex-grow min-w-[200px] max-w-[250px] mx-auto">

@@ -9,7 +9,7 @@ import ProductDescription from "@/app/ui/ProductCard/ProductDescription";
 import { CountdownTimer } from "@/app/ui/ProductCard/CountdownTimer";
 
 interface Product {
-  id: number;
+  _id: string;
   description: string;
   price: number;
   sold: number;

@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { HiChevronDown, HiCheck } from "react-icons/hi";
 import { storeData } from "@/data/StoreData";
-import { products } from "@/data/AllProductsData";
 import ProductsCard from "@/app/ui/ProductCard/ProductsCard";
 import { CiCircleQuestion } from "react-icons/ci";
+
+import { AppRootState } from "@/store";
+import { useSelector } from "react-redux";
 
 interface ProductsSectionGridProps {
   showTags?: boolean;
@@ -23,9 +25,12 @@ const StoreProducts: React.FC<ProductsSectionGridProps> = ({
   const [filterTag, setFilterTag] = useState<
     "best-seller" | "best-reviewed" | null
   >(null);
+    const products = useSelector((state:AppRootState) => state.products.allProducts)
+
   const videoProducts = products.filter((product) =>
     product.image.endsWith(".mp4")
   );
+
 
   const getGridColsClass = (columns: number) => {
     return (
@@ -86,7 +91,7 @@ const StoreProducts: React.FC<ProductsSectionGridProps> = ({
       <div className={`grid ${getGridColsClass(columns)}`}>
         {videoProducts.slice(0, 5).map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
           >
             <ProductsCard
@@ -132,7 +137,7 @@ const StoreProducts: React.FC<ProductsSectionGridProps> = ({
       <div className={`grid ${getGridColsClass(columns)}`}>
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="flex-grow min-w-[200px] max-w-[250px]mx-auto"
           >
             <ProductsCard
