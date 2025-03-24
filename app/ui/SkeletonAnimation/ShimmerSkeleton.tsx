@@ -8,6 +8,3 @@ const ShimmerSkeleton: React.FC = () => (
 );
 
 export default ShimmerSkeleton;
-
-
-// shadow-lg

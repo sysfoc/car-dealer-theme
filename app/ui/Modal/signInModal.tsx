@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  FaFacebook,
   FaApple,
   FaMobileAlt,
   FaTimes,
@@ -10,10 +9,13 @@ import {
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider } from "@/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { fetchSignInMethodsForEmail, linkWithCredential, signInWithPopup } from "firebase/auth";
 import { signInSuccess } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
-import { facebookProvider } from "@/firebase";
+import { FaGithub } from "react-icons/fa6";
+import { GithubAuthProvider } from "firebase/auth";
+
+
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -24,6 +26,80 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
+  
+  const currentUser = auth.currentUser;
+  console.log("Current User:", currentUser);
+
+  const handleAliExpressLogin = () => {
+    const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
+    const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);
+    
+    window.location.href = `https://auth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=email`;
+  };
+  
+
+
+  const gitLogin = async () => {
+    try {
+      const githubProvider = new GithubAuthProvider();
+      const result = await signInWithPopup(auth, githubProvider);
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const user = result.user;
+  
+      if (!credential) {
+        throw new Error("GitHub credential is missing.");
+      }
+  
+      if (auth.currentUser && auth.currentUser.uid !== user.uid) {
+        await linkWithCredential(auth.currentUser, credential);
+        alert("GitHub linked successfully!");
+        dispatch(signInSuccess(auth.currentUser));
+        setIsOpen(false);
+      } else {
+        dispatch(signInSuccess(user));
+        setIsOpen(false);
+      }
+  
+      
+      const idToken = await user.getIdToken();
+      const res = await fetch("/api/auth/github", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+  
+      const data = await res.json();
+      console.log("Backend response:", data);
+    } catch (error: any) {
+      console.error("Error object:", error);
+  
+      if (error.code === "auth/account-exists-with-different-credential") {
+        const email = error.customData?.email;
+        const pendingCred = GithubAuthProvider.credentialFromError(error);
+  
+        if (email && pendingCred) {
+          const methods = await fetchSignInMethodsForEmail(auth, email);
+  
+          if (methods.includes("password")) {
+            alert(
+              `This email is already used with Email/Password login. Please sign in using your email first and then link GitHub from profile settings.`
+            );
+          } else if (methods.includes("google.com")) {
+            alert(
+              `This email is already used with Google login. Please sign in with Google first and then link GitHub.`
+            );
+          } else {
+            alert(`This email is used with another login method: ${methods.join(", ")}`);
+          }
+        }
+      }
+    }
+  };
+  
+    
+  
 
   const handleGoogleSignIn = async () => {
     try {
@@ -43,7 +119,6 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         throw new Error("Failed to save user to database");
       }
 
-
       const { displayName, email, photoURL } = user;
       console.log("User Info:", user);
       console.log("Name:", displayName);
@@ -58,8 +133,6 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
     }
   };
 
-
-
   const handleEmailLogin = async () => {
     try {
       setLoading(true);
@@ -68,14 +141,12 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
       const data = await res.json();
 
       if (!res.ok) {
         console.error("Auth error:", data.message);
         return;
       }
-
       dispatch(signInSuccess(data.user));
       setIsOpen(false);
     } catch (error) {
@@ -85,44 +156,8 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  if (!isOpen) return null;
 
-  // const FacebookLogin = () => {
-  //   const handleFacebookLogin = async () => {
-  //     try {
-  //       const result = await signInWithPopup(auth, facebookProvider);
-  //       const user = result.user;
-  //       console.log("Signed in with Facebook:", user);
-  //     } catch (err) {
-  //       console.error("Facebook sign-in error:", err);
-  //     }
-  //   };
-  // }
-  const handleFacebookLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-  
-      // Send to backend to store in MongoDB
-      const res = await fetch("/api/auth/social", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-        }),
-      });
-  
-      const data = await res.json();
-      console.log("User stored in DB:", data);
-    } catch (err) {
-      console.error("Facebook sign-in error:", err);
-    }
-  };
-  
+  if (!isOpen) return null;
 
   return (
     <div className="fixed top-80 shadow-lg inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -192,12 +227,12 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
           >
             <FcGoogle fontSize={30} />
           </button>
-          <button className="hover:scale-105 transition-all"
-           onClick={handleFacebookLogin}
-          >
-            <FaFacebook className="text-blue-600" fontSize={30} />
+          <button className="hover:scale-105 transition-all" onClick={gitLogin}>
+            <FaGithub className="text-black" fontSize={30} />
           </button>
-          <button className="hover:scale-105 transition-all">
+          <button className="hover:scale-105 transition-all"
+          onClick={handleAliExpressLogin}
+          >
             <FaApple className="text-black" fontSize={30} />
           </button>
           <button className="hover:scale-105 transition-all">
