@@ -14,6 +14,7 @@ import { signInSuccess } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { FaGithub } from "react-icons/fa6";
 import { GithubAuthProvider } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 
 
@@ -72,12 +73,14 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
   
       const data = await res.json();
       console.log("Backend response:", data);
-    } catch (error: any) {
-      console.error("Error object:", error);
+    } catch (error: unknown) {
+      const err = error as FirebaseError;
   
-      if (error.code === "auth/account-exists-with-different-credential") {
-        const email = error.customData?.email;
-        const pendingCred = GithubAuthProvider.credentialFromError(error);
+      console.error("Error object:", err);
+  
+      if (err.code === "auth/account-exists-with-different-credential") {
+        const email = err.customData?.email as string;
+        const pendingCred = GithubAuthProvider.credentialFromError(err);
   
         if (email && pendingCred) {
           const methods = await fetchSignInMethodsForEmail(auth, email);

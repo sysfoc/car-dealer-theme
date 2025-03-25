@@ -5,7 +5,7 @@ export default function Review() {
   return (
     <div>
       <CgNotes fontSize={50}/>
-      <span>You don't have any reviews</span>
+      <span>You do not have any reviews</span>
       <span>
         You have no completed reviews or your reviews have been deleted.
       </span>

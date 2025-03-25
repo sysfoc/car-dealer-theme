@@ -5,6 +5,7 @@ import { reviews } from "@/data/Reviews";
 import ReviewModal from "@/app/ui/Modal/reviewModal";
 import { useState } from "react";
 import Flag from 'react-world-flags'
+import Image from "next/image";
 
 
 export default function ProductReview() {
@@ -26,7 +27,7 @@ export default function ProductReview() {
           <div key={review.id} className="pb-4">
             <div className="flex items-center justify-between">
               <div className="text-gray-800 font-semibold flex items-center gap-2">
-                <img src={review.image} alt="avatar" className="w-8 h-8 rounded-full" />
+                <Image src={review.image} alt="avatar" className="w-8 h-8 rounded-full" />
                 {review.name}
                 <span className="flex items-center gap-2 text-gray-500">in 
                 <Flag code={review.country} className="!min-w-[20px]"/> 

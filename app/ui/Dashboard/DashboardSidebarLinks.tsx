@@ -101,14 +101,10 @@ const DashboardNavLinks: {
 
 interface DashboardSidebarLinksPropTypes {
   currentPath: string;
-  setBreadcrumbLinks: React.Dispatch<
-    React.SetStateAction<{ title: string; link: string }[]>
-  >;
 }
 
 export default function DashboardSidebarLinks({
   currentPath,
-  setBreadcrumbLinks,
 }: DashboardSidebarLinksPropTypes) {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   return (

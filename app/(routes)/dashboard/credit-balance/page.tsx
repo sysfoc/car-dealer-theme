@@ -38,7 +38,7 @@ const CreditBalanceCard: React.FC = () => {
           <div className="flex items-center justify-center">
             <CiFolderOn fontSize={70} />
           </div>
-          <p className="mt-2">You don't have any activities</p>
+          <p className="mt-2">You do not have any activities</p>
         </div>
       </div>
        <div className="space-y-3 mt-5">

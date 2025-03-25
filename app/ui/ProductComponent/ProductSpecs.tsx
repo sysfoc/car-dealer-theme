@@ -65,7 +65,7 @@ const ProductSpecs = () => {
             Buckle Type: Heavy-duty metal buckle with a scratch-resistant
             finish.
           </p>
-          <p>Type: Men's Leather Belt</p>
+          <p>Type: Men&apos;s Leather Belt</p>
           <p>
             Color Variants: Available in black, brown, and tan for versatile
             styling.

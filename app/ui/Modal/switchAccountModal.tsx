@@ -20,11 +20,11 @@ export default function SwitchAccountModal({
     (state: AppRootState) => state.user.currentUser
   ) as User | null;
 
-  if (!currentUser) return null;
-
   const [selectedEmail, setSelectedEmail] = useState<string>(
     currentUser?.email || ""
   );
+
+  if (!currentUser) return null;
 
   const maskEmail = (email: string) => {
     const [name, domain] = email.split("@");

@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Only update changed fields
-    const updateFields: any = { lastLogin: new Date().toISOString() };
+    const updateFields: Partial<{ email: string; name: string; avatar: string; lastLogin: string }> = { lastLogin: new Date().toISOString() };
     if (user.email !== email) updateFields.email = email;
     if (user.name !== name) updateFields.name = name;
     if (user.avatar !== picture) updateFields.avatar = picture;
@@ -45,18 +45,18 @@ export async function POST(req: NextRequest) {
       message: "GitHub login verified and user saved",
       user: { uid, email, name, picture },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error:", error);
     // Handle specific error for email already exists
-    if (error.code === "auth/email-already-exists") {
+    if (error instanceof Error && (error as { code?: string }).code === "auth/email-already-exists") {
       return NextResponse.json(
         { error: "Email already exists. Please use a different email or log in with the existing account." },
         { status: 400 }
       );
     }
     return NextResponse.json(
-      { error: "Authentication or database error", details: error.message },
-      { status: error.code === "auth/argument-error" ? 401 : 500 }
+      { error: "Authentication or database error", details: (error as Error).message },
+      { status: (error as { code?: string }).code === "auth/argument-error" ? 401 : 500 }
     );
   }
 }

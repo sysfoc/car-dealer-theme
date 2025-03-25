@@ -8,6 +8,7 @@ import Flag from "react-world-flags";
 import ShareModal from "@/app/ui/Modal/ShareModal";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
+import Image from "next/image";
 
 interface Review {
   id: number;
@@ -67,7 +68,7 @@ export default function ReviewModal({ reviews, onClose }: ReviewModalProps) {
               <div key={review.id} className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="text-gray-800 font-semibold flex items-center gap-2">
-                    <img
+                    <Image
                       src={review.image}
                       alt="avatar"
                       className="w-8 h-8 rounded-full"

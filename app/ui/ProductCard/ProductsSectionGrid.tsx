@@ -15,6 +15,19 @@ interface ProductsSectionGridProps {
   columns: number;
 }
 
+interface Product {
+  _id: string;
+  description: string;
+  price: number;
+  sold: number;
+  image: string;
+  tags: string[];
+  reviews: { count: number; rating: number }[];
+  storeInfo: string[];
+  category: string;
+  offerEndTime: string;
+}
+
 const getGridColsClass = (columns: number) => {
   return (
     {
@@ -43,11 +56,11 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
     setLoading(true);
     fetch('/api/products/allProducts')
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Product[]) => {
         dispatch(setProducts(data));
         setLoading(false);
       });
-  }, []);
+  }, [dispatch]);
 
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 8);
@@ -65,7 +78,7 @@ const ProductsSectionGrid: React.FC<ProductsSectionGridProps> = ({
         <ShimmerSkeleton />
       </div>
     ))
-  : visibleProducts.map((product: any) => (
+  : visibleProducts.map((product:Product) => (
       <div
         key={product._id}
         className="flex-grow min-w-[200px] max-w-[250px] mx-auto"

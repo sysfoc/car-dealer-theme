@@ -27,7 +27,7 @@ export default function SearchSection() {
       {/* Content Section */}
       <div className="mt-28 flex flex-col items-center justify-center text-center text-gray-500">
       <HiOutlineClipboardDocumentList fontSize={100} />
-       <span>You don't have any orders.</span> 
+       <span>You do not have any orders.</span> 
       </div>
     </div>
   );

@@ -172,7 +172,7 @@ const LighteningDealProducts: React.FC = () => {
           console.error("Error fetching clearance products:", err);
           setLoading(false);
         });
-    }, []);
+    }, [dispatch]);
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
       <div className="flex flex-nowrap gap-4">

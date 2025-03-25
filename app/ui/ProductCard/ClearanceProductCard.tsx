@@ -141,9 +141,8 @@ if(TimeOutRef.current){
 
 const AllClearanceProducts: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch()
-  const clearanceProducts = useSelector((state:AppRootState) => state.clearanceProducts.clearanceProducts)
-
+  const dispatch = useDispatch();
+  const clearanceProducts = useSelector((state: AppRootState) => state.clearanceProducts.clearanceProducts);
 
   useEffect(() => {
     fetch("/api/products/clearanceProducts")
@@ -156,7 +155,8 @@ const AllClearanceProducts: React.FC = () => {
         console.error("Error fetching clearance products:", err);
         setLoading(false);
       });
-  }, []);
+  }, [dispatch]); // Added dispatch to the dependency array
+
   return (
     <div className="w-full overflow-x-auto scrollbar-hidden">
       <div className="flex flex-nowrap gap-4">
