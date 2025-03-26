@@ -22,7 +22,7 @@ interface Product {
   sold: number;
   reviews: number;
   itemsLeft?: string | number;
-  discountDaysRemaining: number;
+  discountDaysRemaining?: number;
   offerEndTime: string;
 }
 
