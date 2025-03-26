@@ -8,11 +8,26 @@ import { RxDividerVertical } from "react-icons/rx";
 import { Carousel, SwiperSlide } from "@/app/ui/Carousel";
 import Image from "next/image";
 import { FaTruckFast } from "react-icons/fa6";
-import { products } from "@/data/LighteningDealProducts";
+import { useSelector } from "react-redux";
+import { AppRootState } from "@/store";
 
-type Product = (typeof products)[number];
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  previousPrice?: number;
+  image: string;
+  rating: number;
+  sold: number;
+  reviews: number;
+  itemsLeft?: string | number;
+  discountDaysRemaining: number;
+  offerEndTime: string;
+}
 
 export default function ProductDetails({
+  product, // eslint-disable-line @typescript-eslint/no-unused-vars
   selectedQuantity,
   setSelectedQuantity,
 }: {
@@ -21,9 +36,15 @@ export default function ProductDetails({
   setSelectedQuantity: (quantity: number) => void;
 }) {
   const [isBeginning, setIsBeginning] = useState<boolean>(true);
+  const products = useSelector((state: AppRootState) => state.lightningProducts.lightningProducts); // Adjust the selector as necessary
 
   return (
     <div className="space-y-4 ml-6">
+      <div className="hidden">
+      {products.map((product)=>( // Adjust the selector as necessary
+        <div key={product._id}>{product.description}</div>
+      ))}
+      </div>
       <div className="space-y-4 ml-6">
         <div className="p-2 flex gap-1 justify-start rounded-md items-center bg-[#FEEFE1] uppercase">
           <MdDone fontSize={20} className="text-green-600" />
@@ -153,7 +174,6 @@ export default function ProductDetails({
             onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
           >
             <SwiperSlide>
-            
               <div className="text-sm p-3 rounded-md flex gap-4">
                 <div className="bg-gray-100  rounded-lg p-4 flex-none">
                   <h3 className="text-green-600 mb-2">Security & Privacy</h3>
@@ -205,7 +225,7 @@ export default function ProductDetails({
 
           <div className="flex items-center gap-1 text-lg">
             <IoArchiveSharp fontSize={23} />
-            <span>Free returns • Price adjustment</span>
+            <span>Free returns Price adjustment</span>
             <PiGreaterThan fontSize={15} className="relative top-[1.5px]" />
           </div>
 
