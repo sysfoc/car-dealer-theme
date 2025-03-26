@@ -109,7 +109,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
       provider.setCustomParameters({ prompt: "select_account" });
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const res = await fetch("api/auth/google", {
+      const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
