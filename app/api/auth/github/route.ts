@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       console.log("New user saved:", user);
     } else {
       //  Step 2: Update only changed fields
-      let updateFields: Partial<{ displayName: string; photoURL: string; lastLogin: Date }> = {};
+      const updateFields: Partial<{ displayName: string; photoURL: string; lastLogin: Date }> = {};
       if (user.displayName !== displayName) updateFields["displayName"] = displayName;
       if (user.photoURL !== photoURL) updateFields["photoURL"] = photoURL;
       updateFields["lastLogin"] = new Date();

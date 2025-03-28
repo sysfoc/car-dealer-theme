@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
     // Store access token and refresh token in database
     await connectDB();
-    let user = await User.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { aliexpressId: "some_unique_identifier" }, // Replace with actual identifier if needed
       { accessToken: access_token, refreshToken: refresh_token, tokenExpiry: Date.now() + expires_in * 1000 },
       { upsert: true, new: true }
