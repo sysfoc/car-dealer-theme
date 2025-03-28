@@ -30,28 +30,15 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
   const currentUser = auth.currentUser;
   console.log("Current User:", currentUser);
 
-  // const handleAliExpressLogin = () => {
-  //   const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
-  //   const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);
-    
-  //   window.location.href = `https://auth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
-  // };  
-
-  // const handleAliExpressLogin = () => {
-  //   const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
-  //   const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);    
-  //   window.location.href = `https://oauth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
-  // };
-  
   const handleAliExpressLogin = () => {
     const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
     const redirectUri = encodeURIComponent(
       process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!
     );
     
-    window.location.href = `https://oauth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
+    window.location.href = `https://api-sg.aliexpress.com/oauth/authorize?response_type=code&force_auth=true&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
   };
-  
+
   const gitLogin = async () => {
     try {
       const githubProvider = new GithubAuthProvider();
