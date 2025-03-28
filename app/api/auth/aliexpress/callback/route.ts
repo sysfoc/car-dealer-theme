@@ -11,16 +11,16 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // Exchange authCode for access token from AliExpress
-    const tokenResponse = await fetch("https://api.aliexpress.com/oauth/token", {
+    // Exchange authorization code for an access token
+    const tokenResponse = await fetch("https://api-sg.aliexpress.com/oauth/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        client_id: process.env.ALIEXPRESS_CLIENT_ID!,
-        client_secret: process.env.ALIEXPRESS_CLIENT_SECRET!,
         grant_type: "authorization_code",
+        client_id: process.env.ALIEXPRESS_CLIENT_ID!,
+        client_secret:process.env.ALIEXPRESS_CLIENT_SECRET!,
         code: authCode,
-        redirect_uri: process.env.ALIEXPRESS_REDIRECT_URI!,
+        redirect_uri: process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!,
       }),
     });
 
@@ -29,32 +29,17 @@ export async function GET(req: NextRequest) {
       throw new Error(tokenData.error_description || "Failed to get access token");
     }
 
-    const accessToken = tokenData.access_token;
+    const { access_token, refresh_token, expires_in } = tokenData;
 
-    // Fetch user data from AliExpress
-    const userResponse = await fetch("https://api.aliexpress.com/user/info", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    const userData = await userResponse.json();
-    if (!userResponse.ok) {
-      throw new Error(userData.error || "Failed to get user data");
-    }
-
-    // Connect to MongoDB and store user info
+    // Store access token and refresh token in database
     await connectDB();
-    let user = await User.findOne({ aliexpressId: userData.id });
+    let user = await User.findOneAndUpdate(
+      { aliexpressId: "some_unique_identifier" }, // Replace with actual identifier if needed
+      { accessToken: access_token, refreshToken: refresh_token, tokenExpiry: Date.now() + expires_in * 1000 },
+      { upsert: true, new: true }
+    );
 
-    if (!user) {
-      user = await User.create({
-        aliexpressId: userData.id,
-        email: userData.email,
-        name: userData.name,
-        avatar: userData.picture,
-      });
-    }
-
-    return NextResponse.json({ message: "AliExpress login successful", user });
+    return NextResponse.json({ message: "AliExpress authentication successful", user });
   } catch (error: unknown) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

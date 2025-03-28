@@ -5,12 +5,16 @@ import User from "@/app/server/models/User";
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const { displayName, email, photoURL } = await req.json();
+    const {firebaseUid, displayName, email, photoURL } = await req.json();
 
-    let user = await User.findOne({ email });
+    if (!firebaseUid) {
+      return NextResponse.json({ message: "firebaseUid is required" }, { status: 400 });
+    }
+
+    let user = await User.findOne({ firebaseUid });
 
     if (!user) {
-      user = await User.create({ displayName, email, photoURL });
+      user = await User.create({firebaseUid, displayName, email, photoURL });
     } else {
       let needsUpdate = false;
       if (user.displayName !== displayName) {

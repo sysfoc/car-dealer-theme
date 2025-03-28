@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  FaApple,
   FaMobileAlt,
   FaTimes,
   FaLock,
@@ -9,12 +8,12 @@ import {
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider } from "@/firebase";
-import { fetchSignInMethodsForEmail, linkWithCredential, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { signInSuccess } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { FaGithub } from "react-icons/fa6";
 import { GithubAuthProvider } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import { SiAliexpress } from "react-icons/si";
 
 
 
@@ -31,18 +30,32 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
   const currentUser = auth.currentUser;
   console.log("Current User:", currentUser);
 
+  // const handleAliExpressLogin = () => {
+  //   const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
+  //   const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);
+    
+  //   window.location.href = `https://auth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
+  // };  
+
+  // const handleAliExpressLogin = () => {
+  //   const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
+  //   const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);    
+  //   window.location.href = `https://oauth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
+  // };
+  
   const handleAliExpressLogin = () => {
     const clientId = process.env.NEXT_PUBLIC_ALIEXPRESS_CLIENT_ID!;
-    const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!);
+    const redirectUri = encodeURIComponent(
+      process.env.NEXT_PUBLIC_ALIEXPRESS_REDIRECT_URI!
+    );
     
-    window.location.href = `https://auth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=email`;
+    window.location.href = `https://oauth.aliexpress.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=random_string`;
   };
   
-
-
   const gitLogin = async () => {
     try {
       const githubProvider = new GithubAuthProvider();
+      githubProvider.addScope("user:email");
       const result = await signInWithPopup(auth, githubProvider);
       const credential = GithubAuthProvider.credentialFromResult(result);
       const user = result.user;
@@ -51,58 +64,38 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         throw new Error("GitHub credential is missing.");
       }
   
-      if (auth.currentUser && auth.currentUser.uid !== user.uid) {
-        await linkWithCredential(auth.currentUser, credential);
-        alert("GitHub linked successfully!");
-        dispatch(signInSuccess(auth.currentUser));
-        setIsOpen(false);
-      } else {
-        dispatch(signInSuccess(user));
-        setIsOpen(false);
-      }
-  
-      
       const idToken = await user.getIdToken();
+      const userEmail = user.email || `github-${user.uid}@github.com`;
+      const photoURL = user.photoURL;
+  
       const res = await fetch("/api/auth/github", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ idToken }),
+        body: JSON.stringify({
+          firebaseUid: user.uid,
+          displayName: user.displayName,
+          email: userEmail,
+          photoURL: photoURL,
+          idToken,
+        }),
       });
+  
+      if (!res.ok) {
+        throw new Error("Failed to save user to database");
+      }
   
       const data = await res.json();
       console.log("Backend response:", data);
+  
+      dispatch(signInSuccess(data.user));
+      setIsOpen(false);
     } catch (error: unknown) {
-      const err = error as FirebaseError;
-  
-      console.error("Error object:", err);
-  
-      if (err.code === "auth/account-exists-with-different-credential") {
-        const email = err.customData?.email as string;
-        const pendingCred = GithubAuthProvider.credentialFromError(err);
-  
-        if (email && pendingCred) {
-          const methods = await fetchSignInMethodsForEmail(auth, email);
-  
-          if (methods.includes("password")) {
-            alert(
-              `This email is already used with Email/Password login. Please sign in using your email first and then link GitHub from profile settings.`
-            );
-          } else if (methods.includes("google.com")) {
-            alert(
-              `This email is already used with Google login. Please sign in with Google first and then link GitHub.`
-            );
-          } else {
-            alert(`This email is used with another login method: ${methods.join(", ")}`);
-          }
-        }
-      }
+      console.error("Error object:", error);
     }
   };
-  
-    
-  
+
 
   const handleGoogleSignIn = async () => {
     try {
@@ -113,6 +106,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          firebaseUid: user.uid,
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
@@ -236,7 +230,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, setIsOpen }) => {
           <button className="hover:scale-105 transition-all"
           onClick={handleAliExpressLogin}
           >
-            <FaApple className="text-black" fontSize={30} />
+            <SiAliexpress className="text-black" fontSize={50} />
           </button>
           <button className="hover:scale-105 transition-all">
             <FaMobileAlt className="text-gray-700" fontSize={30} />
